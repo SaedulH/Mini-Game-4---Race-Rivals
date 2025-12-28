@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 841278867b34c2f43ac1545600f01dbb, type: 3}
+  m_Name: SortedLevelInfo
+  m_EditorClassIdentifier: 
+  <LevelName>k__BackingField: 1_Hub
+  <LevelIndex>k__BackingField: 0
+  <SceneEssentials>k__BackingField:
+  - {fileID: 11400000, guid: e1785ab207a345f43a31e4cfbd00c47d, type: 2}
+  - {fileID: 11400000, guid: cc6bbf6472e35ad4e825371d316a6f00, type: 2}
+  - {fileID: 11400000, guid: 5cf7ed09cf635db4db8dab3abacea03b, type: 2}
+  - {fileID: 11400000, guid: 3f79255751b61344fa208fd15207d227, type: 2}
+  <ResetComponents>k__BackingField:
+  - {fileID: 11400000, guid: 4b271cf90bff2564b95cc3cb64e66512, type: 2}
+  - {fileID: 11400000, guid: a42fd50eecc31a945aa87ae3299171ef, type: 2}
+  <UIElements>k__BackingField:
+  - {fileID: 11400000, guid: cfe7fb9deb6843f48918970e3d6f9c0d, type: 2}
+  <GameplayObjects>k__BackingField:
+  - {fileID: 11400000, guid: 4f1615696a18b7e4682f4afb084a733f, type: 2}
+  - {fileID: 11400000, guid: 50ae93c75cb71474babdeb2632383030, type: 2}
+  - {fileID: 11400000, guid: fa543d786bf9b304993da64834076310, type: 2}
+  - {fileID: 11400000, guid: 07d32077cae457f4ca7c88caaad4450c, type: 2}
+  - {fileID: 11400000, guid: 6600c48b16348d244a749f85912a6bf7, type: 2}
+  - {fileID: 11400000, guid: dde344851df095f4ab904dc3c2889ce6, type: 2}
+  <FinaliseSceneState>k__BackingField:
+  - {fileID: 11400000, guid: f2702624fa4421241abf693758e8b630, type: 2}
+  - {fileID: 11400000, guid: abba94f240cea604a902605fa3744a58, type: 2}
+  - {fileID: 11400000, guid: 97b7a7666d734d340b0032b3ce88ef56, type: 2}

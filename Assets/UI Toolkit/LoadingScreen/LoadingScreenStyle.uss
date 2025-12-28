@@ -1,0 +1,29 @@
+.background {
+    flex-grow: 1;
+    position: relative;
+    align-self: center;
+    align-items: center;
+    justify-content: flex-start;
+    transition-property: all, ignored;
+    transition-duration: 0s, 0s;
+    transition-timing-function: ease, ease;
+    transition-delay: 0s, 0s;
+    background-image: url("project://database/Assets/Sprites/png-transparent-contour-line-pattern.png?fileID=2800000&guid=f57c8909f9841d84ab4f0de659c33e7d&type=3#png-transparent-contour-line-pattern");
+    height: 100%;
+    width: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+    -unity-background-image-tint-color: rgba(0, 30, 160, 0.29);
+    opacity: 1;
+    overflow: hidden;
+    background-color: rgb(0, 0, 0);
+    -unity-slice-scale: initial;
+}
+
+.trackInfo {
+}
+
+.hideUI {
+    transition-duration: 0.2s;
+    opacity: 0;
+    display: none;
+}
