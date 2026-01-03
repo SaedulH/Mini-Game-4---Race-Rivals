@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -6,15 +7,20 @@ namespace CoreSystem
     [CreateAssetMenu(fileName = "Init HUD Step", menuName = "Levels/InitSteps/InitHUDStep")]
     public class InitHUDStepSO : LevelInitStepSO
     {
+        [field: SerializeField] public float GoldTime { get; private set; }
+        [field: SerializeField] public float SilverTime { get; private set; }
+        [field: SerializeField] public float BronzeTime { get; private set; }
+
         public override async Task Run(TrackContext context)
         {
-            //GameManager manager = context.Manager;
+            List<float> medalTimes = new()
+            {
+                GoldTime,
+                SilverTime,
+                BronzeTime
+            };
 
-            ////await Task.CompletedTask;
-            //await GameManager.Instance.PlayerSetup
-            //    .InitializeHUD(controller.PlayerStats);
-
-            await Task.CompletedTask;
+            await GameManager.Instance.InitialiseHUD(context, medalTimes);
         }
     }
 }

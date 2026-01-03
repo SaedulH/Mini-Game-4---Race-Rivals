@@ -1,10 +1,10 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MainMenu/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=61f56f4e565fcfa4e807aa97de94f4a2&amp;type=3#MainMenuStyle"/>
-    <ui:VisualElement name="MainMenu" class="background">
+    <ui:VisualElement name="MainMenu" class="background" style="-unity-background-image-tint-color: rgba(0, 30, 100, 0.29);">
         <ui:VisualElement name="Border" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; align-self: center; justify-content: center; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%;">
             <ui:VisualElement style="border-left-color: rgba(0, 217, 255, 0.2); border-right-color: rgba(0, 217, 255, 0.2); border-top-color: rgba(0, 217, 255, 0.2); border-bottom-color: rgba(0, 217, 255, 0.2); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; width: 100%; height: 100%;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="HomeScreen" view-data-key="FirstScreen" class="homeScreen hideUI" style="flex-grow: 1; width: 100%; height: 100%; position: absolute;">
+        <ui:VisualElement name="HomeScreen" view-data-key="FirstScreen" class="homeScreen" style="flex-grow: 1; width: 100%; height: 100%; position: absolute;">
             <ui:GroupBox name="Title" style="justify-content: space-between; margin-top: 100px; margin-bottom: 150px;">
                 <ui:Label tabindex="-1" text="INDY 500" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TItle" class="header" style="top: 0; margin-bottom: 10px;"/>
                 <ui:Label tabindex="-1" text="Mini Game #4" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MiniGame4" class="subheader" style="font-size: 60px; top: -43px;"/>
@@ -13,7 +13,7 @@
             <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Play" class="greenButton button" style="width: 25%; height: auto; margin-bottom: 50px;"/>
             <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="button redButton" style="display: flex; width: 25%; height: auto;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="SetupScreens" style="flex-grow: 1; position: relative; height: 100%; width: 100%; flex-direction: column;">
+        <ui:VisualElement name="SetupScreens" class="hideUI" style="flex-grow: 1; position: relative; height: 100%; width: 100%; flex-direction: column;">
             <ui:VisualElement name="SetupBody" style="flex-grow: 1; align-self: center; height: 100%; width: 100%;">
                 <ui:VisualElement name="SelectionScreen" view-data-key="SecondScreen" class="selectionScreen hideUI" style="flex-grow: 1; width: 100%; height: 100%; flex-direction: row;">
                     <ui:GroupBox name="SelectOptions" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; height: 100%; width: 60%; padding-top: 10%; padding-right: 5%; padding-bottom: 10%; padding-left: 5%;">
@@ -39,7 +39,7 @@
                         <ui:VisualElement name="MapImage" class="mapImage" style="background-image: url(&quot;project://database/Assets/Sprites/Maps/Track1Map.asset?fileID=21300000&amp;guid=b19b499b4d39e9141a01b37ca4d80fe1&amp;type=2#Track1Map&quot;); border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2);"/>
                     </ui:GroupBox>
                 </ui:VisualElement>
-                <ui:VisualElement name="VehicleScreen" view-data-key="SecondScreen" class="vehicleScreen" style="flex-grow: 1; width: 100%; height: 100%;">
+                <ui:VisualElement name="VehicleScreen" view-data-key="SecondScreen" class="vehicleScreen hideUI" style="flex-grow: 1; width: 100%; height: 100%;">
                     <ui:GroupBox name="Vehicle" style="flex-direction: row; justify-content: center; align-self: center; width: 100%; align-items: flex-end; height: 100%;">
                         <ui:GroupBox name="PlayerOneVehicle" class="vehicleChoice">
                             <ui:Label tabindex="-1" text="Player 1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="PlayerOneTitle" class="subheader" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>

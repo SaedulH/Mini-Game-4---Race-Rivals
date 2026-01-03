@@ -1,8 +1,6 @@
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Utilities;
 
 namespace CoreSystem
@@ -30,7 +28,6 @@ namespace CoreSystem
                 try
                 {
                     Debug.Log($"Starting: {step.name}");
-                    LoadingScreen.Instance.UpdateLoadingDescription(step.Description);
                     await step.Run(trackContext);
                     completed += step.Weight;
                     LoadingScreen.Instance.UpdateLoadingProgress(completed);

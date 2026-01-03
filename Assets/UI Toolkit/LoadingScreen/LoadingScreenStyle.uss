@@ -8,7 +8,7 @@
     transition-duration: 0s, 0s;
     transition-timing-function: ease, ease;
     transition-delay: 0s, 0s;
-    background-image: url("project://database/Assets/Sprites/png-transparent-contour-line-pattern.png?fileID=2800000&guid=f57c8909f9841d84ab4f0de659c33e7d&type=3#png-transparent-contour-line-pattern");
+    background-image: url("project://database/Assets/Sprites/background.png?fileID=2800000&guid=f57c8909f9841d84ab4f0de659c33e7d&type=3#background");
     height: 100%;
     width: 100%;
     -unity-background-scale-mode: scale-and-crop;
@@ -19,11 +19,71 @@
     -unity-slice-scale: initial;
 }
 
+.header {
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
+    -unity-font-style: bold;
+    font-size: 80px;
+    color: rgb(0, 148, 255);
+}
+
+.subHeader {
+    -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
+    font-size: 24px;
+    color: rgb(0, 148, 255);
+}
+
 .trackInfo {
+    margin-top: 0%;
+    margin-bottom: 2.5%;
+    margin-left: 5%;
 }
 
 .hideUI {
-    transition-duration: 0.2s;
     opacity: 0;
+}
+
+Slider #unity-drag-container {
+    width: 100%;
+    height: 200%;
+}
+
+Slider #unity-tracker {
+    display: flex;
+    overflow: hidden;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    height: 50%;
+    width: 100%;
+    opacity: 1;
+    -unity-background-scale-mode: scale-to-fit;
+    background-color: rgba(20, 23, 67, 0.59);
+    border-left-color: rgb(20, 23, 67);
+    border-right-color: rgb(20, 23, 67);
+    border-top-color: rgb(20, 23, 67);
+    border-bottom-color: rgb(20, 23, 67);
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+Slider #unity-dragger {
     display: none;
+    background-color: rgb(0, 148, 255);
+    height: 70%;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+Slider #unity-fill {
+    background-color: rgb(0, 148, 255);
 }

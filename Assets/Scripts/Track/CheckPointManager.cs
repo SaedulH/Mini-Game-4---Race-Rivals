@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CheckPointManager : MonoBehaviour
@@ -13,8 +12,8 @@ public class CheckPointManager : MonoBehaviour
     [SerializeReference] private List<GameObject> checkpoints;
 
     [SerializeField] TMP_Text lapNumber;
-    public int maxLaps {  get; set; }
-    private ArrayList[] raceProgress {  get; set; }
+    public int maxLaps { get; set; }
+    private ArrayList[] raceProgress { get; set; }
     private int lastCheckpoint;
     // Start is called before the first frame update
     void Start()
@@ -27,7 +26,7 @@ public class CheckPointManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     IEnumerator AssignPlayers()
@@ -54,7 +53,7 @@ public class CheckPointManager : MonoBehaviour
     void AssignCheckpoints()
     {
         int trackno = PlayerPrefs.GetInt("TrackNum");
-        if (trackno == 1) 
+        if (trackno == 1)
         {
             GameObject nonActiveCheckpoints = gameObject.transform.GetChild(1).gameObject;
             nonActiveCheckpoints.SetActive(false);
@@ -64,8 +63,8 @@ public class CheckPointManager : MonoBehaviour
             GameObject nonActiveCheckpoints = gameObject.transform.GetChild(0).gameObject;
             nonActiveCheckpoints.SetActive(false);
         }
-        GameObject trackcheckpoints = gameObject.transform.GetChild(trackno-1).gameObject;
-        foreach(Transform pointChild in trackcheckpoints.transform)
+        GameObject trackcheckpoints = gameObject.transform.GetChild(trackno - 1).gameObject;
+        foreach (Transform pointChild in trackcheckpoints.transform)
         {
             checkpoints.Add(pointChild.gameObject);
         }
@@ -75,31 +74,33 @@ public class CheckPointManager : MonoBehaviour
 
     public void checkpointReached(int pointNum, int playerNum)
     {
-        ArrayList playerStat = raceProgress[playerNum-1];
+        ArrayList playerStat = raceProgress[playerNum - 1];
         int playerNo = (int)playerStat[0];
         int lapNo = (int)playerStat[1];
         int checkpointNo = (int)playerStat[2];
 
-        if(checkpointNo == (pointNum - 1))
+        if (checkpointNo == (pointNum - 1))
         {
-            raceProgress[playerNum-1][2] = pointNum;
-        }else if(checkpointNo < (pointNum - 1))
+            raceProgress[playerNum - 1][2] = pointNum;
+        }
+        else if (checkpointNo < (pointNum - 1))
         {
             Debug.Log("Checkpoint missed!");
-        }else if(checkpointNo == lastCheckpoint && pointNum == 1)
+        }
+        else if (checkpointNo == lastCheckpoint && pointNum == 1)
         {
-            if(lapNo != maxLaps)
+            if (lapNo != maxLaps)
             {
                 raceProgress[playerNum - 1][1] = (lapNo + 1);
-                lapNumber.text = (lapNo + 1) + "/" + maxLaps; 
+                lapNumber.text = (lapNo + 1) + "/" + maxLaps;
             }
             else
             {
                 Debug.Log("Player " + playerNo + "Wins!!");
-                GameManager.Instance.isRaceComplete = true;
+                //GameManager.Instance.isRaceComplete = true;
                 //StartCoroutine(RaceOver());
             }
-            
+
         }
 
 

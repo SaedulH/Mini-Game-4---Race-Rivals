@@ -9,7 +9,7 @@ namespace CoreSystem
     {
         public override async Task Run(TrackContext context)
         {
-            await AudioManager.Instance.ResetComponent();
+            //await AudioManager.Instance.ResetComponent();
 
             await Task.CompletedTask;
         }

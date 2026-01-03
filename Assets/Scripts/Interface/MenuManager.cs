@@ -5,6 +5,7 @@ using AudioSystem;
 using CoreSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static Utilities.Constants;
 
 public class MenuManager : MonoBehaviour
 {
@@ -59,9 +60,9 @@ public class MenuManager : MonoBehaviour
     [field: SerializeField] public AudioData BackAudio { get; set; }
     [field: SerializeField] public AudioData HoverAudio { get; set; }
 
-    [field: SerializeField] public MenuScreen CurrentScreen { get; private set; }
+    [field: SerializeField] public MenuScreenType CurrentScreen { get; private set; }
 
-    private string _gameMode;
+    private GameMode _gameMode;
     private int _playerCount;
     private int _trackNum;
     private Coroutine _setPlayerOneSlidersCoroutine;
@@ -175,7 +176,7 @@ public class MenuManager : MonoBehaviour
 
     private void InitialiseMenu()
     {
-        CurrentScreen = MenuScreen.Home;
+        CurrentScreen = MenuScreenType.Home;
         HomeScreen.RemoveFromClassList("hideUI");
         SetupScreens.AddToClassList("hideUI");
         SelectionScreen.AddToClassList("hideUI");
@@ -238,7 +239,7 @@ public class MenuManager : MonoBehaviour
     #region Screen Transitions
     private IEnumerator ShowHomeScreen()
     {
-        CurrentScreen = MenuScreen.Home;
+        CurrentScreen = MenuScreenType.Home;
         SelectionScreen.AddToClassList("hideUI");
         yield return new WaitForSeconds(ScreenTransitionTime);
         SetupScreens.AddToClassList("hideUI");
@@ -247,7 +248,7 @@ public class MenuManager : MonoBehaviour
 
     private IEnumerator ShowSelectionScreen()
     {
-        if (CurrentScreen == MenuScreen.Vehicle)
+        if (CurrentScreen == MenuScreenType.Vehicle)
         {
             VehicleScreen.AddToClassList("hideUI");
         }
@@ -255,7 +256,7 @@ public class MenuManager : MonoBehaviour
         {
             HomeScreen.AddToClassList("hideUI");
         }
-        CurrentScreen = MenuScreen.Selection;
+        CurrentScreen = MenuScreenType.Selection;
         yield return new WaitForSeconds(ScreenTransitionTime);
         StartButton.text = "Next";
         SetupScreens.RemoveFromClassList("hideUI");
@@ -263,7 +264,7 @@ public class MenuManager : MonoBehaviour
     }
     private IEnumerator ShowVehicleScreen()
     {
-        CurrentScreen = MenuScreen.Vehicle;
+        CurrentScreen = MenuScreenType.Vehicle;
         SelectionScreen.AddToClassList("hideUI");
         yield return new WaitForSeconds(ScreenTransitionTime);
         StartButton.text = "Start";
@@ -291,11 +292,11 @@ public class MenuManager : MonoBehaviour
     public void OnStartClicked()
     {
         PlayForwardAudio();
-        if (CurrentScreen == MenuScreen.Selection)
+        if (CurrentScreen == MenuScreenType.Selection)
         {
             StartCoroutine(ShowVehicleScreen());
         }
-        else if (CurrentScreen == MenuScreen.Vehicle)
+        else if (CurrentScreen == MenuScreenType.Vehicle)
         {
             OnStartGame();
         }
@@ -304,11 +305,11 @@ public class MenuManager : MonoBehaviour
     public void OnBackClicked()
     {
         PlayBackAudio();
-        if (CurrentScreen == MenuScreen.Vehicle)
+        if (CurrentScreen == MenuScreenType.Vehicle)
         {
             StartCoroutine(ShowSelectionScreen());
         }
-        else if (CurrentScreen == MenuScreen.Selection)
+        else if (CurrentScreen == MenuScreenType.Selection)
         {
             //Debug.Log("Back to Home Screen");
             StartCoroutine(ShowHomeScreen());
@@ -326,7 +327,7 @@ public class MenuManager : MonoBehaviour
         RaceModeButton.SetEnabled(false);
         TimedModeButton.SetEnabled(true);
 
-        _gameMode = "Race";
+        _gameMode = GameMode.Race;
     }
 
     public void OnTimedModeClicked(bool playSound = true)
@@ -336,7 +337,7 @@ public class MenuManager : MonoBehaviour
         RaceModeButton.SetEnabled(true);
         TimedModeButton.SetEnabled(false);
 
-        _gameMode = "Timed";
+        _gameMode = GameMode.Timed;
     }
 
     public void OnOnePlayerClicked(bool playSound = true)
@@ -581,15 +582,15 @@ public class MenuManager : MonoBehaviour
 
     public async void OnStartGame()
     {
-        int trackIndex = _trackNum - 1;
-        int totalWeight = (int)TrackInfo[trackIndex].StepOrder.Sum(s => s.Weight);
+        TrackInfo trackInfo = TrackInfo[_trackNum - 1];
+        int totalWeight = (int)trackInfo.StepOrder.Sum(s => s.Weight);
 
-        if(_playerCount == 1)
+        if(_playerCount == 1 && _gameMode != GameMode.Timed)
         {
             _currentVehicleTwoIndex = _currentVehicleOneIndex;
         }
 
-        TrackContext context = new()
+        TrackContext trackContext = new()
         {
             Manager = GameManager.Instance,
             SceneHandle = default,
@@ -600,6 +601,6 @@ public class MenuManager : MonoBehaviour
             TotalWeight = totalWeight
         };
 
-        await TrackInitialiser.Instance.InitialiseTrack(TrackInfo[trackIndex], context);
+        await TrackInitialiser.Instance.InitialiseTrack(trackInfo, trackContext);
     }
 }

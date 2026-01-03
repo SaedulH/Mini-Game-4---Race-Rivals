@@ -8,9 +8,7 @@ namespace CoreSystem
     {
         public override async Task Run(TrackContext context)
         {
-            //await LoadingScreen.Instance.HideLoadingScreen();
-
-            await Task.CompletedTask;
+            await LoadingScreen.Instance.HideLoadingScreen();
         }
     }
 }

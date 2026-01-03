@@ -44,11 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d9b3cbd4968f534b840776dd4075cc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raceType: 
-  timeToBeat: 50
-  playerParent: {fileID: 0}
-  player1: {fileID: 3018185205297305391, guid: d7d63babdc39e974eabf6731f02aa03e, type: 3}
-  player2: {fileID: 7684384491327183501, guid: 5527ab3f9ad02614cbe021e55249c636, type: 3}
-  playerAI: {fileID: 3018185205297305391, guid: e6ed0a7fdfd6b724aa2802689b628371, type: 3}
-  playerManager: {fileID: 0}
-  timer: {fileID: 0}
+  AutoUnparentOnAwake: 0
+  <PlayerOne>k__BackingField: {fileID: 0}
+  <PlayerTwo>k__BackingField: {fileID: 0}
+  <Input>k__BackingField: {fileID: -944628639613478452, guid: 1b31bb9666a505c4e95a57baefe4f21d, type: 3}
+  <PlayerOnePrefab>k__BackingField: {fileID: 3018185205297305391, guid: d7d63babdc39e974eabf6731f02aa03e, type: 3}
+  <PlayerTwoPrefab>k__BackingField: {fileID: 7684384491327183501, guid: 5527ab3f9ad02614cbe021e55249c636, type: 3}
+  <PlayerAIPrefab>k__BackingField: {fileID: 3018185205297305391, guid: e6ed0a7fdfd6b724aa2802689b628371, type: 3}

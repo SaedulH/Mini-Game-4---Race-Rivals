@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using Unity.Cinemachine;
 using UnityEngine;
 
 namespace CoreSystem

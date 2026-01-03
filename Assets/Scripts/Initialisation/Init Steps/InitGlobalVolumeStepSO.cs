@@ -13,9 +13,9 @@ namespace CoreSystem
         {
             GameObject volumeObject = Instantiate(globalVolumeObject);
 
-            //GlobalVolumeManager volumeManager = volumeObject.GetOrAdd<GlobalVolumeManager>();
+            GlobalVolumeManager volumeManager = volumeObject.GetOrAdd<GlobalVolumeManager>();
 
-            //volumeManager.ResetAll();
+            volumeManager.ResetAll();
 
             await Task.CompletedTask;
         }

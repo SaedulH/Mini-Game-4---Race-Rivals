@@ -15,3 +15,4 @@ MonoBehaviour:
   <Description>k__BackingField: 
   <Weight>k__BackingField: 1
   <StepPriority>k__BackingField: 0
+  TrackBGM: {fileID: 11400000, guid: 941c0f1de2a58674c94f2020cd1a59bf, type: 2}

@@ -1,10 +1,9 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-public class HandleInput : MonoBehaviour
+public class InputHandler : MonoBehaviour
 {
+    [SerializeField] private InputActionMap InputActions;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float drive;
     [SerializeField] private float steering;
@@ -21,18 +20,16 @@ public class HandleInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameManager.Instance.isRaceStart)
-        {
-            detectInput();
-        }
+        //if (GameManager.Instance.isRaceStart)
+        //{
+        //    detectInput();
+        //}
     }
 
     //Sets the input controls for each player
-    public void AssignInput(string throttle, string steering)
+    public void AssignInput(InputActionMap inputActions)
     {
-        throttleKeys = throttle;
-        steeringKeys = steering;
-
+        InputActions = inputActions;
     }
 
     //Detect control input for movement

@@ -132,5 +132,10 @@ namespace AudioSystem
         {
             audioSource.volume = volume;
         }
+
+        public void WithFadeIn(float duration = 0.5f)
+        {
+            //StartCoroutine(AudioFader.FadeIn(audioSource, duration));
+        }
     }
 }

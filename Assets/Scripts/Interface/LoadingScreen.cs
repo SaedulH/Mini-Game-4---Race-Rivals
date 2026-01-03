@@ -1,18 +1,18 @@
 using System.Threading.Tasks;
-using TMPro;
+using CoreSystem;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 using Utilities;
 
 public class LoadingScreen : NonPersistentSingleton<LoadingScreen>
 {
-    [field: SerializeField] public Animator Anim { get; protected set; }
-    [field: SerializeField] public CanvasGroup FullCanvas { get; protected set; }
-    [field: SerializeField] public CanvasGroup LevelInfoCanvas { get; protected set; }
-    [field: SerializeField] public Image Level_Image { get; protected set; }
-    [field: SerializeField] public TMP_Text Level_Title { get; protected set; }
-    [field: SerializeField] public TMP_Text Level_Summary { get; protected set; }
-    [field: SerializeField] public TMP_Text Loading_Text { get; protected set; }
+    [field: SerializeField] public VisualElement Root { get; set; }
+    [field: SerializeField] public VisualElement LoadingScreenElement { get; set; }
+    [field: SerializeField] public Label TrackTitle { get; set; }
+    [field: SerializeField] public Label TrackDescription { get; set; }
+    [field: SerializeField] public Label TrackMode { get; set; }
+    [field: SerializeField] public Label TrackPlayerCount { get; set; }
+    [field: SerializeField] public VisualElement TrackImage { get; set; }
     [field: SerializeField] public Slider LoadingBar { get; protected set; }
     [field: SerializeField, Min(0f)] public float CurrentProgress { get; protected set; }
     [field: SerializeField, Min(0f)] public float MaxProgress { get; protected set; }
@@ -20,21 +20,29 @@ public class LoadingScreen : NonPersistentSingleton<LoadingScreen>
     protected override void Awake()
     {
         base.Awake();
-        Anim = GetComponent<Animator>();
+        Root = GetComponent<UIDocument>().rootVisualElement;
+        LoadingScreenElement = Root.Q<VisualElement>("LoadingScreen");
+        LoadingScreenElement.AddToClassList("hideUI");
+        LoadingScreenElement.style.display = DisplayStyle.None;
+
+        TrackTitle = LoadingScreenElement.Q<Label>("TrackTitle");
+        TrackMode = LoadingScreenElement.Q<Label>("TrackMode");
+        TrackPlayerCount = LoadingScreenElement.Q<Label>("TrackPlayerCount");
+        TrackImage= LoadingScreenElement.Q<VisualElement>("TrackImage");
+        LoadingBar = LoadingScreenElement.Q<Slider>("LoadingBar");
     }
 
-    public async Task SetLevelInfo(Sprite levelImage, string levelTitle, string levelSummary, int totalWeight)
+    public async Task SetLevelInfo(string title, string description, Sprite image, TrackContext context)
     {
-        Level_Image.sprite = levelImage;
-        Level_Title.text = levelTitle;
-        Level_Summary.text = levelSummary;
-        Loading_Text.text = "Loading...";
+        TrackTitle.text = title;
+        //TrackDescription.text = description;
+        TrackMode.text = $"Mode: {context.GameMode}";
+        TrackPlayerCount.text = $"Players: {context.PlayerCount}";
+        TrackImage.style.backgroundImage = new StyleBackground(image);
 
         CurrentProgress = 0f;
-        MaxProgress = totalWeight;
+        MaxProgress = context.TotalWeight;
 
-        FullCanvas.alpha = 0f;
-        LevelInfoCanvas.alpha = 0f;
         LoadingBar.value = 0f;
 
         await Task.CompletedTask;
@@ -43,62 +51,26 @@ public class LoadingScreen : NonPersistentSingleton<LoadingScreen>
     public async Task ShowLoadingScreen()
     {
         Debug.Log("Show Loading Screen");
-        await LerpFadeIn(FullCanvas, 0.5f);
 
-        await Task.Delay(100);
+        LoadingScreenElement.style.display = DisplayStyle.Flex;
+        await Task.Yield();
+        LoadingScreenElement.RemoveFromClassList("hideUI");
 
-        await LerpFadeIn(LevelInfoCanvas, 0.5f);
+        await Task.Delay(400);
     }
 
     public async Task HideLoadingScreen()
     {
-        Debug.Log("Hide Level info canvas");
-        await LerpFadeOut(LevelInfoCanvas, 0.5f);
-
-        Debug.Log("Hide Fullcanvas");
-        await LerpFadeOut(FullCanvas, 0.5f);
+        Debug.Log("Hide Loading Screen");
+        
+        LoadingScreenElement.AddToClassList("hideUI");
+        await Task.Delay(400);
+        LoadingScreenElement.style.display = DisplayStyle.None;
     }
 
     public void UpdateLoadingProgress(float weight)
     {
         CurrentProgress += weight;
-        LoadingBar.value = CurrentProgress / MaxProgress;
-    }
-
-    public void UpdateLoadingDescription(string currentTask)
-    {
-        Loading_Text.text = currentTask;
-    }
-
-    private async Task LerpFadeIn(CanvasGroup canvas, float duration = 1f)
-    {
-        float time = 0f;
-        canvas.alpha = 0f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            canvas.alpha = Mathf.Lerp(0f, 1f, time / duration);
-            await Task.Yield();
-        }
-
-        canvas.alpha = 1f;
-        await Task.CompletedTask;
-    }
-
-    private async Task LerpFadeOut(CanvasGroup canvas, float duration = 1f)
-    {
-        float time = 0f;
-        canvas.alpha = 1f;
-
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            canvas.alpha = Mathf.Lerp(1f, 0f, time / duration);
-            await Task.Yield();
-        }
-
-        canvas.alpha = 0f;
-        await Task.CompletedTask;
+        LoadingBar.value = (CurrentProgress / MaxProgress) * 100;
     }
 }

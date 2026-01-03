@@ -26,17 +26,17 @@ public class AIHandler : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GameManager.Instance.isRaceStart)
-        {
-            throttleAI = ApplyThrottleOrBrakes(steeringAI);
-            steeringAI = TurnTowardsTarget();
+        //if (GameManager.Instance.isRaceStart)
+        //{
+        //    throttleAI = ApplyThrottleOrBrakes(steeringAI);
+        //    steeringAI = TurnTowardsTarget();
             
 
-            //ChasePlayer();
-            FollowWaypoints();
+        //    //ChasePlayer();
+        //    FollowWaypoints();
         
-            detectInput(1f, steeringAI);
-        }
+        //    detectInput(1f, steeringAI);
+        //}
 
         
     }
