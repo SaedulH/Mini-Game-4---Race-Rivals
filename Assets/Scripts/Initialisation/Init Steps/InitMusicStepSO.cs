@@ -1,0 +1,21 @@
+using System.Threading.Tasks;
+using AudioSystem;
+using UnityEngine;
+
+namespace CoreSystem
+{
+    [CreateAssetMenu(fileName = "Init Step", menuName = "Levels/InitSteps/InitMusicStep")]
+    public class InitMusicStepSO : LevelInitStepSO
+    {
+        [SerializeField] public AudioData TrackBGM;
+        public override async Task Run(TrackContext context)
+        {
+            AudioManager.Instance.CreateAudioBuilder()
+                .WithLoop()
+                .WithFadeIn()
+                .Play(TrackBGM);
+            await Task.CompletedTask;
+        }
+    }
+}
+

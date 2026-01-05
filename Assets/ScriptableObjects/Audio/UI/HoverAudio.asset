@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e2903a2dc04204ea61ca3618f39fc5, type: 3}
+  m_Name: HoverAudio
+  m_EditorClassIdentifier: 
+  clip: {fileID: 8300000, guid: 164bfdfa5de8e06438d527cd722b496c, type: 3}
+  mixerGroup: {fileID: 24300002, guid: 6fb8ef23a779eef48a61dbee39146f59, type: 2}
+  loop: 0
+  playOnAwake: 0
+  frequentSound: 0
+  mute: 0
+  bypassEffects: 0
+  bypassListenerEffects: 0
+  bypassReverbZones: 0
+  priority: 127
+  volume: 0.1
+  pitch: 0.9
+  panStereo: 0
+  spatialBlend: 0
+  reverbZoneMix: 1
+  dopplerLevel: 1
+  spread: 1
+  minDistance: 1
+  maxDistance: 50
+  ignoreListenerVolume: 0
+  ignoreListenerPause: 0
+  rolloffMode: 0

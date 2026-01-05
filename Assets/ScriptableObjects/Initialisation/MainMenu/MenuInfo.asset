@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 809ae8ffd1f4a114a9db3a61ad20dddd, type: 3}
+  m_Name: MenuInfo
+  m_EditorClassIdentifier: Assembly-CSharp::CoreSystem.TrackInfo
+  <TrackName>k__BackingField: Main Menu
+  <TrackIndex>k__BackingField: 0
+  <TrackImage>k__BackingField: {fileID: 0}
+  <StepOrder>k__BackingField:
+  - {fileID: 11400000, guid: 49ff2b8458bd5ae4d80a59e791bb1b2e, type: 2}
+  - {fileID: 11400000, guid: b814ec1786725bd4db0dfeb3533ab6fe, type: 2}
+  - {fileID: 11400000, guid: 5cf7ed09cf635db4db8dab3abacea03b, type: 2}
+  - {fileID: 11400000, guid: 4b271cf90bff2564b95cc3cb64e66512, type: 2}
+  - {fileID: 11400000, guid: a42fd50eecc31a945aa87ae3299171ef, type: 2}
+  - {fileID: 11400000, guid: 01eff78d477c57e46ac147986937b281, type: 2}
+  - {fileID: 11400000, guid: 05e0fe4b5b96b314f8cefbe63d74de78, type: 2}
+  - {fileID: 11400000, guid: 97b7a7666d734d340b0032b3ce88ef56, type: 2}
+  - {fileID: 11400000, guid: f394f9ae7884f174f980bdffef556da1, type: 2}
