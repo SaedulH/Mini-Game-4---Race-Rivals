@@ -7,6 +7,8 @@ public class AIHandler : MonoBehaviour, IInputHandler
     public float Throttle { get; set; }
     public float Steering { get; set; }
     public bool HandBrake { get; set; }
+public class AIHandler : MonoBehaviour
+{
 
     [SerializeField] private Rigidbody2D rb;
     private Movement movement;

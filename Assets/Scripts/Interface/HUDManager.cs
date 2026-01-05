@@ -5,6 +5,10 @@ using CoreSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
+<<<<<<< HEAD
+=======
+using static Utilities.Constants;
+>>>>>>> origin/master
 
 public class HUDManager : NonPersistentSingleton<HUDManager>
 {

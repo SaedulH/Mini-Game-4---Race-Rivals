@@ -5,7 +5,11 @@ using AudioSystem;
 using CoreSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
+<<<<<<< HEAD
 using Utilities;
+=======
+using static Utilities.Constants;
+>>>>>>> origin/master
 
 public class MenuManager : MonoBehaviour
 {
@@ -583,8 +587,11 @@ public class MenuManager : MonoBehaviour
     public async void OnStartGame()
     {
         TrackInfo trackInfo = TrackInfo[_trackNum - 1];
+<<<<<<< HEAD
         GameManager.Instance.CurrentTrackInfo = trackInfo;
 
+=======
+>>>>>>> origin/master
         int totalWeight = (int)trackInfo.StepOrder.Sum(s => s.Weight);
 
         if(_playerCount == 1 && _gameMode != GameMode.Timed)

@@ -1,7 +1,9 @@
 using CoreSystem;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CoreSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Utilities;
 
 public class GameManager : NonPersistentSingleton<GameManager>
@@ -12,6 +14,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
     [field: SerializeField] public TrackInfo CurrentTrackInfo { get; set; }
     [field: SerializeField] public GameObject PlayerOne { get; set; }
     [field: SerializeField] public GameObject PlayerTwo { get; set; }
+    [field: SerializeField] public InputActionAsset Input { get; set; }
 
     [field: SerializeField] public GameObject PlayerPrefab { get; set; }
     [field: SerializeField] public GameObject AIPrefab { get; set; }
@@ -32,22 +35,24 @@ public class GameManager : NonPersistentSingleton<GameManager>
             input.AssignInput("PlayerOne");
             PlayerOne = playerPrefab;
             PlayerOne.name = "PlayerOne";
+            InputHandler input = PlayerOne.GetOrAdd<InputHandler>();
+            input.AssignInput(Input.FindActionMap("PlayerOne"));
         }
         else
         {
             input.AssignInput("PlayerTwo");
             PlayerTwo = playerPrefab;
-            PlayerTwo.name = "PlayerTwo";
-        }
+                PlayerTwo.name = "PlayerTwo";
+            }
         //playerManager.addTargets(vehicleIndex, playerObject);
         await Task.CompletedTask;
     }
 
     public async Task ConfigureAI(int vehicleIndex)
-    {
+            {
         PlayerTwo = Instantiate(AIPrefab, Vector3.zero, Quaternion.identity);
         AIHandler input = PlayerTwo.GetOrAdd<AIHandler>();
-        PlayerTwo.name = "PlayerAI";
+                PlayerTwo.name = "PlayerAI";
         
         //playerManager.addTargets(vehicleIndex, playerObject);
         await Task.CompletedTask;
