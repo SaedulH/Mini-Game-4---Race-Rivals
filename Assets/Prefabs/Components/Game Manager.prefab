@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7341256512937259730
+--- !u!1 &8103459867322629148
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4265956162968177221}
-  - component: {fileID: 6276886314950701451}
+  - component: {fileID: 6332185215078563440}
+  - component: {fileID: 5950695493843944237}
+  - component: {fileID: 485663024312562149}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -17,47 +18,69 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4265956162968177221
+--- !u!4 &6332185215078563440
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341256512937259730}
+  m_GameObject: {fileID: 8103459867322629148}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 590.63196, y: 321.6939, z: -0.46603695}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6276886314950701451
+--- !u!114 &5950695493843944237
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7341256512937259730}
+  m_GameObject: {fileID: 8103459867322629148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 8b161291d2530d84daace94dba5a439d, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: 272f6d14-89ba-496f-b7ff-215263d3219f
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
+--- !u!114 &485663024312562149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8103459867322629148}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d9b3cbd4968f534b840776dd4075cc5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
   AutoUnparentOnAwake: 0
-<<<<<<< HEAD
   <CurrentGameState>k__BackingField: 0
   <MenuInfo>k__BackingField: {fileID: 11400000, guid: ce47492fcb629e7438f6d943c2afc441, type: 2}
   <CurrentTrackInfo>k__BackingField: {fileID: 0}
   <PlayerOne>k__BackingField: {fileID: 0}
   <PlayerTwo>k__BackingField: {fileID: 0}
-  <PlayerPrefab>k__BackingField: {fileID: 0}
-  <AIPrefab>k__BackingField: {fileID: 0}
-=======
-  <PlayerOne>k__BackingField: {fileID: 0}
-  <PlayerTwo>k__BackingField: {fileID: 0}
-  <Input>k__BackingField: {fileID: -944628639613478452, guid: 1b31bb9666a505c4e95a57baefe4f21d, type: 3}
-  <PlayerOnePrefab>k__BackingField: {fileID: 3018185205297305391, guid: d7d63babdc39e974eabf6731f02aa03e, type: 3}
-  <PlayerTwoPrefab>k__BackingField: {fileID: 7684384491327183501, guid: 5527ab3f9ad02614cbe021e55249c636, type: 3}
-  <PlayerAIPrefab>k__BackingField: {fileID: 3018185205297305391, guid: e6ed0a7fdfd6b724aa2802689b628371, type: 3}
->>>>>>> origin/master
+  <Input>k__BackingField: {fileID: 5950695493843944237}
+  <PlayerPrefab>k__BackingField: {fileID: 3018185205297305391, guid: d7d63babdc39e974eabf6731f02aa03e, type: 3}
+  <AIPrefab>k__BackingField: {fileID: 3018185205297305391, guid: e6ed0a7fdfd6b724aa2802689b628371, type: 3}

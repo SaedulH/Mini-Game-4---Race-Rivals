@@ -1,9 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceProviders;
-using UnityEngine.SceneManagement;
 
 namespace CoreSystem
 {
@@ -14,28 +11,7 @@ namespace CoreSystem
 
         public override async Task Run(TrackContext context)
         {
-            Scene currentActiveScene = SceneManager.GetActiveScene();
-            if (currentActiveScene != null)
-            {
-                Debug.Log($"Current Active Scene is {currentActiveScene.name}");
-            }
-
-            AsyncOperationHandle<SceneInstance> handle = sceneReference.LoadSceneAsync(LoadSceneMode.Additive);
-            await handle.Task;
-
-            if (handle.Status == AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log($"Map scene {sceneReference.RuntimeKey} loaded.");
-                context.SceneHandle = handle;
-                SceneManager.SetActiveScene(handle.Result.Scene);
-            }
-            else
-            {
-                Debug.LogError($"Failed to load map: {sceneReference.RuntimeKey}");
-            }
-
-            await SceneManager.UnloadSceneAsync(currentActiveScene);
-
+            await SceneLoader.LoadContentScene(sceneReference);
         }
     }
 }

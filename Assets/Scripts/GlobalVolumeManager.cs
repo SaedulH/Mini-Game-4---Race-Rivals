@@ -68,8 +68,18 @@ public class GlobalVolumeManager : NonPersistentSingleton<GlobalVolumeManager>
         isPulsing = false;
     }
 
+    public void Blur()
+    {
+
+    }
+
+    public void Unblur()
+    {
+    }
+
     public void ResetAll()
     {
         ResetVignette();
+        Unblur();
     }
 }

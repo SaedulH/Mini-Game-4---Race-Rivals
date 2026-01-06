@@ -81,15 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757c1cf01433f0347a5218cdadf67672, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InputActions:
-    m_Name: Input Actions
-    m_Id: d3b25de6-4788-4684-9319-ce3db0d686c5
-    m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
-  rb: {fileID: 0}
-  drive: 0
-  steering: 0
+  Input: {fileID: 984923392193484867}
 --- !u!212 &6383977169506167290
 SpriteRenderer:
   serializedVersion: 2

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2425600830491659341}
   - component: {fileID: 5281348230787744923}
   m_Layer: 0
-  m_Name: HUDManager
+  m_Name: HUD Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

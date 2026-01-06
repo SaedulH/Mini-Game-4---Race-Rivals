@@ -5,11 +5,7 @@ using AudioSystem;
 using CoreSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
-<<<<<<< HEAD
 using Utilities;
-=======
-using static Utilities.Constants;
->>>>>>> origin/master
 
 public class MenuManager : MonoBehaviour
 {
@@ -587,11 +583,7 @@ public class MenuManager : MonoBehaviour
     public async void OnStartGame()
     {
         TrackInfo trackInfo = TrackInfo[_trackNum - 1];
-<<<<<<< HEAD
-        GameManager.Instance.CurrentTrackInfo = trackInfo;
 
-=======
->>>>>>> origin/master
         int totalWeight = (int)trackInfo.StepOrder.Sum(s => s.Weight);
 
         if(_playerCount == 1 && _gameMode != GameMode.Timed)
@@ -601,8 +593,6 @@ public class MenuManager : MonoBehaviour
 
         TrackContext trackContext = new()
         {
-            Manager = GameManager.Instance,
-            SceneHandle = default,
             GameMode = _gameMode,
             PlayerCount = _playerCount,
             VehicleOneIndex = _currentVehicleOneIndex,
@@ -610,6 +600,6 @@ public class MenuManager : MonoBehaviour
             TotalWeight = totalWeight
         };
 
-        await TrackInitialiser.Instance.InitialiseTrack(trackInfo, trackContext);
+        await GameManager.Instance.InitialiseScene(trackInfo, trackContext);
     }
 }

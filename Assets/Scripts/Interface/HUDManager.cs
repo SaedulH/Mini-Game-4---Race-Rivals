@@ -5,10 +5,6 @@ using CoreSystem;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
-<<<<<<< HEAD
-=======
-using static Utilities.Constants;
->>>>>>> origin/master
 
 public class HUDManager : NonPersistentSingleton<HUDManager>
 {
@@ -238,6 +234,52 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         string formattedTime = TimeSpan.FromSeconds(lapTime).ToString(@"mm\:ss\.fff");
 
         return formattedTime;
+    }
+
+    public async Task BeginCountdown(float duration)
+    {
+        await Task.Delay(250);
+        CountdownValue.text = duration.ToString();
+        await ShowCountdownPopup();
+
+        await PerformCountdown(duration);
+
+        await Task.Delay(200);
+
+        await HideCountdownPopup();
+    }
+
+    public async Task ShowCountdownPopup()
+    {
+        CountdownPopup.style.display = DisplayStyle.Flex;
+        await Task.Yield();
+        CountdownPopup.RemoveFromClassList("hideUI");
+
+        await Task.Delay(200);
+    }
+
+    private async Task PerformCountdown(float duration)
+    {
+        int secondsRemaining = Mathf.CeilToInt(duration);
+
+        while (secondsRemaining > 0)
+        {
+            CountdownValue.text = secondsRemaining.ToString();
+
+            await Task.Delay(1000);
+
+            secondsRemaining--;
+        }
+
+        CountdownValue.text = "GO!";
+        GameManager.Instance.StartRace();
+    }
+
+    public async Task HideCountdownPopup()
+    {
+        CountdownPopup.AddToClassList("hideUI");
+        await Task.Delay(200);
+        CountdownPopup.style.display = DisplayStyle.None;
     }
 
     #endregion

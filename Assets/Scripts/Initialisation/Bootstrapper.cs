@@ -24,31 +24,29 @@ namespace CoreSystem
             }
 
             // Load CoreScene
-            AsyncOperationHandle<SceneInstance> handlePersistent = Addressables.LoadSceneAsync("CoreScene", LoadSceneMode.Additive);
-            await handlePersistent.Task;
+            AsyncOperationHandle<SceneInstance> coreHandle = Addressables.LoadSceneAsync("CoreScene", LoadSceneMode.Additive);
+            await coreHandle.Task;
 
-            if (handlePersistent.Status == AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log("CoreScene loaded successfully.");
-            }
-            else
+            if (coreHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError("Failed to load CoreScene.");
+                return;
             }
+            SceneRegistry.CoreScene = coreHandle;
+            Debug.Log("CoreScene loaded.");
 
             // Load MainMenu
-            AsyncOperationHandle<SceneInstance> handleMenu = Addressables.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
-            await handleMenu.Task;
+            AsyncOperationHandle<SceneInstance> menuHandle = Addressables.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+            await menuHandle.Task;
 
-            if (handleMenu.Status == AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log("MainMenu loaded successfully.");
-                SceneManager.SetActiveScene(handleMenu.Result.Scene);
-            }
-            else
+            if (menuHandle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError("Failed to load MainMenu.");
+                return;
             }
+            SceneRegistry.CurrentContent = menuHandle;
+            SceneManager.SetActiveScene(menuHandle.Result.Scene);
+            Debug.Log("MainMenu loaded.");
 
             // 3. Unload the Bootstrapper scene
             await SceneManager.UnloadSceneAsync(bootstrapScene);

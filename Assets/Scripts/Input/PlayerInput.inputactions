@@ -16,7 +16,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Horizonal",
+                    "name": "Horizontal",
                     "type": "Button",
                     "id": "30d0c354-6810-464b-85e2-08dfe65d8780",
                     "expectedControlType": "",
@@ -28,6 +28,15 @@
                     "name": "HandBrake",
                     "type": "Button",
                     "id": "c2a7f2b4-591b-43db-bda8-60ab816e8699",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "dafba6a9-5cbc-415a-8357-c240684418da",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -75,7 +84,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Horizonal",
+                    "action": "Horizontal",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -86,7 +95,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Horizonal",
+                    "action": "Horizontal",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -97,7 +106,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Horizonal",
+                    "action": "Horizontal",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -109,6 +118,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "HandBrake",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bcadab85-e165-43db-953c-a061e56bf34e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -128,7 +148,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Horizonal",
+                    "name": "Horizontal",
                     "type": "Button",
                     "id": "7c0aa070-1a81-4f91-857e-0e8a49c2342b",
                     "expectedControlType": "",
@@ -187,7 +207,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Horizonal",
+                    "action": "Horizontal",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -198,7 +218,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Horizonal",
+                    "action": "Horizontal",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -209,7 +229,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Horizonal",
+                    "action": "Horizontal",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },

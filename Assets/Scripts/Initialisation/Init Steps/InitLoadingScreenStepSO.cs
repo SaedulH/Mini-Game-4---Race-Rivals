@@ -1,9 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
-<<<<<<< HEAD
 using Utilities;
-=======
->>>>>>> origin/master
 
 namespace CoreSystem
 {
@@ -18,13 +15,9 @@ namespace CoreSystem
         {
             await LoadingScreen.Instance.SetLevelInfo(TrackTitle, TrackDescription, TrackImage, context);
 
-<<<<<<< HEAD
             GameManager.Instance.EnterGameState(GameState.Loading);
 
-            await Task.Yield();
-=======
             await LoadingScreen.Instance.ShowLoadingScreen();
->>>>>>> origin/master
         }
     }
 }

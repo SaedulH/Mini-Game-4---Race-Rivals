@@ -1,4 +1,4 @@
-using CoreSystem;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreSystem;
@@ -12,18 +12,55 @@ public class GameManager : NonPersistentSingleton<GameManager>
     [field: SerializeField] public GameState CurrentGameState { get; set; }
     [field: SerializeField] public TrackInfo MenuInfo { get; set; }
     [field: SerializeField] public TrackInfo CurrentTrackInfo { get; set; }
+    [field: SerializeField] public TrackContext CurrentTrackContext { get; set; }
     [field: SerializeField] public GameObject PlayerOne { get; set; }
     [field: SerializeField] public GameObject PlayerTwo { get; set; }
-    [field: SerializeField] public InputActionAsset Input { get; set; }
+    [field: SerializeField] public PlayerInput Input { get; set; }
 
     [field: SerializeField] public GameObject PlayerPrefab { get; set; }
     [field: SerializeField] public GameObject AIPrefab { get; set; }
 
     private List<float> _currentTrackMedalTimes = new();
+    public event Action<GameState> OnGameStateChanged;
+    private InputAction _pauseAction;
 
     protected override void Awake()
     {
         base.Awake();
+        Input = GetComponent<PlayerInput>();
+        EnterGameState(GameState.Menu);
+    }
+
+    private void OnEnable()
+    {
+        _pauseAction = Input.actions["Pause"];
+        _pauseAction.performed += OnPauseInput;
+    }
+
+    private void OnDisable()
+    {
+        _pauseAction.performed -= OnPauseInput;
+    }
+
+    public void EnterGameState(GameState newState)
+    {
+        Debug.Log($"Entering Game State: {newState}");
+        switch (newState)
+        {
+            case GameState.Playing:
+            case GameState.Loading:
+                //Input.SwitchCurrentActionMap("Gameplay");
+                //Time.timeScale = 1f;
+                break;
+            case GameState.Menu:
+            case GameState.Paused:
+            case GameState.GameOver:
+                //Input.SwitchCurrentActionMap("UI");
+                //Time.timeScale = 0f;
+                break;
+        }
+        CurrentGameState = newState;
+        OnGameStateChanged?.Invoke(newState);
     }
 
     public async Task ConfigurePlayer(int playerIndex, int vehicleIndex)
@@ -35,25 +72,24 @@ public class GameManager : NonPersistentSingleton<GameManager>
             input.AssignInput("PlayerOne");
             PlayerOne = playerPrefab;
             PlayerOne.name = "PlayerOne";
-            InputHandler input = PlayerOne.GetOrAdd<InputHandler>();
-            input.AssignInput(Input.FindActionMap("PlayerOne"));
         }
         else
         {
             input.AssignInput("PlayerTwo");
             PlayerTwo = playerPrefab;
-                PlayerTwo.name = "PlayerTwo";
-            }
+            PlayerTwo.name = "PlayerTwo";
+        }
         //playerManager.addTargets(vehicleIndex, playerObject);
         await Task.CompletedTask;
     }
 
     public async Task ConfigureAI(int vehicleIndex)
-            {
+    {
         PlayerTwo = Instantiate(AIPrefab, Vector3.zero, Quaternion.identity);
         AIHandler input = PlayerTwo.GetOrAdd<AIHandler>();
-                PlayerTwo.name = "PlayerAI";
-        
+        PlayerTwo.name = "PlayerAI";
+        //input.AssignInput("PlayerTwo");
+
         //playerManager.addTargets(vehicleIndex, playerObject);
         await Task.CompletedTask;
     }
@@ -97,24 +133,16 @@ public class GameManager : NonPersistentSingleton<GameManager>
         //}
     }
 
-    public void EnterGameState(GameState newState)
+    private void OnPauseInput(InputAction.CallbackContext ctx)
     {
-        Debug.Log($"Entering Game State: {newState}");
-        switch (newState)
+        if(CurrentGameState == GameState.Playing)
         {
-            case GameState.Loading:
-                break;
-            case GameState.Playing:
-                // Handle Playing State
-                break;
-            case GameState.Paused:
-                // Handle Paused State
-                break;
-            case GameState.GameOver:
-                // Handle GameOver State
-                break;
+            PauseGame();
         }
-        CurrentGameState = newState;
+        else if(CurrentGameState == GameState.Paused)
+        {
+            UnpauseGame();
+        }
     }
 
     public void PauseGame()
@@ -127,15 +155,29 @@ public class GameManager : NonPersistentSingleton<GameManager>
         EnterGameState(GameState.Playing);
     }
 
+
+    public void StartRace()
+    {
+        //EnterGameState(GameState.Playing);
+    }
+
     public void RestartLevel()
     {
         TrackContext context = new();
-        _ = TrackInitialiser.Instance.InitialiseTrack(CurrentTrackInfo, context);
+        _ = TrackInitialiser.Instance.InitialiseTrack(CurrentTrackInfo, CurrentTrackContext);
     }
 
     public void ReturnToMainMenu()
     {
         TrackContext context = new();
         _ = TrackInitialiser.Instance.InitialiseTrack(MenuInfo, context);
+    }
+
+    public async Task InitialiseScene(TrackInfo trackInfo, TrackContext trackContext)
+    {
+        CurrentTrackContext = trackContext;
+        CurrentTrackInfo = trackInfo;
+
+        await TrackInitialiser.Instance.InitialiseTrack(trackInfo, trackContext);
     }
 }

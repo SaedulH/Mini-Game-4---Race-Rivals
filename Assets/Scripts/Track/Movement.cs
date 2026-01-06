@@ -1,17 +1,7 @@
-<<<<<<< HEAD
-=======
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
->>>>>>> origin/master
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] public float throttlePower;
     [SerializeField] public float brakePower;
@@ -31,10 +21,6 @@ public class Movement : MonoBehaviour
     [SerializeField] private float speedDamper;
     [SerializeField] private float maxSpeedDamper;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
     private Animator steeringAnim;
     public bool handBrakesActive { get; set; }
     private float[] turnDampingFactor = new float[2];
@@ -68,12 +54,8 @@ public class Movement : MonoBehaviour
                 {
                     rb.linearVelocity = rb.linearVelocity.normalized * maxSpeedDamper;
                 }
-<<<<<<< HEAD
             }
             else if (drive < 0)
-=======
-            }else if(drive < 0)
->>>>>>> origin/master
             {
                 ApplyBrakes(drive);
             }
@@ -84,22 +66,14 @@ public class Movement : MonoBehaviour
     public void ApplyBrakes(float drive)
     {
         isReversing = Vector2.Dot(rb.linearVelocity, transform.up) < 0f;
-<<<<<<< HEAD
 
-=======
-        
->>>>>>> origin/master
         if (isReversing)
         {
             Reverse();
         }
         else
         {
-<<<<<<< HEAD
             rb.AddForce(brakePower * drive * brakeDamping * transform.up);
-=======
-            rb.AddForce(brakePower * drive  * brakeDamping * transform.up);
->>>>>>> origin/master
         }
     }
 
@@ -108,11 +82,7 @@ public class Movement : MonoBehaviour
     {
         handBrakesActive = true;
         if (Vector2.Dot(rb.linearVelocity, transform.up) < 0f)
-<<<<<<< HEAD
             rb.AddForce(-brakePower * multiplier * Time.deltaTime * transform.up);
-=======
-        rb.AddForce(-brakePower * multiplier * Time.deltaTime * transform.up);
->>>>>>> origin/master
     }
 
     //Reverse
@@ -126,25 +96,15 @@ public class Movement : MonoBehaviour
         else
         {
             rb.linearVelocity = rb.linearVelocity.normalized * topReverseSpeed;
-<<<<<<< HEAD
         }
-=======
-        }   
->>>>>>> origin/master
     }
 
     //Steering
     public void Turn(float drive, float direction)
     {
-<<<<<<< HEAD
         if (rb.angularVelocity <= maxTurn && rb.angularVelocity >= -maxTurn && rb.linearVelocity.magnitude > 5)
         {
             if (drive > 0)
-=======
-        if(rb.angularVelocity <= maxTurn && rb.angularVelocity >= -maxTurn && rb.linearVelocity.magnitude > 5)
-        {
-            if(drive > 0)
->>>>>>> origin/master
             {
                 rb.AddTorque(direction * steerStrength);
             }
@@ -152,45 +112,27 @@ public class Movement : MonoBehaviour
             {
                 rb.AddTorque(direction * -steerStrength);
             }
-<<<<<<< HEAD
 
         }
 
-=======
-            
-        }
-        
->>>>>>> origin/master
     }
     //Returns dampened top speed when steering
     public float[] SpeedReduction()
     {
         float reduction = 1;
         float damper = 0;
-<<<<<<< HEAD
         if (rb.angularVelocity > turnDetection)
         {
             damper = -(rb.angularVelocity / (reductionAmount));
             reduction = (1 - damper) / reductionAmount;
         }
         else if (rb.angularVelocity < -turnDetection)
-=======
-        if(rb.angularVelocity > turnDetection)
-        {
-            damper = -(rb.angularVelocity / (reductionAmount));
-            reduction = (1 - damper) / reductionAmount;
-        }else if(rb.angularVelocity < -turnDetection)
->>>>>>> origin/master
         {
             damper = (rb.angularVelocity / reductionAmount);
             reduction = (1 - damper) / reductionAmount;
         }
         turnDampingFactor[0] = reduction;
-<<<<<<< HEAD
         turnDampingFactor[1] = damper / 3;
-=======
-        turnDampingFactor[1] = damper/3;
->>>>>>> origin/master
         return turnDampingFactor;
     }
 

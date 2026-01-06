@@ -1,9 +1,5 @@
 using System.Threading.Tasks;
 using UnityEngine;
-<<<<<<< HEAD
-using Utilities;
-=======
->>>>>>> origin/master
 
 namespace CoreSystem
 {

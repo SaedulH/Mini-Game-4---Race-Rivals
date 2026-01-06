@@ -1,8 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
-using UnityEngine.ResourceManagement.ResourceProviders;
 
 namespace CoreSystem
 {
@@ -13,28 +11,29 @@ namespace CoreSystem
 
         public override async Task Run(TrackContext context)
         {
-            AsyncOperationHandle<SceneInstance> handle = context.SceneHandle;
-            if (!handle.IsValid())
-            {
-                Debug.LogWarning("No valid scene handle to unload.");
-                return;
-            }
+            await Task.CompletedTask;
+            //AsyncOperationHandle<SceneInstance> handle = context.SceneHandle;
+            //if (!handle.IsValid())
+            //{
+            //    Debug.LogWarning("No valid scene handle to unload.");
+            //    return;
+            //}
 
-            // Unload via Addressables
-            AsyncOperationHandle<SceneInstance> unloadHandle = Addressables.UnloadSceneAsync(handle);
-            await unloadHandle.Task;
+            //// Unload via Addressables
+            //AsyncOperationHandle<SceneInstance> unloadHandle = Addressables.UnloadSceneAsync(handle);
+            //await unloadHandle.Task;
 
-            if (unloadHandle.Status == AsyncOperationStatus.Succeeded)
-            {
-                Debug.Log($"Scene unloaded successfully.");
-            }
-            else
-            {
-                Debug.LogError($"Failed to unload scene {handle.Result.Scene.name}");
-            }
+            //if (unloadHandle.Status == AsyncOperationStatus.Succeeded)
+            //{
+            //    Debug.Log($"Scene unloaded successfully.");
+            //}
+            //else
+            //{
+            //    Debug.LogError($"Failed to unload scene {handle.Result.Scene.name}");
+            //}
 
-            // Clear handle after unloading
-            context.SceneHandle = default;
+            //// Clear handle after unloading
+            //context.SceneHandle = default;
         }
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0633350be88d8de4794ca034c580977e, type: 3}
-  m_Name: Init Await Step
+  m_Name: Init Await 0.5 Second Step
   m_EditorClassIdentifier: Assembly-CSharp::CoreSystem.InitAwaitStepSO
   <Description>k__BackingField: 
   <Weight>k__BackingField: 1
   <StepPriority>k__BackingField: 0
-  WaitTime: 2
+  WaitTime: 0.5

@@ -9,7 +9,6 @@ namespace CoreSystem
         public override async Task Run(TrackContext context)
         {
             // Setup Player One
-<<<<<<< HEAD
             await GameManager.Instance.ConfigurePlayer(1, context.VehicleOneIndex);
 
             // Setup Player Two
@@ -21,13 +20,6 @@ namespace CoreSystem
             {
                 await GameManager.Instance.ConfigurePlayer(2, context.VehicleTwoIndex);
             }
-=======
-            await GameManager.Instance.ConfigurePlayer(1, context.VehicleOneIndex, true);
-
-            // Setup Player Two
-            bool isPlayer = (context.PlayerCount == 2);
-            await GameManager.Instance.ConfigurePlayer(2, context.VehicleTwoIndex, isPlayer);
->>>>>>> origin/master
         }
     }
 }
