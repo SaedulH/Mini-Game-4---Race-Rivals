@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3f08636cc9fd84c8e72d97b74a6127, type: 3}
+  m_Name: TopSpeedCar
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleStats
+  <Speed>k__BackingField: 8
+  <Acceleration>k__BackingField: 4
+  <Handling>k__BackingField: 3
+  <Braking>k__BackingField: 5
+  <ThrottlePower>k__BackingField: 100
+  <BrakePower>k__BackingField: 50
+  <ReversePower>k__BackingField: 50
+  <TopSpeed>k__BackingField: 80
+  <TopReverseSpeed>k__BackingField: 80
+  <SteerStrength>k__BackingField: 75
+  <BrakeDamping>k__BackingField: 0
+  <DriftDamper>k__BackingField: 0.5
+  <Multiplier>k__BackingField: 100
+  <MaxTurn>k__BackingField: 90
+  <TurnDetection>k__BackingField: 45
+  <ReductionAmount>k__BackingField: 10

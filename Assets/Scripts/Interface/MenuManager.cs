@@ -32,12 +32,11 @@ public class MenuManager : MonoBehaviour
     // Vehicle Selection
     [field: Header("Vehicle Selection")]
     [field: SerializeField] public VisualElement VehicleScreen { get; set; }
-    [field: SerializeField] public VehicleSelector VehicleOneSelector { get; set; }
+    [field: SerializeField] public VehicleSelector VehicleSelector { get; set; }
     [field: SerializeField] public Vehicle SelectedVehicleOne { get; set; }
     [field: SerializeField] public VisualElement VehicleOneImage { get; set; }
 
     private int _currentVehicleOneIndex = 0;
-    [field: SerializeField] public VehicleSelector VehicleTwoSelector { get; set; }
     [field: SerializeField] public Vehicle SelectedVehicleTwo { get; set; }
     [field: SerializeField] public VisualElement VehicleTwoImage { get; set; }
 
@@ -413,12 +412,12 @@ public class MenuManager : MonoBehaviour
 
     public void OnVehicleOneLeftClicked()
     {
-        if (VehicleOneSelector.AvailableVehicles.Length == 0) return;
+        if (VehicleSelector.AvailableVehicles.Length == 0) return;
 
         PlaySelectAudio();
         if (_currentVehicleOneIndex <= 0)
         {
-            SetVehicleOne(VehicleOneSelector.AvailableVehicles.Length - 1);
+            SetVehicleOne(VehicleSelector.AvailableVehicles.Length - 1);
         }
         else
         {
@@ -428,10 +427,10 @@ public class MenuManager : MonoBehaviour
 
     public void OnVehicleOneRightClicked()
     {
-        if (VehicleOneSelector.AvailableVehicles.Length == 0) return;
+        if (VehicleSelector.AvailableVehicles.Length == 0) return;
 
         PlaySelectAudio();
-        if (_currentVehicleOneIndex >= (VehicleOneSelector.AvailableVehicles.Length - 1))
+        if (_currentVehicleOneIndex >= (VehicleSelector.AvailableVehicles.Length - 1))
         {
             SetVehicleOne(0);
         }
@@ -443,12 +442,12 @@ public class MenuManager : MonoBehaviour
 
     public void OnVehicleTwoLeftClicked()
     {
-        if (VehicleTwoSelector.AvailableVehicles.Length == 0) return;
+        if (VehicleSelector.AvailableVehicles.Length == 0) return;
 
         PlaySelectAudio();
         if (_currentVehicleTwoIndex <= 0)
         {
-            SetVehicleTwo(VehicleTwoSelector.AvailableVehicles.Length - 1);
+            SetVehicleTwo(VehicleSelector.AvailableVehicles.Length - 1);
         }
         else
         {
@@ -458,10 +457,10 @@ public class MenuManager : MonoBehaviour
 
     public void OnVehicleTwoRightClicked()
     {
-        if (VehicleTwoSelector.AvailableVehicles.Length == 0) return;
+        if (VehicleSelector.AvailableVehicles.Length == 0) return;
 
         PlaySelectAudio();
-        if (_currentVehicleTwoIndex >= (VehicleTwoSelector.AvailableVehicles.Length - 1))
+        if (_currentVehicleTwoIndex >= (VehicleSelector.AvailableVehicles.Length - 1))
         {
             SetVehicleTwo(0);
         }
@@ -473,12 +472,12 @@ public class MenuManager : MonoBehaviour
 
     public void SetVehicleOne(int index)
     {
-        if (index < 0 || index >= VehicleOneSelector.AvailableVehicles.Length) return;
+        if (index < 0 || index >= VehicleSelector.AvailableVehicles.Length) return;
 
         _currentVehicleOneIndex = index;
-        SelectedVehicleOne = VehicleOneSelector.AvailableVehicles[_currentVehicleOneIndex];
-        VehicleOneName.text = SelectedVehicleOne.Name;
-        VehicleOneImage.style.backgroundImage = new StyleBackground(SelectedVehicleOne.Icon);
+        SelectedVehicleOne = VehicleSelector.AvailableVehicles[_currentVehicleOneIndex];
+        VehicleOneName.text = SelectedVehicleOne.PlayerOneName;
+        VehicleOneImage.style.backgroundImage = new StyleBackground(SelectedVehicleOne.PlayerOneIcon);
 
         if (_setPlayerOneSlidersCoroutine != null)
         {
@@ -489,12 +488,12 @@ public class MenuManager : MonoBehaviour
 
     public void SetVehicleTwo(int index)
     {
-        if (index < 0 || index >= VehicleTwoSelector.AvailableVehicles.Length) return;
+        if (index < 0 || index >= VehicleSelector.AvailableVehicles.Length) return;
 
         _currentVehicleTwoIndex = index;
-        SelectedVehicleTwo = VehicleTwoSelector.AvailableVehicles[_currentVehicleTwoIndex];
-        VehicleTwoName.text = SelectedVehicleTwo.Name;
-        VehicleTwoImage.style.backgroundImage = new StyleBackground(SelectedVehicleTwo.Icon);
+        SelectedVehicleTwo = VehicleSelector.AvailableVehicles[_currentVehicleTwoIndex];
+        VehicleTwoName.text = SelectedVehicleTwo.PlayerTwoName;
+        VehicleTwoImage.style.backgroundImage = new StyleBackground(SelectedVehicleTwo.PlayerTwoIcon);
 
         if (_setPlayerTwoSlidersCoroutine != null)
         {
@@ -508,13 +507,13 @@ public class MenuManager : MonoBehaviour
         List<Coroutine> running = new()
         {
             // index 0 : Speed
-            StartCoroutine(SetSliderValue(statSliders[0], vehicle.Speed)),
+            StartCoroutine(SetSliderValue(statSliders[0], vehicle.Stats.Speed)),
             // index 1 : Acceleration
-            StartCoroutine(SetSliderValue(statSliders[1], vehicle.Acceleration)),
+            StartCoroutine(SetSliderValue(statSliders[1], vehicle.Stats.Acceleration)),
             // index 2 : Handling
-            StartCoroutine(SetSliderValue(statSliders[2], vehicle.Handling)),
+            StartCoroutine(SetSliderValue(statSliders[2], vehicle.Stats.Handling)),
             // index 3 : Braking
-            StartCoroutine(SetSliderValue(statSliders[3], vehicle.Braking))
+            StartCoroutine(SetSliderValue(statSliders[3], vehicle.Stats.Braking))
         };
         foreach (Coroutine c in running)
         {
@@ -595,8 +594,9 @@ public class MenuManager : MonoBehaviour
         {
             GameMode = _gameMode,
             PlayerCount = _playerCount,
-            VehicleOneIndex = _currentVehicleOneIndex,
-            VehicleTwoIndex = _currentVehicleTwoIndex,
+            VehicleOne =  VehicleSelector.AvailableVehicles[_currentVehicleOneIndex],
+            VehicleTwo = VehicleSelector.AvailableVehicles[_currentVehicleTwoIndex],
+            LapCount = trackInfo.GetLapCountForMode(_gameMode),
             TotalWeight = totalWeight
         };
 

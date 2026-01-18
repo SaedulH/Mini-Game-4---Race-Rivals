@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using CoreSystem;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Utilities;
@@ -20,9 +21,11 @@ public class GameManager : NonPersistentSingleton<GameManager>
     [field: SerializeField] public GameObject PlayerPrefab { get; set; }
     [field: SerializeField] public GameObject AIPrefab { get; set; }
 
-    private List<float> _currentTrackMedalTimes = new();
-    public event Action<GameState> OnGameStateChanged;
     private InputAction _pauseAction;
+    public event Action<GameState> OnGameStateChanged;
+
+    private bool _playerOneCompletedRace = false;
+    private bool _playerTwoCompletedRace = false;
 
     protected override void Awake()
     {
@@ -45,103 +48,99 @@ public class GameManager : NonPersistentSingleton<GameManager>
     public void EnterGameState(GameState newState)
     {
         Debug.Log($"Entering Game State: {newState}");
-        switch (newState)
-        {
-            case GameState.Playing:
-            case GameState.Loading:
-                //Input.SwitchCurrentActionMap("Gameplay");
-                //Time.timeScale = 1f;
-                break;
-            case GameState.Menu:
-            case GameState.Paused:
-            case GameState.GameOver:
-                //Input.SwitchCurrentActionMap("UI");
-                //Time.timeScale = 0f;
-                break;
-        }
+        //switch (newState)
+        //{
+        //    case GameState.Playing:
+        //        break;
+        //    case GameState.Loading:
+        //        //Input.SwitchCurrentActionMap("Gameplay");
+        //        break;
+        //    case GameState.Menu:
+        //    case GameState.Paused:
+        //    case GameState.GameOver:
+        //        //Input.SwitchCurrentActionMap("UI");
+        //        break;
+        //}
         CurrentGameState = newState;
         OnGameStateChanged?.Invoke(newState);
     }
 
-    public async Task ConfigurePlayer(int playerIndex, int vehicleIndex)
+    public async Task ConfigurePlayer(int playerIndex, Vehicle vehicle)
     {
         GameObject playerPrefab = Instantiate(PlayerPrefab, Vector3.zero, Quaternion.identity);
         InputHandler input = playerPrefab.GetOrAdd<InputHandler>();
+        VehicleSpriteHandler spriteHandler = playerPrefab.GetOrAdd<VehicleSpriteHandler>();
+        Movement movement = playerPrefab.GetOrAdd<Movement>();
+        movement.AssignVehicleStats(vehicle.Stats);
         if (playerIndex == 1)
         {
             input.AssignInput("PlayerOne");
+            spriteHandler.AssignSprite(vehicle.PlayerOneIcon);
             PlayerOne = playerPrefab;
             PlayerOne.name = "PlayerOne";
+            AddToCameraTargetGroup(1, PlayerOne);
+            _playerOneCompletedRace = false;
         }
         else
         {
             input.AssignInput("PlayerTwo");
+            spriteHandler.AssignSprite(vehicle.PlayerTwoIcon);
             PlayerTwo = playerPrefab;
             PlayerTwo.name = "PlayerTwo";
+            AddToCameraTargetGroup(2, PlayerTwo);
+            _playerTwoCompletedRace = false;
         }
-        //playerManager.addTargets(vehicleIndex, playerObject);
+
         await Task.CompletedTask;
     }
 
-    public async Task ConfigureAI(int vehicleIndex)
+    public async Task ConfigureAI(Vehicle vehicle)
     {
         PlayerTwo = Instantiate(AIPrefab, Vector3.zero, Quaternion.identity);
+        PlayerTwo.name = "CPU";
         AIHandler input = PlayerTwo.GetOrAdd<AIHandler>();
-        PlayerTwo.name = "PlayerAI";
         //input.AssignInput("PlayerTwo");
 
-        //playerManager.addTargets(vehicleIndex, playerObject);
+        VehicleSpriteHandler spriteHandler = PlayerTwo.GetOrAdd<VehicleSpriteHandler>();
+        spriteHandler.AssignSprite(vehicle.PlayerTwoIcon);
+
+        Movement movement = PlayerTwo.GetOrAdd<Movement>();
+        movement.AssignVehicleStats(vehicle.Stats);
+
+        AddToCameraTargetGroup(2, PlayerTwo);
+        _playerTwoCompletedRace = false;
         await Task.CompletedTask;
+    }
+
+    private void AddToCameraTargetGroup(int playerIndex, GameObject playerObject)
+    {
+
+        return;
+        
+        CinemachineTargetGroup targetGroup = GameObject.FindGameObjectWithTag("Target").GetComponent<CinemachineTargetGroup>();
+        CinemachineTargetGroup.Target target = new();
+        target.Object = playerObject.transform;
+        target.Radius = 30f;
+        target.Weight = 1f;
+        Debug.Log("target found");
+        targetGroup.AddMember(target.Object, target.Weight, target.Radius);
     }
 
     public async Task InitialiseHUD(TrackContext context, List<float> medalTimes)
     {
-        _currentTrackMedalTimes = medalTimes;
         await HUDManager.Instance.SetupHUD(context, medalTimes);
-    }
-
-    //IEnumerator GetRaceType()
-    //{
-    //    //isRaceStart = false;
-    //    //yield return new WaitForSeconds(3);
-    //    //isRaceStart = true;
-    //    //if (playerCount == 2)
-    //    //{  
-    //    //    raceType = VERSUS;
-    //    //}
-    //    //else
-    //    //{
-    //    //    raceType = TIME_ATTACK;
-    //    //}   
-    //}
-
-    public void GetRaceResults()
-    {
-
-    }
-
-    public void TimeAttack()
-    {
-        //timeToBeat -= Time.deltaTime;
-        //timer.text = timeToBeat.ToString("F2");
-
-        //if(timeToBeat <= 0)
-        //{
-        //    Debug.Log("YOU LOSE!");
-        //    isRaceComplete = true;
-
-        //}
     }
 
     private void OnPauseInput(InputAction.CallbackContext ctx)
     {
-        if(CurrentGameState == GameState.Playing)
+        switch (CurrentGameState) 
         {
-            PauseGame();
-        }
-        else if(CurrentGameState == GameState.Paused)
-        {
-            UnpauseGame();
+            case GameState.Playing:
+                PauseGame();
+                break;
+            case GameState.Paused:
+                UnpauseGame();
+                break;
         }
     }
 
@@ -155,10 +154,37 @@ public class GameManager : NonPersistentSingleton<GameManager>
         EnterGameState(GameState.Playing);
     }
 
-
     public void StartRace()
     {
-        //EnterGameState(GameState.Playing);
+        EnterGameState(GameState.Playing);
+    }
+
+    public void CompleteRace(int finishedPlayer)
+    {
+        if(finishedPlayer == 1)
+        {
+            _playerOneCompletedRace = true;
+        }
+        else if (finishedPlayer == 2)
+        {
+            _playerTwoCompletedRace = true;
+        }
+
+        if (CurrentTrackContext.GameMode == GameMode.Race || 
+            (CurrentTrackContext.GameMode == GameMode.Timed && 
+            (CurrentTrackContext.PlayerCount == 1 || 
+            (CurrentTrackContext.PlayerCount == 2 && 
+            _playerOneCompletedRace && _playerTwoCompletedRace))))
+        {
+            GetRaceResults();
+        }
+    }
+
+    private void GetRaceResults()
+    {
+        RaceCompleteDetails results = HUDManager.instance.GetResults();
+        RaceCompleteScreen.Instance.SetRaceCompleteDetails(results);
+        EnterGameState(GameState.GameOver);
     }
 
     public void RestartLevel()

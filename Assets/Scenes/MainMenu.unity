@@ -188,22 +188,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7484cedeaf6d9646a2ea791ec38dc85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <VehicleOneSelector>k__BackingField: {fileID: 11400000, guid: 79970dd803758e342b069334087a5af3, type: 2}
+  <VehicleSelector>k__BackingField: {fileID: 11400000, guid: 79970dd803758e342b069334087a5af3, type: 2}
   <SelectedVehicleOne>k__BackingField:
-    <Name>k__BackingField: 
-    <Icon>k__BackingField: {fileID: 0}
-    <Speed>k__BackingField: 0
-    <Acceleration>k__BackingField: 0
-    <Handling>k__BackingField: 0
-    <Braking>k__BackingField: 0
-  <VehicleTwoSelector>k__BackingField: {fileID: 11400000, guid: 5d2c8c3892b8aec4abe97d0d430e6fbd, type: 2}
+    <PlayerOneName>k__BackingField: 
+    <PlayerOneIcon>k__BackingField: {fileID: 0}
+    <PlayerTwoName>k__BackingField: 
+    <PlayerTwoIcon>k__BackingField: {fileID: 0}
+    <Stats>k__BackingField: {fileID: 0}
   <SelectedVehicleTwo>k__BackingField:
-    <Name>k__BackingField: 
-    <Icon>k__BackingField: {fileID: 0}
-    <Speed>k__BackingField: 0
-    <Acceleration>k__BackingField: 0
-    <Handling>k__BackingField: 0
-    <Braking>k__BackingField: 0
+    <PlayerOneName>k__BackingField: 
+    <PlayerOneIcon>k__BackingField: {fileID: 0}
+    <PlayerTwoName>k__BackingField: 
+    <PlayerTwoIcon>k__BackingField: {fileID: 0}
+    <Stats>k__BackingField: {fileID: 0}
   <PlayAudio>k__BackingField: {fileID: 11400000, guid: 1e11a5d2a2f30724c8c0674392944227, type: 2}
   <SelectAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
   <BackAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}

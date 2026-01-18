@@ -6,8 +6,8 @@ namespace CoreSystem
     {
         public GameMode GameMode;
         public int PlayerCount;
-        public int VehicleOneIndex;
-        public int VehicleTwoIndex;
+        public Vehicle VehicleOne;
+        public Vehicle VehicleTwo;
         public int LapCount;
         public float TotalWeight;
     }

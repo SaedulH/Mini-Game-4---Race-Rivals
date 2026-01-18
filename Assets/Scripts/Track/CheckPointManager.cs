@@ -1,108 +1,101 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using System.Threading.Tasks;
+using CoreSystem;
 using UnityEngine;
+using Utilities;
 
-public class CheckPointManager : MonoBehaviour
+public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
 {
-    public static CheckPointManager Instance;
+    [field: SerializeField] public CheckpointScript[] Checkpoints { get; set; }
+    [field: SerializeField] public RaceProgress PlayerOneProgress { get; set; }
+    [field: SerializeField] public RaceProgress PlayerTwoProgress { get; set; }
 
-    public List<GameObject> players;
-    [SerializeReference] private GameObject playersParent;
-    [SerializeReference] private List<GameObject> checkpoints;
+    private int _maxLaps = 0;
+    private GameMode _gameMode;
 
-    [SerializeField] TMP_Text lapNumber;
-    public int maxLaps { get; set; }
-    private ArrayList[] raceProgress { get; set; }
-    private int lastCheckpoint;
-    // Start is called before the first frame update
-    void Start()
+    private void OnValidate()
     {
-        Instance = this;
-        AssignCheckpoints();
-        StartCoroutine(AssignPlayers());
+        //AssignCheckpoints();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FixedUpdate()
     {
-
-    }
-
-    IEnumerator AssignPlayers()
-    {
-
-        yield return new WaitForSeconds(3);
-        playersParent = GameObject.FindGameObjectWithTag("PlayerParent");
-        foreach (Transform playerChild in playersParent.transform)
+        if(_gameMode != GameMode.Race)
         {
-            players.Add(playerChild.gameObject);
+            return;
         }
-        raceProgress = new ArrayList[players.Count];
-        for (int i = 0; i < players.Count; i++)
+
+        //Calculate overall progress and distance to next checkpoint for each player
+        //Set player position based on furthest complete
+    }
+
+    public async Task SetupCheckpoints(TrackContext context)
+    {
+        PlayerOneProgress = new RaceProgress(0, 1, 0f);
+        PlayerTwoProgress = new RaceProgress(0, 1, 0f);
+        _maxLaps = context.LapCount;
+        _gameMode = context.GameMode;
+
+        await AssignCheckpoints();
+    }
+
+    private async Task AssignCheckpoints()
+    {
+        Checkpoints = gameObject.GetComponentsInChildren<CheckpointScript>();
+        foreach (CheckpointScript checkpoint in Checkpoints)
         {
-            raceProgress[i] = new ArrayList()
+            checkpoint.ResetCheckpoint();
+        }
+        await Task.Yield();
+    }
+
+    public void CheckpointReached(int checkpointNumber, int playerNumber)
+    {
+        if (playerNumber == 1)
+        {
+            if (checkpointNumber == PlayerOneProgress.CurrentCheckpoint + 1)
             {
-                i + 1, // Player number
-                1, // lap number
-                0 // checkpointNum
-            };
-        }
-    }
-
-    void AssignCheckpoints()
-    {
-        int trackno = PlayerPrefs.GetInt("TrackNum");
-        if (trackno == 1)
-        {
-            GameObject nonActiveCheckpoints = gameObject.transform.GetChild(1).gameObject;
-            nonActiveCheckpoints.SetActive(false);
-        }
-        else
-        {
-            GameObject nonActiveCheckpoints = gameObject.transform.GetChild(0).gameObject;
-            nonActiveCheckpoints.SetActive(false);
-        }
-        GameObject trackcheckpoints = gameObject.transform.GetChild(trackno - 1).gameObject;
-        foreach (Transform pointChild in trackcheckpoints.transform)
-        {
-            checkpoints.Add(pointChild.gameObject);
-        }
-        lastCheckpoint = checkpoints.Count;
-        maxLaps = 3;
-    }
-
-    public void checkpointReached(int pointNum, int playerNum)
-    {
-        ArrayList playerStat = raceProgress[playerNum - 1];
-        int playerNo = (int)playerStat[0];
-        int lapNo = (int)playerStat[1];
-        int checkpointNo = (int)playerStat[2];
-
-        if (checkpointNo == (pointNum - 1))
-        {
-            raceProgress[playerNum - 1][2] = pointNum;
-        }
-        else if (checkpointNo < (pointNum - 1))
-        {
-            Debug.Log("Checkpoint missed!");
-        }
-        else if (checkpointNo == lastCheckpoint && pointNum == 1)
-        {
-            if (lapNo != maxLaps)
-            {
-                raceProgress[playerNum - 1][1] = (lapNo + 1);
-                lapNumber.text = (lapNo + 1) + "/" + maxLaps;
+                PlayerOneProgress.SetCurrentCheckpoint(checkpointNumber);
+                UpdateLapNumber(playerNumber, PlayerOneProgress);
             }
             else
             {
-                Debug.Log("Player " + playerNo + "Wins!!");
-                //GameManager.Instance.isRaceComplete = true;
-                //StartCoroutine(RaceOver());
+                Debug.Log($"Player 1 missed a checkpoint! Current: {PlayerOneProgress.CurrentCheckpoint}, Triggered: {checkpointNumber}");
+            }
+        }
+        else if (playerNumber == 2)
+        {
+            if (checkpointNumber == PlayerTwoProgress.CurrentCheckpoint + 1)
+            {
+                PlayerTwoProgress.SetCurrentCheckpoint(checkpointNumber);
+                UpdateLapNumber(playerNumber, PlayerTwoProgress);
+            }
+            else
+            {
+                Debug.Log($"Player 2 missed a checkpoint! Current: {PlayerTwoProgress.CurrentCheckpoint}, Triggered: {checkpointNumber}");
+            }
+        }
+    }
+
+    private void UpdateLapNumber(int playerNumber, RaceProgress playerProgress)
+    {
+        if (playerProgress.CurrentCheckpoint == Checkpoints.Length)
+        {
+            float lapTime = HUDManager.instance.UpdatePlayerLapCount(playerNumber, playerProgress.CurrentLap);
+            if (lapTime < playerProgress.BestLapTime || playerProgress.BestLapTime == 0f)
+            {
+                playerProgress.SetBestLapTime(lapTime);
             }
 
+            if (playerProgress.CurrentLap < _maxLaps)
+            {
+                playerProgress.SetNextLap();
+                playerProgress.SetCurrentCheckpoint(0);
+            }
+            else
+            {
+                Debug.Log($"Player {playerNumber} Finished!!");
+                GameManager.Instance.CompleteRace(playerNumber);
+            }
         }
-
-
     }
 }

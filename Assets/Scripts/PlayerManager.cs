@@ -14,7 +14,7 @@ public class PlayerManager : MonoBehaviour
         targetGroup = GameObject.FindGameObjectWithTag("Target").GetComponent<CinemachineTargetGroup>();
     }
 
-    public void addTargets(int index, GameObject player)
+    public void AddTargets(int index, GameObject player)
     {
         //CinemachineTargetGroup.Target target = new CinemachineTargetGroup.Target();
         //target.target = player.transform; // You can attach an existing GameObject's transform here

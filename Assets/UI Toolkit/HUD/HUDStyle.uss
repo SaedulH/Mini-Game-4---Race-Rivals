@@ -59,3 +59,21 @@
     background-image: url("project://database/Assets/Sprites/background.png?fileID=2800000&guid=f57c8909f9841d84ab4f0de659c33e7d&type=3#background");
     -unity-background-image-tint-color: rgba(0, 30, 100, 0);
 }
+
+.countdown {
+    font-size: 120px;
+    -unity-text-align: middle-center;
+    margin-top: 0%;
+    margin-right: 0%;
+    margin-bottom: 0%;
+    margin-left: 0%;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    -unity-text-outline-width: 5px;
+    -unity-text-outline-color: rgba(0, 0, 0, 0.57);
+    transition-duration: 0.2s;
+    transition-property: font-size;
+    transition-timing-function: ease-in-sine;
+}

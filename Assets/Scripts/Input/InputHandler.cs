@@ -11,13 +11,14 @@ public class InputHandler : MonoBehaviour, IInputHandler
     private InputAction _throttleAction;
     private InputAction _steeringAction;
     private InputAction _handBrakeAction;
-    private bool _active = false;
+    private bool _isActive = false;
+
     private void Update()
     {
-        if (!_active) return;
+        if (!_isActive) return;
         Throttle = _throttleAction.ReadValue<float>();
         Steering = _steeringAction.ReadValue<float>();
-        HandBrake = _handBrakeAction.ReadValue<bool>();
+        HandBrake = _handBrakeAction.ReadValue<float>() > 0;
     }
 
     public void AssignInput(string actionMapName)
@@ -29,6 +30,6 @@ public class InputHandler : MonoBehaviour, IInputHandler
         _steeringAction = Input.actions["Horizontal"];
         _handBrakeAction = Input.actions["HandBrake"];
 
-        _active = true;
+        _isActive = true;
     }
 }

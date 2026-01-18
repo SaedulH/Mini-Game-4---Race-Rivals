@@ -2,7 +2,7 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Checkpoints
   - PlayerParent
@@ -13,6 +13,7 @@ TagManager:
   - OverpassCollider
   - UnderpassCollider
   - AI
+  - VirtualCamera
   layers:
   - Default
   - TransparentFX
@@ -53,3 +54,5 @@ TagManager:
   - name: OverPass
     uniqueID: 2384807519
     locked: 0
+  m_RenderingLayers:
+  - Default

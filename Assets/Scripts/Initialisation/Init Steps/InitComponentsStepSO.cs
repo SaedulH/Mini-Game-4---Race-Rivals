@@ -9,6 +9,8 @@ namespace CoreSystem
     {
         public override async Task Run(TrackContext context)
         {
+            await CheckPointManager.Instance.SetupCheckpoints(context);
+
             //await AudioManager.Instance.ResetComponent();
 
             await Task.CompletedTask;

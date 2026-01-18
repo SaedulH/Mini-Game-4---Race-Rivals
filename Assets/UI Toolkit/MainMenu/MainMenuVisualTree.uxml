@@ -33,6 +33,8 @@
                             <ui:Button text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackTwo" class="selectionButton" style="min-width: 20%;"/>
                             <ui:Button text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackThree" class="selectionButton" style="min-width: 20%;"/>
                         </ui:GroupBox>
+                        <ui:Label tabindex="-1" text="Laps" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectLapCount" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; display: none;"/>
+                        <ui:SliderInt label="SliderInt" value="42" high-value="100" class="selectionOption" style="display: none;"/>
                     </ui:GroupBox>
                     <ui:GroupBox name="SelectMap" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 40%; height: 100%; flex-direction: column; padding-left: 0; padding-right: 5%;">
                         <ui:Label tabindex="-1" text="Track Map" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MapName" class="subheader" style="font-size: 45px; margin-top: 41px; -unity-text-align: upper-center; flex-shrink: 1; flex-grow: 1; margin-bottom: 0; padding-bottom: 0;"/>

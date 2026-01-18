@@ -4,16 +4,16 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
-public class PauseScreen : NonPersistentSingleton<PauseScreen>
+public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
 {
     [field: SerializeField] public VisualElement Root { get; set; }
-    [field: SerializeField] public VisualElement PauseMenu { get; set; }
-    [field: SerializeField] public Button PlayButton { get; set; }
+    [field: SerializeField] public VisualElement RaceCompleteElement { get; set; }
+    [field: SerializeField] public Label WinningPlayer { get; set; }
+    [field: SerializeField] public Label WinningText { get; set; }
     [field: SerializeField] public Button RestartButton { get; set; }
     [field: SerializeField] public Button QuitButton { get; set; }
 
     [field: Header("Audio")]
-    [field: SerializeField] public AudioData ResumeAudio { get; set; }
     [field: SerializeField] public AudioData RestartAudio { get; set; }
     [field: SerializeField] public AudioData QuitAudio { get; set; }
     [field: SerializeField] public AudioData HoverAudio { get; set; }
@@ -27,17 +27,17 @@ public class PauseScreen : NonPersistentSingleton<PauseScreen>
     {
         GameManager.Instance.OnGameStateChanged += HandleGameStateChanged;
 
-        PauseMenu = Root.Q<VisualElement>("PauseMenu");
-        PauseMenu.AddToClassList("hideUI");
-        PauseMenu.style.display = DisplayStyle.None;
+        RaceCompleteElement = Root.Q<VisualElement>("RaceComplete");
+        RaceCompleteElement.AddToClassList("hideUI");
+        RaceCompleteElement.style.display = DisplayStyle.None;
 
-        PlayButton = PauseMenu.Q<Button>("Play");
-        PlayButton.clicked += OnPlayClicked;
+        WinningPlayer = RaceCompleteElement.Q<Label>("WinningPlayer");
+        WinningText = RaceCompleteElement.Q<Label>("WinningText");
 
-        RestartButton = PauseMenu.Q<Button>("Restart");
+        RestartButton = RaceCompleteElement.Q<Button>("Restart");
         RestartButton.clicked += OnRestartClicked;
 
-        QuitButton = PauseMenu.Q<Button>("Quit");
+        QuitButton = RaceCompleteElement.Q<Button>("Quit");
         QuitButton.clicked += OnQuitClicked;
 
         SetupHoverAudio();
@@ -47,47 +47,74 @@ public class PauseScreen : NonPersistentSingleton<PauseScreen>
     {
         GameManager.Instance.OnGameStateChanged -= HandleGameStateChanged;
 
-        PlayButton.clicked -= OnPlayClicked;
         RestartButton.clicked -= OnRestartClicked;
         QuitButton.clicked -= OnQuitClicked;
     }
 
     private async void HandleGameStateChanged(GameState state)
     {
-        if(state == GameState.Paused)
+        if(state == GameState.GameOver)
         {
-            await ShowPauseMenu();
+            await Task.Delay(1000);
+
+            await ShowRaceCompleteScreen();
         }
         else
         {
-            await HidePauseMenu();
+            await HideRaceCompleteScreen();
         }
     }
 
-    public async Task ShowPauseMenu()
+    public async Task ShowRaceCompleteScreen()
     {
-        Debug.Log("Show Pause Menu");
+        Debug.Log("Show Race Complete Screen");
         //GlobalVolumeManager.Instance.Blur();
-        PauseMenu.style.display = DisplayStyle.Flex;
+        RaceCompleteElement.style.display = DisplayStyle.Flex;
         await Task.Yield();
-        PauseMenu.RemoveFromClassList("hideUI");
+        RaceCompleteElement.RemoveFromClassList("hideUI");
 
         await Task.Delay(200);
     }
 
-    public async Task HidePauseMenu()
+    public async Task HideRaceCompleteScreen()
     {
-        Debug.Log("Hide Pause Menu");
+        Debug.Log("Hide Race Complete Screen");
         //GlobalVolumeManager.Instance.Unblur();
-        PauseMenu.AddToClassList("hideUI");
+        RaceCompleteElement.AddToClassList("hideUI");
         await Task.Delay(200);
-        PauseMenu.style.display = DisplayStyle.None;
+        RaceCompleteElement.style.display = DisplayStyle.None;
     }
 
-    private void OnPlayClicked()
+    public void SetRaceCompleteDetails(RaceCompleteDetails details)
     {
-        PlayResumeAudio();
-        GameManager.Instance.UnpauseGame();
+        string winningPlayer = "";
+        string winningText = "";
+        if (details.GameMode == GameMode.Race)
+        {
+            if (details.PlayerCount == 1)
+            {
+                winningPlayer = details.WinningPlayer == "Player One" ? Constants.SOLO_RACE_WIN : Constants.SOLO_RACE_LOSE;
+            } 
+            else
+            {
+                winningPlayer = $"{Constants.VERSUS_WINNER_TEXT}{details.WinningPlayer}";
+            }
+        }
+        else if (details.GameMode == GameMode.Timed)
+        {
+            winningText = $"{Constants.BEST_LAP_TEXT}{details.WinningTime}";
+            if (details.PlayerCount == 1)
+            {
+                winningPlayer = details.AwardedMedal != Medal.Failed  ? $"{Constants.SOLO_TIMED_WIN}{details.AwardedMedal}" : Constants.SOLO_TIMED_LOSE;
+            }
+            else
+            {
+                winningPlayer = $"{Constants.VERSUS_WINNER_TEXT}{details.WinningPlayer}";
+            }
+        }
+
+        WinningPlayer.text = winningPlayer;
+        WinningText.text = winningText;
     }
 
     private void OnRestartClicked()
@@ -123,14 +150,6 @@ public class PauseScreen : NonPersistentSingleton<PauseScreen>
                 hovered = false;
             });
         });
-    }
-
-    private void PlayResumeAudio(bool playSound = true)
-    {
-        if (!playSound) return;
-        AudioManager.Instance.CreateAudioBuilder()
-            .WithRandomPitch(-0.05f, 0.05f)
-            .Play(ResumeAudio);
     }
 
     private void PlayRestartAudio(bool playSound = true)

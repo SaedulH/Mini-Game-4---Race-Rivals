@@ -15,4 +15,4 @@ MonoBehaviour:
   <Description>k__BackingField: Enter Playing Game State
   <Weight>k__BackingField: 1
   <StepPriority>k__BackingField: 0
-  NewGameState: 2
+  NewGameState: 0

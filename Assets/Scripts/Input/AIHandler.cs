@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using UnityEngine;
+using Utilities;
 
 public class AIHandler : MonoBehaviour, IInputHandler
 {
@@ -18,6 +19,7 @@ public class AIHandler : MonoBehaviour, IInputHandler
     [SerializeReference] WaypointNode[] allWaypointNodes;
     [SerializeField] private float throttleAI;
     [SerializeField] private float steeringAI;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -29,6 +31,7 @@ public class AIHandler : MonoBehaviour, IInputHandler
     // Update is called once per frame
     void FixedUpdate()
     {
+
         //if (GameManager.Instance.isRaceStart)
         //{
         //    throttleAI = ApplyThrottleOrBrakes(steeringAI);
@@ -40,8 +43,6 @@ public class AIHandler : MonoBehaviour, IInputHandler
         
         //    detectInput(1f, steeringAI);
         //}
-
-        
     }
 
     void FollowWaypoints()

@@ -9,16 +9,16 @@ namespace CoreSystem
         public override async Task Run(TrackContext context)
         {
             // Setup Player One
-            await GameManager.Instance.ConfigurePlayer(1, context.VehicleOneIndex);
+            await GameManager.Instance.ConfigurePlayer(1, context.VehicleOne);
 
             // Setup Player Two
             if (context.PlayerCount == 2)
             {
-                await GameManager.Instance.ConfigureAI(context.VehicleTwoIndex);
+                await GameManager.Instance.ConfigurePlayer(2, context.VehicleTwo);
             }
             else
             {
-                await GameManager.Instance.ConfigurePlayer(2, context.VehicleTwoIndex);
+                await GameManager.Instance.ConfigureAI(context.VehicleTwo);
             }
         }
     }

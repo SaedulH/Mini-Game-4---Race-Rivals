@@ -4,10 +4,10 @@ using UnityEngine;
 [Serializable]
 public class Vehicle
 {
-    [field: SerializeField] public string Name { get; set; }
-    [field: SerializeField] public Sprite Icon { get; set; }
-    [field: SerializeField] public int Speed { get; set; }
-    [field: SerializeField] public int Acceleration { get; set; }
-    [field: SerializeField] public int Handling { get; set; }
-    [field: SerializeField] public int Braking { get; set; }
+    [field: SerializeField] public string PlayerOneName { get; set; }
+    [field: SerializeField] public Sprite PlayerOneIcon { get; set; }
+    [field: SerializeField] public string PlayerTwoName { get; set; }
+    [field: SerializeField] public Sprite PlayerTwoIcon { get; set; }
+    [field: SerializeField] public VehicleStats Stats { get; set; }
+
 }
