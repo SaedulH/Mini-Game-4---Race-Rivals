@@ -8,6 +8,7 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
 {
     [field: SerializeField] public VisualElement Root { get; set; }
     [field: SerializeField] public VisualElement RaceCompleteElement { get; set; }
+    [field: SerializeField] public VisualElement RaceCompleteBackground { get; set; }
     [field: SerializeField] public Label WinningPlayer { get; set; }
     [field: SerializeField] public Label WinningText { get; set; }
     [field: SerializeField] public Button RestartButton { get; set; }
@@ -30,6 +31,7 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
         RaceCompleteElement = Root.Q<VisualElement>("RaceComplete");
         RaceCompleteElement.AddToClassList("hideUI");
         RaceCompleteElement.style.display = DisplayStyle.None;
+        RaceCompleteBackground = Root.Q<VisualElement>("Background");
 
         WinningPlayer = RaceCompleteElement.Q<Label>("WinningPlayer");
         WinningText = RaceCompleteElement.Q<Label>("WinningText");
@@ -93,10 +95,12 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
         {
             if (details.PlayerCount == 1)
             {
+                RaceCompleteBackground.style.width = new StyleLength(new Length(150, LengthUnit.Percent));
                 winningPlayer = details.WinningPlayer == "Player One" ? Constants.SOLO_RACE_WIN : Constants.SOLO_RACE_LOSE;
             } 
             else
             {
+                RaceCompleteBackground.style.width = new StyleLength(new Length(170, LengthUnit.Percent));
                 winningPlayer = $"{Constants.VERSUS_WINNER_TEXT}{details.WinningPlayer}";
             }
         }
@@ -105,10 +109,12 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
             winningText = $"{Constants.BEST_LAP_TEXT}{details.WinningTime}";
             if (details.PlayerCount == 1)
             {
+                RaceCompleteBackground.style.width = new StyleLength(new Length(150, LengthUnit.Percent));
                 winningPlayer = details.AwardedMedal != Medal.Failed  ? $"{Constants.SOLO_TIMED_WIN}{details.AwardedMedal}" : Constants.SOLO_TIMED_LOSE;
             }
             else
             {
+                RaceCompleteBackground.style.width = new StyleLength(new Length(170, LengthUnit.Percent));
                 winningPlayer = $"{Constants.VERSUS_WINNER_TEXT}{details.WinningPlayer}";
             }
         }

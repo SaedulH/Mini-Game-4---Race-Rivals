@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using UnityEngine;
+using Utilities;
 
 namespace CoreSystem
 {
@@ -16,7 +17,7 @@ namespace CoreSystem
             {
                 await GameManager.Instance.ConfigurePlayer(2, context.VehicleTwo);
             }
-            else
+            else if (context.GameMode == GameMode.Race)
             {
                 await GameManager.Instance.ConfigureAI(context.VehicleTwo);
             }

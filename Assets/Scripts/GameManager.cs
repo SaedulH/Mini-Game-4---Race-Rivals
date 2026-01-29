@@ -79,6 +79,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
             PlayerOne = playerPrefab;
             PlayerOne.name = "PlayerOne";
             AddToCameraTargetGroup(1, PlayerOne);
+            AddToCheckpointTargetGroup(1, PlayerOne);
             _playerOneCompletedRace = false;
         }
         else
@@ -88,6 +89,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
             PlayerTwo = playerPrefab;
             PlayerTwo.name = "PlayerTwo";
             AddToCameraTargetGroup(2, PlayerTwo);
+            AddToCheckpointTargetGroup(2, PlayerTwo);
             _playerTwoCompletedRace = false;
         }
 
@@ -108,6 +110,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
         movement.AssignVehicleStats(vehicle.Stats);
 
         AddToCameraTargetGroup(2, PlayerTwo);
+        AddToCheckpointTargetGroup(2, PlayerTwo);
         _playerTwoCompletedRace = false;
         await Task.CompletedTask;
     }
@@ -124,6 +127,11 @@ public class GameManager : NonPersistentSingleton<GameManager>
         target.Weight = 1f;
         Debug.Log("target found");
         targetGroup.AddMember(target.Object, target.Weight, target.Radius);
+    }
+
+    private void AddToCheckpointTargetGroup(int playerIndex, GameObject playerObject)
+    {
+        CheckPointManager.instance.AddPlayerToCheckpointTarget(playerIndex, playerObject);
     }
 
     public async Task InitialiseHUD(TrackContext context, List<float> medalTimes)
