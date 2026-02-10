@@ -16,6 +16,16 @@ namespace Utilities
         public const string BEST_LAP_TEXT = "BEST LAP TIME: ";
         public const string RACE_FINISHED = "FINISHED";
 
+        public const float MAX_IDLE_SPEED = 0.5f;
+        public const float MIN_THROTTLE = 0.1f;
+        public const float MIN_SPEED_FOR_TURN = 5f;
+        public const float STEERING_RIGHT_ANGLE = 90f;
+        public const float STEERING_LEFT_ANGLE = -90f;
+        public const float MAX_TURN_SPEED_LOSS_PERCENT = 0.2f;
+        public const float MIN_SPEED_FOR_DRIFT_MARKS = 20f;
+
+        public const float IDLE_EXHAUST_RATE = 0.1f;
+
         //public const string  = "";
         public static string FormatTime(float lapTime)
         {
@@ -24,7 +34,6 @@ namespace Utilities
             return formattedTime;
         }
     }
-
 
     public enum GameState
     {
@@ -55,5 +64,14 @@ namespace Utilities
         Bronze,
         Silver,
         Gold
+    }
+
+    public enum VehicleState
+    {
+        Idle,
+        Accelerating,
+        Decelerating,
+        Braking,
+        Reversing
     }
 }

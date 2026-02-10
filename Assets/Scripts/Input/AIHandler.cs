@@ -133,7 +133,7 @@ public class AIHandler : MonoBehaviour, IInputHandler
         //Detect throttle
         if (drive != 0)
         {
-            movement.Throttle(drive);
+            //movement.HandleThrottle(drive);
 
         }
 
@@ -141,9 +141,9 @@ public class AIHandler : MonoBehaviour, IInputHandler
         if (steering != 0 && rb.linearVelocity != Vector2.zero)
         {
 
-            movement.Turn(drive, -steering);
+            //movement.HandleSteering(steering);
         }
         //movement.AnimateTyres(steering);
-        movement.DetectDrift();
+        //.movement.DetectDrift();
     }
 }

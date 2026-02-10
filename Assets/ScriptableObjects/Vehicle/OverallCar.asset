@@ -16,15 +16,13 @@ MonoBehaviour:
   <Acceleration>k__BackingField: 5
   <Handling>k__BackingField: 5
   <Braking>k__BackingField: 5
-  <ThrottlePower>k__BackingField: 90
-  <BrakePower>k__BackingField: 50
-  <ReversePower>k__BackingField: 50
-  <TopSpeed>k__BackingField: 60
-  <TopReverseSpeed>k__BackingField: 50
-  <SteerStrength>k__BackingField: 100
-  <BrakeDamping>k__BackingField: 0
-  <DriftDamper>k__BackingField: 0.5
-  <Multiplier>k__BackingField: 100
-  <MaxTurn>k__BackingField: 90
-  <TurnDetection>k__BackingField: 45
-  <ReductionAmount>k__BackingField: 10
+  <AccelAmount>k__BackingField: 80
+  <TopSpeed>k__BackingField: 70
+  <TopReverseSpeed>k__BackingField: 25
+  <BrakePower>k__BackingField: 10
+  <HandBrakePower>k__BackingField: 60
+  <SteerStrength>k__BackingField: 60
+  <MaxTurnAngle>k__BackingField: 90
+  <TurnDetectionAngle>k__BackingField: 10
+  <NormalGrip>k__BackingField: 0
+  <DriftGrip>k__BackingField: 0
