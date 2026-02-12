@@ -267,28 +267,28 @@ public class Movement : MonoBehaviour
                 IdleExhaustEffects(currentSpeed);
                 break;
             case VehicleState.Accelerating:
-                MovingExhaustEffects(currentSpeed, _stats.TopSpeed);
+                MovingExhaustEffects(Mathf.Abs(currentSpeed), _stats.TopSpeed);
                 break;
             case VehicleState.Decelerating:
+                //MovingExhaustEffects(Mathf.Abs(currentSpeed) / 4f, _stats.TopSpeed);
                 break;
             case VehicleState.Reversing:
-                MovingExhaustEffects(currentSpeed, _stats.TopReverseSpeed);
+                MovingExhaustEffects(Mathf.Abs(currentSpeed), _stats.TopReverseSpeed);
                 break;
         }
     }
     private void MovingExhaustEffects(float currentSpeed, float topSpeed)
     {
-        float exhaustFactor = Mathf.InverseLerp(
+        float exhaustRate = Mathf.InverseLerp(
             0f,
             topSpeed,
             currentSpeed
         );
 
         //The further you are from 0, the more exhaust you have
-        if (Mathf.Abs(currentSpeed) > Constants.MAX_IDLE_SPEED)
+        if (currentSpeed > Constants.MAX_IDLE_SPEED)
         {
-            Debug.Log($"Exhaust Factor: {exhaustFactor}");
-            _effects.SetExhaustRate(exhaustFactor);
+            _effects.SetExhaustRate(exhaustRate);
         }
     }
 
@@ -303,24 +303,44 @@ public class Movement : MonoBehaviour
     private void TireEffects(float currentSpeed)
     {
         AnimateSteering(_input.Steering);
-        if (Mathf.Abs(currentSpeed) > Constants.MIN_SPEED_FOR_DRIFT_MARKS)
+        BrakeEffect(currentSpeed);
+        DriftEffect(currentSpeed);
+    }
+
+    private void BrakeEffect(float currentSpeed)
+    {
+        if (_state == VehicleState.Braking || _isHandBrakesActive)
         {
-            if (_isHandBrakesActive)
+            if (Mathf.Abs(currentSpeed) > Constants.MIN_SPEED_FOR_BRAKE_EFFECTS)
             {
-                //_effects.ApplySkidMarks();
-                if(_isDrifting)
-                {
-                    _effects.PlayDriftAudio(true);
-                } 
-                else
-                {
-                    _effects.PlayBrakeAudio(true);
-                }
+                _effects.PlayBrakeAudio(true);
             }
-            else
+        }
+        else
+        {
+            _effects.PlayBrakeAudio(false);
+        }
+    }
+
+    private void DriftEffect(float currentSpeed)
+    {
+        if (_isHandBrakesActive || Mathf.Abs(_rb.angularVelocity) > Constants.MIN_ANGULAR_VEL_FOR_DRIFT_EFFECTS)
+        {
+            if (Mathf.Abs(currentSpeed) > Constants.MIN_SPEED_FOR_DRIFT_EFFECTS)
             {
-                
+                float driftRate = Mathf.InverseLerp(
+                    0f,
+                    90f,
+                    Mathf.Abs(_rb.angularVelocity)
+                );
+
+                _effects.SetDriftRate(driftRate);
+                _effects.PlayDriftEffects(true);
             }
+        }
+        else
+        {
+            _effects.PlayDriftEffects(false);
         }
     }
 

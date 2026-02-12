@@ -22,9 +22,21 @@ namespace Utilities
         public const float STEERING_RIGHT_ANGLE = 90f;
         public const float STEERING_LEFT_ANGLE = -90f;
         public const float MAX_TURN_SPEED_LOSS_PERCENT = 0.2f;
-        public const float MIN_SPEED_FOR_DRIFT_MARKS = 20f;
+        public const float MIN_SPEED_FOR_BRAKE_EFFECTS = 10f;
+        public const float MIN_SPEED_FOR_DRIFT_EFFECTS = 20f;
+        public const float MIN_ANGULAR_VEL_FOR_DRIFT_EFFECTS = 60f;
 
-        public const float IDLE_EXHAUST_RATE = 0.1f;
+        public const float IDLE_EXHAUST_RATE = 1f;
+        public const float LOW_EXHAUST_RANGE = 0.4f;
+        public const float LOW_EXHAUST_RATE = 5f;
+        public const float HIGH_EXHAUST_RANGE = 0.6f;
+        public const float HIGH_EXHAUST_RATE = 10f;
+
+        public const float IDLE_DRIFT_RATE = 0f;
+        public const float LOW_DRIFT_RANGE = 0.2f;
+        public const float LOW_DRIFT_RATE = 5f;
+        public const float HIGH_DRIFT_RANGE = 0.6f;
+        public const float HIGH_DRIFT_RATE = 10f;
 
         //public const string  = "";
         public static string FormatTime(float lapTime)
@@ -73,5 +85,12 @@ namespace Utilities
         Decelerating,
         Braking,
         Reversing
+    }
+
+    public enum EffectRate
+    { 
+        None,
+        Low,
+        High
     }
 }

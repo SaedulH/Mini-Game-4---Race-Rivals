@@ -103,6 +103,11 @@ namespace AudioSystem
             AudioManager.Instance.ReturnToPool(this);
         }
 
+        public bool IsPlaying()
+        {
+            return audioSource.isPlaying;
+        }
+
         public void WithRandomPitch(float min = -0.1f, float max = 0.1f)
         {
             audioSource.pitch += Random.Range(min, max);
