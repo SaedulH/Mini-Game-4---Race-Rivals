@@ -16,19 +16,18 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool _isHandBrakesActive = false;
     [SerializeField] private bool _isDrifting = false;
 
-    [SerializeField] private Vector2 _forward = new Vector2(0.0f, 0.75f);
     [SerializeField] private IInputHandler _input;
     [SerializeField] private bool _isActive = false;
     [SerializeField] private Vector3 _pausedVelocity;
     [SerializeField] private float _pausedAngularVelocity;
+    private bool _isInitialised = false;
 
-    void Start()
+    void Awake()
     {
         _input = GetComponent<IInputHandler>();
         _anim = GetComponentInChildren<Animator>();
         _effects = GetComponent<EffectsHandler>();
         _rb = GetComponent<Rigidbody2D>();
-        _rb.centerOfMass = _forward;
     }
 
     private void OnEnable()
@@ -39,6 +38,31 @@ public class Movement : MonoBehaviour
     private void OnDisable()
     {
         GameManager.Instance.OnGameStateChanged -= OnGameStateChanged;
+    }
+
+    public void AssignVehicleStats(VehicleStats stats)
+    {
+        _vehicleStats = stats;
+        _stats = new ChosenVehicleStats(stats);
+        _state = VehicleState.Idle;
+        _rb.centerOfMass = stats.CentreOfMass;
+
+        if (_effects == null)
+        {
+            _effects = GetComponent<EffectsHandler>();
+        }
+        _effects.SetupEffects(_vehicleStats);
+
+        _isInitialised = true;
+    }
+
+    private void OnValidate()
+    {
+        if (_vehicleStats != null)
+        {
+            Debug.Log($"Reconfiguring Stats for {gameObject.name}");
+            AssignVehicleStats(_vehicleStats);
+        }
     }
 
     private void OnGameStateChanged(GameState state)
@@ -66,10 +90,13 @@ public class Movement : MonoBehaviour
     private void PauseEffects(bool isPause)
     {
         _effects.PlayExhaustEffect(!isPause);
+        _effects.PlayDriftEffects(!isPause);
     }
 
     private void Update()
     {
+        if (!_isInitialised) return;
+
         if (_input != null && _isActive)
         {
             float currentSpeed = Vector2.Dot(_rb.linearVelocity, transform.up);
@@ -82,15 +109,20 @@ public class Movement : MonoBehaviour
     {
         if (_input != null && _isActive)
         {
-            HandleSteering(_input.Steering);
+            float currentSpeed = Vector2.Dot(_rb.linearVelocity, transform.up);
+
+            HandleSteering(_input.Steering, currentSpeed);
+
+            ApplyHandBrake(_input.HandBrake, _input.Steering, currentSpeed);
+
+            DetectDriftState(_input.Steering, currentSpeed);
 
             ApplyEngineForce(_input.Throttle);
 
-            ApplyLateralGrip();
+            ApplyLateralGrip(currentSpeed);
 
             ApplySpeedLimit();
 
-            ApplyHandBrake(_input.HandBrake);
         }
     }
 
@@ -187,13 +219,13 @@ public class Movement : MonoBehaviour
     {
         float maxSpeed = (_state == VehicleState.Reversing) ? _stats.TopReverseSpeed : _stats.TopSpeed;
         float turnFactor = Mathf.InverseLerp(
-            _stats.TurnDetectionAngle,
-            _stats.MaxTurnAngle,
+            0f,
+            _stats.MaxAnglularVelocity,
             Mathf.Abs(_rb.angularVelocity)
         );
 
         // How much speed you lose at full turn
-        maxSpeed *= Mathf.Lerp(1f, 1f - Constants.MAX_TURN_SPEED_LOSS_PERCENT, turnFactor);
+        maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxTurnSpeedLossPercentage, turnFactor);
 
         _rb.linearVelocity = Vector2.ClampMagnitude(
             _rb.linearVelocity,
@@ -201,48 +233,68 @@ public class Movement : MonoBehaviour
         );
     }
 
-    private void ApplyLateralGrip()
+    private void ApplyLateralGrip(float currentSpeed)
     {
         Vector2 forward = transform.up;
         Vector2 right = transform.right;
 
-        float forwardVel = Vector2.Dot(_rb.linearVelocity, forward);
         float lateralVel = Vector2.Dot(_rb.linearVelocity, right);
 
-        float grip = Mathf.Lerp(
-            _stats.DriftGrip,   // low grip when drifting
-            _stats.NormalGrip,  // high grip normally
-            _isHandBrakesActive ? 0f : 1f
+        float gripStrength = Mathf.Lerp(
+            _stats.DriftGrip,
+            _stats.NormalGrip,
+            _isDrifting ? 0f : 1f
         );
 
-        lateralVel *= grip;
+        // Smoothly remove sideways velocity
+        lateralVel = Mathf.Lerp(
+            lateralVel,
+            0f,
+            gripStrength * Time.fixedDeltaTime
+        );
 
-        _rb.linearVelocity = (forwardVel * forward) + (lateralVel * right);
+        _rb.linearVelocity = (currentSpeed * forward) + (lateralVel * right);
     }
 
-    public void ApplyHandBrake(bool handBrakeInput)
+    public void ApplyHandBrake(bool handBrakeInput, float steering, float currentSpeed)
     {
         _isHandBrakesActive = handBrakeInput;
         if (handBrakeInput)
         {
-            float currentSpeed = Vector2.Dot(_rb.linearVelocity, transform.up);
-            int counterDirection = (currentSpeed > 0f) ? -1 : 1;
-            _rb.AddForce(counterDirection * _stats.HandBrakePower * transform.up);
+            _rb.AddForce(-currentSpeed * _stats.HandBrakePower * transform.up);
+
+            _rb.AddTorque(-steering * _stats.HandBrakeTurnBoost);
         }
     }
 
-    public void HandleSteering(float steering)
+    public void HandleSteering(float steering, float currentSpeed)
     {
-        if (_rb.linearVelocity.magnitude < Constants.MIN_SPEED_FOR_TURN)
+        if ((_state == VehicleState.Idle))
+        {
             return;
+        } 
 
-        float speedFactor = Mathf.InverseLerp(
+        float minSpeedFactor = Mathf.InverseLerp(
             0f,
-            _stats.TopSpeed,
-            _rb.linearVelocity.magnitude
+            _stats.MinSpeedForSteering,
+            Mathf.Abs(currentSpeed)
         );
 
-        float steerForce = steering * _stats.SteerStrength * speedFactor;
+        float maxSpeed = (_state == VehicleState.Reversing) ? _stats.TopReverseSpeed : _stats.TopSpeed;
+        float speedFactor = Mathf.InverseLerp(
+            0f,
+            maxSpeed,
+            Mathf.Abs(currentSpeed)
+        );
+
+        float highSpeedReduction = Mathf.Lerp(
+            1f,
+            1f - _stats.MaxSteerStrengthLossPercentage,
+            speedFactor
+        );
+
+        float steerStrengthFactor = minSpeedFactor * highSpeedReduction;
+        float steerForce = steering * _stats.SteerStrength * steerStrengthFactor;
         if (_state == VehicleState.Accelerating)
         {
             _rb.AddTorque(-steerForce);
@@ -251,7 +303,43 @@ public class Movement : MonoBehaviour
         {
             _rb.AddTorque(steerForce);
         }
+
+        _rb.angularVelocity = Mathf.Clamp(
+            _rb.angularVelocity,
+            -_stats.MaxAnglularVelocity,
+            _stats.MaxAnglularVelocity
+        );
     }
+
+    public void DetectDriftState(float steering, float currentSpeed)
+    {
+        float speed = Mathf.Abs(currentSpeed);
+        float angularVel = Mathf.Abs(_rb.angularVelocity);
+        bool isBraking = _isHandBrakesActive || (_state == VehicleState.Braking);
+
+        bool fastEnough = speed > _stats.MinSpeedToStartDrift;
+        bool rotatingFast = angularVel > _stats.MinAngularVelocityToStartDrift;
+
+        if (!_isDrifting)
+        {
+            if (fastEnough && rotatingFast && isBraking)
+            {
+                _isDrifting = true;
+            }
+        }
+        else
+        {
+            bool tooSlow = speed < _stats.MinSpeedToMaintainDrift;
+            bool stoppedRotating = angularVel < _stats.MinAngularVelocityToMaintainDrift;
+
+            if (tooSlow || stoppedRotating)
+            {
+                _isDrifting = false;
+            }
+        }
+    }
+
+    #region Effects
 
     private void PlayEffects(float currentSpeed)
     {
@@ -311,7 +399,7 @@ public class Movement : MonoBehaviour
     {
         if (_state == VehicleState.Braking || _isHandBrakesActive)
         {
-            if (Mathf.Abs(currentSpeed) > Constants.MIN_SPEED_FOR_BRAKE_EFFECTS)
+            if (Mathf.Abs(currentSpeed) > _stats.MinSpeedForBrakeEffect)
             {
                 _effects.PlayBrakeAudio(true);
             }
@@ -324,19 +412,18 @@ public class Movement : MonoBehaviour
 
     private void DriftEffect(float currentSpeed)
     {
-        if (_isHandBrakesActive || Mathf.Abs(_rb.angularVelocity) > Constants.MIN_ANGULAR_VEL_FOR_DRIFT_EFFECTS)
+        bool isBurningRubber = ((Mathf.Abs(currentSpeed) > _stats.MinSpeedForDriftEffect) &&
+            (Mathf.Abs(_rb.angularVelocity) > _stats.MinAngularVelocityForDriftEffect));
+        if (_isHandBrakesActive || _isDrifting || isBurningRubber)
         {
-            if (Mathf.Abs(currentSpeed) > Constants.MIN_SPEED_FOR_DRIFT_EFFECTS)
-            {
-                float driftRate = Mathf.InverseLerp(
-                    0f,
-                    90f,
-                    Mathf.Abs(_rb.angularVelocity)
-                );
+            float driftRate = Mathf.InverseLerp(
+                0f,
+                _stats.MaxAnglularVelocity,
+                Mathf.Abs(_rb.angularVelocity)
+            );
 
-                _effects.SetDriftRate(driftRate);
-                _effects.PlayDriftEffects(true);
-            }
+            _effects.SetDriftRate(driftRate);
+            _effects.PlayDriftEffects(true);
         }
         else
         {
@@ -352,19 +439,5 @@ public class Movement : MonoBehaviour
         }
     }
 
-    public void AssignVehicleStats(VehicleStats stats)
-    {
-        _vehicleStats = stats;
-        _stats = new ChosenVehicleStats(stats);
-        _state = VehicleState.Idle;
-    }
-
-    private void OnValidate()
-    {
-        if (_vehicleStats != null)
-        {
-            Debug.Log($"Reconfiguring Stats for {gameObject.name}");
-            AssignVehicleStats(_vehicleStats);
-        }
-    }
+    #endregion
 }

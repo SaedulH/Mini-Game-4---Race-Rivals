@@ -28,9 +28,9 @@ public class EffectsHandler : MonoBehaviour
 
     [SerializeField] private AudioData _driftAudio;
     private AudioEmitter _driftEmitter;
+    private VehicleStats _vehicleStats;
 
-
-    private void Start()
+    public void SetupEffects(VehicleStats vehicleStats)
     {
         _exhaustEffectRate = EffectRate.None;
         _driftSmokeEffectRate = EffectRate.None;
@@ -42,6 +42,8 @@ public class EffectsHandler : MonoBehaviour
         _driftTrailEmitting = false;
         _leftDriftTrailEffect.emitting = false;
         _rightDriftTrailEffect.emitting = false;
+
+        _vehicleStats = vehicleStats;
     }
 
     #region Engine Effects
@@ -80,10 +82,10 @@ public class EffectsHandler : MonoBehaviour
                 return Constants.IDLE_EXHAUST_RATE;
 
             case EffectRate.Low:
-                return Constants.LOW_EXHAUST_RATE;
+                return _vehicleStats.LowExhaustRate;
 
             case EffectRate.High:
-                return Constants.HIGH_EXHAUST_RATE;
+                return _vehicleStats.HighExhaustRate;
 
             default:
                 return rate;
@@ -92,16 +94,16 @@ public class EffectsHandler : MonoBehaviour
 
     private EffectRate SetExhaustRange(float exhaustRate)
     {
-        if (_exhaustEffectRate != EffectRate.None && exhaustRate < Constants.LOW_EXHAUST_RANGE)
+        if (_exhaustEffectRate != EffectRate.None && exhaustRate < _vehicleStats.LowExhaustRange)
         {
             return EffectRate.None;
         }
         else if (_exhaustEffectRate != EffectRate.Low &&
-            (exhaustRate > Constants.LOW_EXHAUST_RANGE && exhaustRate < Constants.HIGH_EXHAUST_RANGE))
+            (exhaustRate > _vehicleStats.LowExhaustRange && exhaustRate < _vehicleStats.HighExhaustRange))
         {
             return EffectRate.Low;
         }
-        if (_exhaustEffectRate != EffectRate.High && exhaustRate > Constants.HIGH_EXHAUST_RANGE)
+        if (_exhaustEffectRate != EffectRate.High && exhaustRate > _vehicleStats.HighExhaustRange)
         {
             return EffectRate.High;
         }
@@ -129,10 +131,10 @@ public class EffectsHandler : MonoBehaviour
                 return Constants.IDLE_DRIFT_RATE;
 
             case EffectRate.Low:
-                return Constants.LOW_DRIFT_RATE;
+                return _vehicleStats.LowDriftRate;
 
             case EffectRate.High:
-                return Constants.HIGH_DRIFT_RATE;
+                return _vehicleStats.HighDriftRate;
 
             default:
                 return rate;
@@ -141,16 +143,16 @@ public class EffectsHandler : MonoBehaviour
 
     private EffectRate SetDriftRange(float driftRate)
     {
-        if (_driftSmokeEffectRate != EffectRate.None && driftRate < Constants.LOW_DRIFT_RANGE)
+        if (_driftSmokeEffectRate != EffectRate.None && driftRate < _vehicleStats.LowDriftRange)
         {
             return EffectRate.None;
         }
         else if (_driftSmokeEffectRate != EffectRate.Low &&
-            (driftRate > Constants.LOW_DRIFT_RANGE && driftRate < Constants.HIGH_DRIFT_RANGE))
+            (driftRate > _vehicleStats.LowDriftRange && driftRate < _vehicleStats.HighDriftRange))
         {
             return EffectRate.Low;
         }
-        if (_driftSmokeEffectRate != EffectRate.High && driftRate > Constants.HIGH_DRIFT_RANGE)
+        if (_driftSmokeEffectRate != EffectRate.High && driftRate > _vehicleStats.HighDriftRange)
         {
             return EffectRate.High;
         }
@@ -247,10 +249,16 @@ public class EffectsHandler : MonoBehaviour
 
     private void SetEmissionRate(ParticleSystem particleSystem, float clampedRate)
     {
-        if (particleSystem.emission.rateOverTimeMultiplier != clampedRate)
+        var emission = particleSystem.emission;
+        if (emission.rateOverTimeMultiplier == clampedRate) return;
+        
+        while(emission.rateOverTimeMultiplier != clampedRate)
         {
-            var emission = particleSystem.emission;
-            emission.rateOverTimeMultiplier = clampedRate;
-        }
+            emission.rateOverTimeMultiplier = Mathf.MoveTowards(emission.rateOverTimeMultiplier, clampedRate, Time.deltaTime * Constants.EMISSION_MOVE_TOWARDS_RATE);
+            if(Mathf.Approximately(emission.rateOverTimeMultiplier, clampedRate))
+            {
+                emission.rateOverTimeMultiplier = clampedRate;
+            }
+        }   
     }
 }

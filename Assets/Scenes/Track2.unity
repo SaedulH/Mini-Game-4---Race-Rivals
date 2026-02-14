@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 18759824}
   - component: {fileID: 18759823}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -165,9 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &18759824
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -645,7 +645,7 @@ GameObject:
   - component: {fileID: 98297049}
   - component: {fileID: 98297048}
   m_Layer: 0
-  m_Name: 4
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -678,9 +678,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &98297049
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 179068806}
   - component: {fileID: 179068805}
   m_Layer: 0
-  m_Name: 14
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -928,9 +928,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &179068806
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14155,10 +14155,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817ea5a882c96f2459fa5a094c09e3bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
-  playersParent: {fileID: 0}
-  checkpoints: []
-  lapNumber: {fileID: 1998389159}
+  AutoUnparentOnAwake: 1
+  <Checkpoints>k__BackingField: []
+  <PlayerOneProgress>k__BackingField:
+    CurrentPosition: 0
+    CurrentCheckpoint: 0
+    CurrentLap: 0
+    BestLapTime: 0
+    TotalProgress: 0
+  <PlayerTwoProgress>k__BackingField:
+    CurrentPosition: 0
+    CurrentCheckpoint: 0
+    CurrentLap: 0
+    BestLapTime: 0
+    TotalProgress: 0
+  _playerOneGO: {fileID: 0}
+  _playerTwoGO: {fileID: 0}
 --- !u!1 &334399449
 GameObject:
   m_ObjectHideFlags: 0
@@ -14172,7 +14184,7 @@ GameObject:
   - component: {fileID: 334399452}
   - component: {fileID: 334399451}
   m_Layer: 0
-  m_Name: 16
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14205,9 +14217,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &334399452
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14326,7 +14338,7 @@ GameObject:
   - component: {fileID: 353435057}
   - component: {fileID: 353435056}
   m_Layer: 0
-  m_Name: 10
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14359,9 +14371,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &353435057
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14576,7 +14588,7 @@ GameObject:
   - component: {fileID: 437428945}
   - component: {fileID: 437428944}
   m_Layer: 0
-  m_Name: 5
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14609,9 +14621,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &437428945
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -14730,7 +14742,7 @@ GameObject:
   - component: {fileID: 480860375}
   - component: {fileID: 480860374}
   m_Layer: 0
-  m_Name: 5
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14763,9 +14775,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &480860375
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53419,7 +53431,7 @@ GameObject:
   - component: {fileID: 494751498}
   - component: {fileID: 494751497}
   m_Layer: 0
-  m_Name: 6
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53452,9 +53464,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &494751498
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -53915,7 +53927,7 @@ GameObject:
   - component: {fileID: 526820248}
   - component: {fileID: 526820247}
   m_Layer: 0
-  m_Name: 2
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53948,9 +53960,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &526820248
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -54069,7 +54081,7 @@ GameObject:
   - component: {fileID: 529591280}
   - component: {fileID: 529591279}
   m_Layer: 0
-  m_Name: 2
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54102,9 +54114,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &529591280
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -54411,7 +54423,7 @@ GameObject:
   - component: {fileID: 597033869}
   - component: {fileID: 597033868}
   m_Layer: 0
-  m_Name: 8
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54444,9 +54456,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &597033869
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -54613,7 +54625,7 @@ GameObject:
   - component: {fileID: 621916840}
   - component: {fileID: 621916839}
   m_Layer: 0
-  m_Name: 13
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54646,9 +54658,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &621916840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -54820,7 +54832,7 @@ GameObject:
   - component: {fileID: 650397818}
   - component: {fileID: 650397817}
   m_Layer: 0
-  m_Name: 11
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54853,9 +54865,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &650397818
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55224,7 +55236,7 @@ GameObject:
   - component: {fileID: 835613249}
   - component: {fileID: 835613248}
   m_Layer: 0
-  m_Name: 7
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55257,9 +55269,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &835613249
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -55917,7 +55929,7 @@ GameObject:
   - component: {fileID: 903178413}
   - component: {fileID: 903178412}
   m_Layer: 0
-  m_Name: 6
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55950,9 +55962,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &903178413
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -63425,7 +63437,7 @@ GameObject:
   - component: {fileID: 965028639}
   - component: {fileID: 965028638}
   m_Layer: 0
-  m_Name: 18
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63458,9 +63470,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &965028639
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -78212,7 +78224,7 @@ GameObject:
   - component: {fileID: 1089184121}
   - component: {fileID: 1089184120}
   m_Layer: 0
-  m_Name: 17
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78245,9 +78257,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1089184121
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -78366,7 +78378,7 @@ GameObject:
   - component: {fileID: 1096906345}
   - component: {fileID: 1096906344}
   m_Layer: 0
-  m_Name: 15
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78399,9 +78411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1096906345
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95225,7 +95237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1839735485 &1150126922
 Tilemap:
   m_ObjectHideFlags: 0
@@ -95495,7 +95507,7 @@ GameObject:
   - component: {fileID: 1230976856}
   - component: {fileID: 1230976855}
   m_Layer: 0
-  m_Name: 1
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95528,9 +95540,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1230976856
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95697,7 +95709,7 @@ GameObject:
   - component: {fileID: 1309998574}
   - component: {fileID: 1309998573}
   m_Layer: 0
-  m_Name: 4
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95730,9 +95742,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1309998574
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95855,7 +95867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!156049354 &1330653389
 Grid:
   m_ObjectHideFlags: 0
@@ -96317,7 +96329,7 @@ GameObject:
   - component: {fileID: 1453530065}
   - component: {fileID: 1453530064}
   m_Layer: 0
-  m_Name: 12
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96350,9 +96362,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1453530065
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -96471,7 +96483,7 @@ GameObject:
   - component: {fileID: 1460259910}
   - component: {fileID: 1460259909}
   m_Layer: 0
-  m_Name: 8
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96504,9 +96516,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1460259910
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -96760,7 +96772,7 @@ GameObject:
   - component: {fileID: 1561144819}
   - component: {fileID: 1561144818}
   m_Layer: 0
-  m_Name: 3
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -96793,9 +96805,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1561144819
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -110802,7 +110814,7 @@ GameObject:
   - component: {fileID: 1754582266}
   - component: {fileID: 1754582265}
   m_Layer: 0
-  m_Name: 3
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110835,9 +110847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &1754582266
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150596,7 +150608,7 @@ GameObject:
   - component: {fileID: 2113014291}
   - component: {fileID: 2113014290}
   m_Layer: 0
-  m_Name: 7
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150629,9 +150641,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &2113014291
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150750,7 +150762,7 @@ GameObject:
   - component: {fileID: 2121312581}
   - component: {fileID: 2121312580}
   m_Layer: 0
-  m_Name: 9
+  m_Name: 0
   m_TagString: Checkpoints
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150783,9 +150795,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8fd2dc6d879f0244a112dec5cce084a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpointNum: 
-  checkpointNumInt: 0
-  playerNumInt: 0
+  <CheckpointNumInt>k__BackingField: 0
+  <IsNextPlayerOneCheckpoint>k__BackingField: 0
+  <IsNextPlayerTwoCheckpoint>k__BackingField: 0
 --- !u!61 &2121312581
 BoxCollider2D:
   m_ObjectHideFlags: 0

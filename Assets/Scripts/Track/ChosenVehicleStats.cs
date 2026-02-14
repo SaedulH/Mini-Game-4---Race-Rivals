@@ -9,12 +9,24 @@ public struct ChosenVehicleStats
 
     public float BrakePower;
     public float HandBrakePower;
+    public float HandBrakeTurnBoost;
+    public float MinSpeedForBrakeEffect;
 
     public float SteerStrength;
-    public float MaxTurnAngle;
-    public float TurnDetectionAngle;
-    public float DriftGrip;
+    public float MaxAnglularVelocity;
+    public float MaxTurnSpeedLossPercentage;
+    public float MaxSteerStrengthLossPercentage;
+    public float MinSpeedForSteering;
+
     public float NormalGrip;
+    public float DriftGrip;
+    public float MinSpeedToStartDrift;
+    public float MinSpeedToMaintainDrift;
+    public float MinAngularVelocityToStartDrift;
+    public float MinAngularVelocityToMaintainDrift;
+
+    public float MinSpeedForDriftEffect;
+    public float MinAngularVelocityForDriftEffect;
 
     public ChosenVehicleStats(VehicleStats stats)
     {
@@ -24,11 +36,23 @@ public struct ChosenVehicleStats
 
         BrakePower = stats.BrakePower;
         HandBrakePower = stats.HandBrakePower;
+        HandBrakeTurnBoost = stats.HandBrakeTurnBoost;
+        MinSpeedForBrakeEffect = stats.MinSpeedForBrakeEffect;
 
         SteerStrength = stats.SteerStrength;
-        MaxTurnAngle = stats.MaxTurnAngle;
-        TurnDetectionAngle = stats.TurnDetectionAngle;
-        DriftGrip = stats.DriftGrip;
+        MaxAnglularVelocity = stats.MaxAnglularVelocity;
+        MaxTurnSpeedLossPercentage = stats.MaxTurnSpeedLossPercentage;
+        MaxSteerStrengthLossPercentage = stats.MaxSteerStrengthLossPercentage;
+        MinSpeedForSteering = stats.MinSpeedForSteering;
+
         NormalGrip = stats.NormalGrip;
+        DriftGrip = stats.DriftGrip;
+        MinSpeedToStartDrift = stats.MinSpeedToStartDrift;
+        MinSpeedToMaintainDrift = stats.MinSpeedToMaintainDrift;
+        MinAngularVelocityToStartDrift = stats.MinAngularVelocityToStartDrift;
+        MinAngularVelocityToMaintainDrift = stats.MinAngularVelocityToMaintainDrift;
+
+        MinSpeedForDriftEffect = stats.MinSpeedForDriftEffect;
+        MinAngularVelocityForDriftEffect = stats.MinAngularVelocityForDriftEffect;
     }
 }

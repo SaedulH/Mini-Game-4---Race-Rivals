@@ -798,13 +798,19 @@ MonoBehaviour:
   - {fileID: 1852901609}
   - {fileID: 75189878}
   <PlayerOneProgress>k__BackingField:
+    CurrentPosition: 0
     CurrentCheckpoint: 0
     CurrentLap: 0
     BestLapTime: 0
+    TotalProgress: 0
   <PlayerTwoProgress>k__BackingField:
+    CurrentPosition: 0
     CurrentCheckpoint: 0
     CurrentLap: 0
     BestLapTime: 0
+    TotalProgress: 0
+  _playerOneGO: {fileID: 0}
+  _playerTwoGO: {fileID: 0}
 --- !u!1 &411430841
 GameObject:
   m_ObjectHideFlags: 0
@@ -4973,7 +4979,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 18.25, y: 18.25, z: 0}
@@ -22113,7 +22119,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: -2
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 3.5, y: 3.5, z: 0}
@@ -35976,7 +35982,7 @@ TilemapRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 3.5, y: 3.5, z: 0}
