@@ -2,23 +2,46 @@
 
 public class VehicleSpriteHandler : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
+    [field: SerializeField] private SpriteRenderer _chassisSprite;
+    [field: SerializeField] private SpriteRenderer _frontWheelsSprite;
+    [field: SerializeField] private SpriteRenderer _backWheelsSprite;
+    [field: SerializeField] private GameObject _exhaust;
+    private Collider2D _collider;
 
-    private void Awake()
+    private void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider = GetComponent<Collider2D>();
     }
 
-    public void AssignSprite(Sprite vehicleSprite)
+    public void AssignSprite(VehicleVisualSettings visualSettings, Sprite playerOneVehicleChassisSprite)
     {
-        if (_spriteRenderer != null)
+        if(_collider != null)
         {
-            Debug.Log($"SpriteRenderer component found on {gameObject.name}");
-            _spriteRenderer.sprite = vehicleSprite;
+            _collider.offset = visualSettings.ColliderDimensions / 2;
+            _collider.transform.localScale = visualSettings.ColliderDimensions;
         }
-        else
+
+        if (_chassisSprite != null)
         {
-            Debug.LogWarning($"SpriteRenderer component not found on {gameObject.name}");
+            _chassisSprite.sprite = playerOneVehicleChassisSprite;
+            _chassisSprite.size = visualSettings.VehicleChassisDimensions;
+        }
+
+        if (_frontWheelsSprite != null)
+        {
+            _frontWheelsSprite.sprite = visualSettings.VehicleWheelsSprite;
+            _frontWheelsSprite.transform.localPosition = visualSettings.VehicleFrontWheelsPosition;
+        }
+
+        if (_backWheelsSprite != null)
+        {
+            _backWheelsSprite.sprite = visualSettings.VehicleWheelsSprite;
+            _backWheelsSprite.transform.localPosition = visualSettings.VehicleBackWheelsPosition;
+        }
+
+        if (_exhaust != null)
+        {
+            _exhaust.transform.localPosition = visualSettings.VehicleExhaustPosition;
         }
     }
 }

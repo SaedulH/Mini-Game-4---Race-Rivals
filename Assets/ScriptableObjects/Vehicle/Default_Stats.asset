@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c3f08636cc9fd84c8e72d97b74a6127, type: 3}
-  m_Name: OverallCar
+  m_Name: Default_Stats
   m_EditorClassIdentifier: Assembly-CSharp::VehicleStats
   <Speed>k__BackingField: 5
   <Acceleration>k__BackingField: 5

@@ -11,8 +11,8 @@ namespace CoreSystem
         [field: SerializeField] public int TrackIndex { get; private set; }
         [field: SerializeField] public Sprite TrackImage { get; private set; }
         [field: SerializeField] public List<LevelInitStepSO> StepOrder { get; private set; }
-        [field: SerializeField] public int RaceLapCount { get; private set; }
-        [field: SerializeField] public int TimedLapCount { get; private set; }
+        [field: SerializeField, Range(min: 1, max: 10)] public int RaceLapCount { get; private set; }
+        [field: SerializeField, Range(min: 1, max: 10)] public int TimedLapCount { get; private set; }
 
         public int GetLapCountForMode(GameMode gameMode)
         {

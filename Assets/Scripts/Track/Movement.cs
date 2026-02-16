@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using Utilities;
 
@@ -25,7 +24,7 @@ public class Movement : MonoBehaviour
     void Awake()
     {
         _input = GetComponent<IInputHandler>();
-        _anim = GetComponentInChildren<Animator>();
+        _anim = GetComponent<Animator>();
         _effects = GetComponent<EffectsHandler>();
         _rb = GetComponent<Rigidbody2D>();
     }
@@ -45,6 +44,9 @@ public class Movement : MonoBehaviour
         _vehicleStats = stats;
         _stats = new ChosenVehicleStats(stats);
         _state = VehicleState.Idle;
+        _rb.mass = stats.Mass;
+        _rb.linearDamping = stats.LinearDamping;
+        _rb.angularDamping = stats.AngularDamping;
         _rb.centerOfMass = stats.CentreOfMass;
 
         if (_effects == null)
@@ -272,7 +274,7 @@ public class Movement : MonoBehaviour
         if ((_state == VehicleState.Idle))
         {
             return;
-        } 
+        }
 
         float minSpeedFactor = Mathf.InverseLerp(
             0f,
@@ -433,7 +435,7 @@ public class Movement : MonoBehaviour
 
     public void AnimateSteering(float steering)
     {
-        if(_anim.GetFloat("Steering") != steering)
+        if (_anim.GetFloat("Steering") != steering)
         {
             _anim.SetFloat("Steering", steering);
         }

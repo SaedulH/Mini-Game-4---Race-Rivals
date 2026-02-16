@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c3f08636cc9fd84c8e72d97b74a6127, type: 3}
+  m_Name: Drift_Stats
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleStats
+  <Speed>k__BackingField: 5
+  <Acceleration>k__BackingField: 8
+  <Handling>k__BackingField: 3
+  <Braking>k__BackingField: 6
+  <AccelAmount>k__BackingField: 80
+  <TopSpeed>k__BackingField: 55
+  <TopReverseSpeed>k__BackingField: 25
+  <BrakePower>k__BackingField: 10
+  <HandBrakePower>k__BackingField: 0.7
+  <HandBrakeTurnBoost>k__BackingField: 50
+  <SteerStrength>k__BackingField: 60
+  <MaxAnglularVelocity>k__BackingField: 150
+  <MinSpeedForSteering>k__BackingField: 10
+  <MaxTurnSpeedLossPercentage>k__BackingField: 0.25
+  <MaxSteerStrengthLossPercentage>k__BackingField: 0.6
+  <NormalGrip>k__BackingField: 8
+  <DriftGrip>k__BackingField: 2
+  <MinSpeedToStartDrift>k__BackingField: 25
+  <MinSpeedToMaintainDrift>k__BackingField: 10
+  <MinAngularVelocityToStartDrift>k__BackingField: 60
+  <MinAngularVelocityToMaintainDrift>k__BackingField: 15
+  <CentreOfMass>k__BackingField: {x: 0, y: 0.5}
+  <LowExhaustRange>k__BackingField: 0.4
+  <HighExhaustRange>k__BackingField: 0.6
+  <LowExhaustRate>k__BackingField: 5
+  <HighExhaustRate>k__BackingField: 10
+  <MinSpeedForBrakeEffect>k__BackingField: 15
+  <MinSpeedForDriftEffect>k__BackingField: 40
+  <MinAngularVelocityForDriftEffect>k__BackingField: 120
+  <LowDriftRange>k__BackingField: 0.2
+  <HighDriftRange>k__BackingField: 0.6
+  <LowDriftRate>k__BackingField: 5
+  <HighDriftRate>k__BackingField: 10

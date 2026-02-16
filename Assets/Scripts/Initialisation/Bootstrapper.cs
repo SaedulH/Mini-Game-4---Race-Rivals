@@ -1,8 +1,10 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using Utilities;
 
 namespace CoreSystem
 {
@@ -14,6 +16,9 @@ namespace CoreSystem
     [DefaultExecutionOrder(-100)] // Ensure this runs before other scripts
     public class Bootstrapper : MonoBehaviour
     {
+        [field: SerializeField] private bool UsePreset = false;
+        [field: SerializeField] private ScenePreset ScenePreset;
+
         private async void Start()
         {
             Scene bootstrapScene = SceneManager.GetActiveScene();
@@ -35,21 +40,32 @@ namespace CoreSystem
             SceneRegistry.CoreScene = coreHandle;
             Debug.Log("CoreScene loaded.");
 
-            // Load MainMenu
-            AsyncOperationHandle<SceneInstance> menuHandle = Addressables.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
-            await menuHandle.Task;
-
-            if (menuHandle.Status != AsyncOperationStatus.Succeeded)
+            if (UsePreset && ScenePreset != null)
             {
-                Debug.LogError("Failed to load MainMenu.");
-                return;
-            }
-            SceneRegistry.CurrentContent = menuHandle;
-            SceneManager.SetActiveScene(menuHandle.Result.Scene);
-            Debug.Log("MainMenu loaded.");
+                // Load Preset Scene
+                await GameManager.Instance.InitialiseScene(ScenePreset.TrackInfo, ScenePreset.TrackContext);
 
-            // 3. Unload the Bootstrapper scene
-            await SceneManager.UnloadSceneAsync(bootstrapScene);
+                //// 3. Unload the Bootstrapper scene
+                await SceneManager.UnloadSceneAsync(bootstrapScene);
+            }
+            else
+            {
+                // Load MainMenu
+                AsyncOperationHandle<SceneInstance> menuHandle = Addressables.LoadSceneAsync("MainMenu", LoadSceneMode.Additive);
+                await menuHandle.Task;
+
+                if (menuHandle.Status != AsyncOperationStatus.Succeeded)
+                {
+                    Debug.LogError("Failed to load MainMenu.");
+                    return;
+                }
+                SceneRegistry.CurrentContent = menuHandle;
+                SceneManager.SetActiveScene(menuHandle.Result.Scene);
+                Debug.Log("MainMenu loaded.");
+
+                // 3. Unload the Bootstrapper scene
+                await SceneManager.UnloadSceneAsync(bootstrapScene);
+            }
         }
     }
 }

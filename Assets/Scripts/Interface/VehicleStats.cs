@@ -33,6 +33,11 @@ public class VehicleStats : ScriptableObject
     [field: SerializeField, Range(min: 0, max: 100)] public float MinSpeedToMaintainDrift { get; set; }
     [field: SerializeField, Range(min: 0, max: 240)] public float MinAngularVelocityToStartDrift { get; set; }
     [field: SerializeField, Range(min: 0, max: 240)] public float MinAngularVelocityToMaintainDrift { get; set; }
+
+    [field: Header("RigidBody")]
+    [field: SerializeField, Range(min: 0, max: 5)] public float Mass { get; set; } = 1f;
+    [field: SerializeField, Range(min: 0, max: 5)] public float LinearDamping { get; set; } = 1.5f;
+    [field: SerializeField, Range(min: 0, max: 5)] public float AngularDamping { get; set; } = 2f;
     [field: SerializeField] public Vector2 CentreOfMass { get; set; } = new Vector2(0.0f, 0.5f);
 
     [field: Header("Effects")]

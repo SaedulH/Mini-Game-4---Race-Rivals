@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,18 +13,18 @@ public class LayerHandler : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        foreach(SpriteRenderer spriteRenderer in gameObject.GetComponentsInChildren<SpriteRenderer>())
+        foreach (SpriteRenderer spriteRenderer in gameObject.GetComponentsInChildren<SpriteRenderer>())
         {
             spriteRenderers.Add(spriteRenderer);
         }
 
-        foreach(GameObject overPassCollider1 in GameObject.FindGameObjectsWithTag("OverpassCollider")) 
+        foreach (GameObject overPassCollider in GameObject.FindGameObjectsWithTag("OverpassCollider"))
         {
-            overPassColliders.Add(overPassCollider1.GetComponent<Collider2D>());
+            overPassColliders.Add(overPassCollider.GetComponent<Collider2D>());
         }
-        foreach (GameObject underPassCollider1 in GameObject.FindGameObjectsWithTag("UnderpassCollider"))
+        foreach (GameObject underPassCollider in GameObject.FindGameObjectsWithTag("UnderpassCollider"))
         {
-            underPassColliders.Add(underPassCollider1.GetComponent<Collider2D>());
+            underPassColliders.Add(underPassCollider.GetComponent<Collider2D>());
         }
 
         carCollider = gameObject.GetComponent<Collider2D>();
@@ -40,12 +39,12 @@ public class LayerHandler : MonoBehaviour
     void SetCollisionWithOverpass()
     {
 
-        foreach(Collider2D collider in overPassColliders)
+        foreach (Collider2D collider in overPassColliders)
         {
             Physics2D.IgnoreCollision(carCollider, collider, !isOnOverpass);
         }
 
-        foreach(Collider2D collider in underPassColliders)
+        foreach (Collider2D collider in underPassColliders)
         {
             if (isOnOverpass)
             {
@@ -62,19 +61,19 @@ public class LayerHandler : MonoBehaviour
     {
         if (isOnOverpass)
         {
-            setSortingLayers("OverPass");
+            SetSortingLayers("OverPass");
         }
         else
         {
-            setSortingLayers("Default");
+            SetSortingLayers("Default");
         }
 
         SetCollisionWithOverpass();
     }
 
-    void setSortingLayers(string layerName)
+    void SetSortingLayers(string layerName)
     {
-        foreach(SpriteRenderer renderer in spriteRenderers)
+        foreach (SpriteRenderer renderer in spriteRenderers)
         {
             renderer.sortingLayerName = layerName;
         }

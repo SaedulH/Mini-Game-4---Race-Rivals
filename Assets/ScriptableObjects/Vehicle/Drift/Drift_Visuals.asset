@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09802a5427ed5c44b1b7dd0c2e34ca3, type: 3}
+  m_Name: Drift_Visuals
+  m_EditorClassIdentifier: Assembly-CSharp::VehicleVisualSettings
+  <ColliderDimensions>k__BackingField: {x: 4.4, y: 9.5}
+  <VehicleChassisDimensions>k__BackingField: {x: 4.6, y: 9.5}
+  <VehicleWheelsSprite>k__BackingField: {fileID: 0}
+  <VehicleFrontWheelsPosition>k__BackingField: {x: 0, y: 2.2}
+  <VehicleBackWheelsPosition>k__BackingField: {x: 0, y: -0.8}
+  <VehicleExhaustPosition>k__BackingField: {x: -0.7, y: -4.65}

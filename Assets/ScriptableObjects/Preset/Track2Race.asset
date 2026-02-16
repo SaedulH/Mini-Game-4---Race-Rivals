@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e712fc9fe94a2c4db2a51f9d09c1916, type: 3}
+  m_Name: Track2Race
+  m_EditorClassIdentifier: Assembly-CSharp::CoreSystem.ScenePreset
+  <SceneName>k__BackingField: 
+  <LoadMode>k__BackingField: 1
+  <TrackInfo>k__BackingField: {fileID: 0}
+  <TrackContext>k__BackingField:
+    GameMode: 0
+    PlayerCount: 1
+    VehicleOne:
+      <VehicleName>k__BackingField: 
+      <Stats>k__BackingField: {fileID: 0}
+      <VisualSettings>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
+    VehicleTwo:
+      <VehicleName>k__BackingField: 
+      <Stats>k__BackingField: {fileID: 0}
+      <VisualSettings>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
+    LapCount: 0
+    TotalWeight: 0
+  <Vehicles>k__BackingField: {fileID: 0}
+  <PlayerOneVehicle>k__BackingField: 0
+  <PlayerTwoVehicle>k__BackingField: 0

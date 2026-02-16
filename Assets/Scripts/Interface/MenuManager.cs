@@ -476,8 +476,8 @@ public class MenuManager : MonoBehaviour
 
         _currentVehicleOneIndex = index;
         SelectedVehicleOne = VehicleSelector.AvailableVehicles[_currentVehicleOneIndex];
-        VehicleOneName.text = SelectedVehicleOne.PlayerOneName;
-        VehicleOneImage.style.backgroundImage = new StyleBackground(SelectedVehicleOne.PlayerOneIcon);
+        VehicleOneName.text = SelectedVehicleOne.VehicleName;
+        VehicleOneImage.style.backgroundImage = new StyleBackground(SelectedVehicleOne.PlayerOneVehicleDisplayIcon);
 
         if (_setPlayerOneSlidersCoroutine != null)
         {
@@ -492,8 +492,8 @@ public class MenuManager : MonoBehaviour
 
         _currentVehicleTwoIndex = index;
         SelectedVehicleTwo = VehicleSelector.AvailableVehicles[_currentVehicleTwoIndex];
-        VehicleTwoName.text = SelectedVehicleTwo.PlayerTwoName;
-        VehicleTwoImage.style.backgroundImage = new StyleBackground(SelectedVehicleTwo.PlayerTwoIcon);
+        VehicleTwoName.text = SelectedVehicleTwo.VehicleName;
+        VehicleTwoImage.style.backgroundImage = new StyleBackground(SelectedVehicleTwo.PlayerTwoVehicleDisplayIcon);
 
         if (_setPlayerTwoSlidersCoroutine != null)
         {

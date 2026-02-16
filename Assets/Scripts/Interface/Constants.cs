@@ -80,4 +80,12 @@ namespace Utilities
         Low,
         High
     }
+
+    public enum PresetVehicle : int
+    {
+        AllRounder = 0,
+        Drifter = 1,
+        Muscle = 2,
+        Racer = 3
+    }
 }

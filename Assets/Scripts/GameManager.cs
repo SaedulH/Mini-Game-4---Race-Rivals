@@ -75,7 +75,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
         if (playerIndex == 1)
         {
             input.AssignInput("PlayerOne");
-            spriteHandler.AssignSprite(vehicle.PlayerOneIcon);
+            spriteHandler.AssignSprite(vehicle.VisualSettings, vehicle.PlayerOneVehicleChassisSprite);
             PlayerOne = playerPrefab;
             PlayerOne.name = "PlayerOne";
             AddToCameraTargetGroup(1, PlayerOne);
@@ -85,7 +85,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
         else
         {
             input.AssignInput("PlayerTwo");
-            spriteHandler.AssignSprite(vehicle.PlayerTwoIcon);
+            spriteHandler.AssignSprite(vehicle.VisualSettings, vehicle.PlayerTwoVehicleChassisSprite);
             PlayerTwo = playerPrefab;
             PlayerTwo.name = "PlayerTwo";
             AddToCameraTargetGroup(2, PlayerTwo);
@@ -104,7 +104,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
         //input.AssignInput("PlayerTwo");
 
         VehicleSpriteHandler spriteHandler = PlayerTwo.GetOrAdd<VehicleSpriteHandler>();
-        spriteHandler.AssignSprite(vehicle.PlayerTwoIcon);
+        spriteHandler.AssignSprite(vehicle.VisualSettings, vehicle.PlayerTwoVehicleChassisSprite);
 
         Movement movement = PlayerTwo.GetOrAdd<Movement>();
         movement.AssignVehicleStats(vehicle.Stats);
