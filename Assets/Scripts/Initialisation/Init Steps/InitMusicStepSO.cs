@@ -10,10 +10,8 @@ namespace CoreSystem
         [SerializeField] public AudioData TrackBGM;
         public override async Task Run(TrackContext context)
         {
-            AudioManager.Instance.CreateAudioBuilder()
-                .WithLoop()
-                .WithFadeIn()
-                .Play(TrackBGM);
+            BackgroundMusic.Instance.PlayNewBackgroundMusic(TrackBGM);
+
             await Task.CompletedTask;
         }
     }

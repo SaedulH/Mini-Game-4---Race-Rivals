@@ -6,6 +6,7 @@ public struct ChosenVehicleStats
     public float AccelAmount;
     public float TopSpeed;
     public float TopReverseSpeed;
+    public float MaxOffRoadSpeedLossPercentage;
 
     public float BrakePower;
     public float HandBrakePower;
@@ -33,6 +34,7 @@ public struct ChosenVehicleStats
         AccelAmount = stats.AccelAmount;
         TopSpeed = stats.TopSpeed;
         TopReverseSpeed = stats.TopReverseSpeed;
+        MaxOffRoadSpeedLossPercentage = stats.MaxOffRoadSpeedLossPercentage;
 
         BrakePower = stats.BrakePower;
         HandBrakePower = stats.HandBrakePower;

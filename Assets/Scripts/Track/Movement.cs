@@ -4,21 +4,20 @@ using Utilities;
 public class Movement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
-
-    [SerializeField] private ChosenVehicleStats _stats;
-    [SerializeField] private VehicleStats _vehicleStats;
-
-    [SerializeField] private VehicleState _state = VehicleState.Idle;
-
+    [SerializeField] private IInputHandler _input;
     [SerializeField] private Animator _anim;
     [SerializeField] private EffectsHandler _effects;
+    [SerializeField] private ChosenVehicleStats _stats;
+    [SerializeField] private VehicleStats _vehicleStats;
+    [SerializeField] private TerrainDetector _terrainDetector;
+
+    [SerializeField] private VehicleState _state = VehicleState.Idle;
     [SerializeField] private bool _isHandBrakesActive = false;
     [SerializeField] private bool _isDrifting = false;
-
-    [SerializeField] private IInputHandler _input;
     [SerializeField] private bool _isActive = false;
     [SerializeField] private Vector3 _pausedVelocity;
     [SerializeField] private float _pausedAngularVelocity;
+
     private bool _isInitialised = false;
 
     void Awake()
@@ -27,6 +26,7 @@ public class Movement : MonoBehaviour
         _anim = GetComponent<Animator>();
         _effects = GetComponent<EffectsHandler>();
         _rb = GetComponent<Rigidbody2D>();
+        _terrainDetector = GetComponent<TerrainDetector>();
     }
 
     private void OnEnable()
@@ -229,6 +229,11 @@ public class Movement : MonoBehaviour
         // How much speed you lose at full turn
         maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxTurnSpeedLossPercentage, turnFactor);
 
+        float offRoadFactor = _terrainDetector.GetOffRoadWheelCount() * 0.25f;
+
+        // How much speed you lose offroad
+        maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadSpeedLossPercentage, offRoadFactor);
+
         _rb.linearVelocity = Vector2.ClampMagnitude(
             _rb.linearVelocity,
             maxSpeed
@@ -260,6 +265,11 @@ public class Movement : MonoBehaviour
 
     public void ApplyHandBrake(bool handBrakeInput, float steering, float currentSpeed)
     {
+        if(_state == VehicleState.Idle)
+        {
+            return;
+        }
+
         _isHandBrakesActive = handBrakeInput;
         if (handBrakeInput)
         {

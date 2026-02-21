@@ -8,6 +8,7 @@ public class BackgroundMusic : PersistentSingleton<BackgroundMusic>
 
     private void Start()
     {
+        if(_emitter != null) return;
         _emitter = AudioManager.Instance.CreateAudioBuilder()
             .WithLoop()
             .WithVolume(0.1f)
@@ -18,5 +19,18 @@ public class BackgroundMusic : PersistentSingleton<BackgroundMusic>
     public void SetVolume(float volume)
     {
         _emitter.WithVolume(volume);
+    }
+
+    public void PlayNewBackgroundMusic(AudioData audioData)
+    {
+        if (_emitter != null)
+        {
+            _emitter.Stop();
+            _emitter = AudioManager.Instance.CreateAudioBuilder()
+                .WithLoop()
+                .WithVolume(0.1f)
+                .WithParent(transform)
+                .Play(audioData);
+        }
     }
 }

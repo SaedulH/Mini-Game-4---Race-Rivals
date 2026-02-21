@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c09802a5427ed5c44b1b7dd0c2e34ca3, type: 3}
   m_Name: Muscle_Visuals
   m_EditorClassIdentifier: Assembly-CSharp::VehicleVisualSettings
-  <ColliderDimensions>k__BackingField: {x: 4.7, y: 10.25}
-  <VehicleChassisDimensions>k__BackingField: {x: 4.4, y: 10}
+  <ColliderDimensions>k__BackingField: {x: 4.6, y: 10.3}
+  <VehicleChassisDimensions>k__BackingField: {x: 6.75, y: 11}
   <VehicleWheelsSprite>k__BackingField: {fileID: 0}
-  <VehicleFrontWheelsPosition>k__BackingField: {x: 0, y: 3}
-  <VehicleBackWheelsPosition>k__BackingField: {x: 0, y: -0.75}
-  <VehicleExhaustPosition>k__BackingField: {x: -0.95, y: -4.75}
+  <VehicleFrontWheelsPosition>k__BackingField: {x: 0, y: 3.4}
+  <VehicleBackWheelsPosition>k__BackingField: {x: 0, y: -2}
+  <VehicleExhaustPosition>k__BackingField: {x: -0.72, y: -4.7}

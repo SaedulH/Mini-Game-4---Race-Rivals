@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809ae8ffd1f4a114a9db3a61ad20dddd, type: 3}
   m_Name: Track1 Info
   m_EditorClassIdentifier: Assembly-CSharp::CoreSystem.TrackInfo
-  <TrackName>k__BackingField: Figure Eight
+  <TrackName>k__BackingField: The Forest
   <TrackIndex>k__BackingField: 0
-  <TrackImage>k__BackingField: {fileID: 21300000, guid: d2f54426a31a6444799888e75e1a6d7e, type: 3}
+  <TrackImage>k__BackingField: {fileID: 21300000, guid: 5f304aed27159494e878c217c72ab43d, type: 3}
   <StepOrder>k__BackingField:
   - {fileID: 11400000, guid: 86493cd2e2691894bb7f928b88ada6c3, type: 2}
   - {fileID: 11400000, guid: 2d41914515b20de4b94b1a9f2816921f, type: 2}

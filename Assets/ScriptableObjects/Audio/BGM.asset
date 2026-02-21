@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e2903a2dc04204ea61ca3618f39fc5, type: 3}
   m_Name: BGM
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: ad79d47fc2bd4474780305f449de6f8c, type: 3}
+  clip: {fileID: 8300000, guid: 5b3c9cbe9232def42b04f33386c5b04f, type: 3}
   mixerGroup: {fileID: 24300002, guid: b8de858e16ade1f4ea521fd6c98eeb40, type: 2}
   loop: 1
   playOnAwake: 0

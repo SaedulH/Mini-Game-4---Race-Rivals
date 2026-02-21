@@ -15,6 +15,7 @@ public class VehicleStats : ScriptableObject
     [field: SerializeField, Range(min: 0, max: 100)] public float AccelAmount { get; set; }
     [field: SerializeField, Range(min: 0, max: 100)] public float TopSpeed { get; set; }
     [field: SerializeField, Range(min: 0, max: 100)] public float TopReverseSpeed { get; set; }
+    [field: SerializeField, Range(min: 0, max: 1)] public float MaxOffRoadSpeedLossPercentage { get; set; }
 
     [field: Header("Braking")]
     [field: SerializeField, Range(min: 0, max: 100)] public float BrakePower { get; set; }
