@@ -3,8 +3,14 @@ using UnityEngine;
 public class TerrainDetector : MonoBehaviour
 {
     [field: SerializeField] public WheelTerrainDetector[] WheelDetectors { get; set; }
+    [field: SerializeField] public float OffRoadFactor { get; private set; }
 
-    public float GetOffRoadWheelCount()
+    private void FixedUpdate()
+    {
+        SetOffRoadFactor();
+    }
+
+    public void SetOffRoadFactor()
     {
         float offRoadWheels = 0;
         foreach (var wheel in WheelDetectors)
@@ -14,6 +20,6 @@ public class TerrainDetector : MonoBehaviour
                 offRoadWheels++;
             }
         }
-        return offRoadWheels;
+        OffRoadFactor = offRoadWheels * 0.25f;
     }
 }

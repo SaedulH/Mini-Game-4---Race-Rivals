@@ -25,6 +25,7 @@ public struct ChosenVehicleStats
     public float MinSpeedToMaintainDrift;
     public float MinAngularVelocityToStartDrift;
     public float MinAngularVelocityToMaintainDrift;
+    public float MaxOffRoadTractionLossPercentage;
 
     public float MinSpeedForDriftEffect;
     public float MinAngularVelocityForDriftEffect;
@@ -45,6 +46,7 @@ public struct ChosenVehicleStats
         MaxAnglularVelocity = stats.MaxAnglularVelocity;
         MaxTurnSpeedLossPercentage = stats.MaxTurnSpeedLossPercentage;
         MaxSteerStrengthLossPercentage = stats.MaxSteerStrengthLossPercentage;
+        MaxOffRoadTractionLossPercentage = stats.MaxOffRoadTractionLossPercentage;
         MinSpeedForSteering = stats.MinSpeedForSteering;
 
         NormalGrip = stats.NormalGrip;

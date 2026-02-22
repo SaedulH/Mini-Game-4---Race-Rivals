@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::VehicleVisualSettings
   <ColliderDimensions>k__BackingField: {x: 4.6, y: 10.3}
   <VehicleChassisDimensions>k__BackingField: {x: 6.75, y: 11}
-  <VehicleWheelsSprite>k__BackingField: {fileID: 0}
+  <VehicleWheelsSprite>k__BackingField: {fileID: 21300000, guid: 1105c79c45d97da4f85ca74f38dc536b, type: 3}
   <VehicleFrontWheelsPosition>k__BackingField: {x: 0, y: 3.4}
+  <VehicleFrontWheelsDistanceFromCentre>k__BackingField: 1.8
+  <VehicleFrontWheelsScale>k__BackingField: 0.82
   <VehicleBackWheelsPosition>k__BackingField: {x: 0, y: -2}
   <VehicleExhaustPosition>k__BackingField: {x: -0.72, y: -4.7}

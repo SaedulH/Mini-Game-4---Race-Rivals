@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private bool _isActive = false;
     [SerializeField] private Vector3 _pausedVelocity;
     [SerializeField] private float _pausedAngularVelocity;
+    [SerializeField] private float _animLerpSteering = 0;
 
     private bool _isInitialised = false;
 
@@ -229,10 +230,8 @@ public class Movement : MonoBehaviour
         // How much speed you lose at full turn
         maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxTurnSpeedLossPercentage, turnFactor);
 
-        float offRoadFactor = _terrainDetector.GetOffRoadWheelCount() * 0.25f;
-
         // How much speed you lose offroad
-        maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadSpeedLossPercentage, offRoadFactor);
+        maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadSpeedLossPercentage, _terrainDetector.OffRoadFactor);
 
         _rb.linearVelocity = Vector2.ClampMagnitude(
             _rb.linearVelocity,
@@ -252,6 +251,9 @@ public class Movement : MonoBehaviour
             _stats.NormalGrip,
             _isDrifting ? 0f : 1f
         );
+
+        //How much grip you lose offroad
+        gripStrength *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadTractionLossPercentage, _terrainDetector.OffRoadFactor);
 
         // Smoothly remove sideways velocity
         lateralVel = Mathf.Lerp(
@@ -445,9 +447,10 @@ public class Movement : MonoBehaviour
 
     public void AnimateSteering(float steering)
     {
-        if (_anim.GetFloat("Steering") != steering)
+        if (_animLerpSteering != steering)
         {
-            _anim.SetFloat("Steering", steering);
+            _animLerpSteering = Mathf.Lerp(_animLerpSteering, steering, Time.deltaTime * Constants.STEERING_ANIM_LERP_SPEED);
+            _anim.SetFloat("Steering", _animLerpSteering);
         }
     }
 

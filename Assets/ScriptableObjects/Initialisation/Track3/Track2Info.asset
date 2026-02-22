@@ -16,3 +16,5 @@ MonoBehaviour:
   <TrackIndex>k__BackingField: 2
   <TrackImage>k__BackingField: {fileID: 21300000, guid: d276158f38c2f4d40823b55177e675c3, type: 3}
   <StepOrder>k__BackingField: []
+  <RaceLapCount>k__BackingField: 1
+  <TimedLapCount>k__BackingField: 1

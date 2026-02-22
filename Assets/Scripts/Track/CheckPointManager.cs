@@ -1,7 +1,5 @@
-using System;
 using System.Threading.Tasks;
 using CoreSystem;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using Utilities;
 
@@ -38,7 +36,7 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
         {
             float playerOneDistanceToCheckpoint = Vector3.Distance(_playerOneGO.transform.position, nextCheckpointPos);
             float playerTwoDistanceToCheckpoint = Vector3.Distance(_playerTwoGO.transform.position, nextCheckpointPos);
-            if(playerOneDistanceToCheckpoint < playerTwoDistanceToCheckpoint && PlayerOneProgress.CurrentPosition != 1)
+            if (playerOneDistanceToCheckpoint < playerTwoDistanceToCheckpoint && PlayerOneProgress.CurrentPosition != 1)
             {
                 PlayerOneProgress.SetCurrentPosition(1);
                 PlayerTwoProgress.SetCurrentPosition(2);
@@ -50,13 +48,13 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
                 PlayerTwoProgress.SetCurrentPosition(1);
                 HUDManager.instance.UpdatePlayerPositions(2);
             }
-        } 
+        }
         else if ((PlayerOneProgress.TotalProgress > PlayerTwoProgress.TotalProgress) && PlayerOneProgress.CurrentPosition != 1)
         {
             PlayerOneProgress.SetCurrentPosition(1);
             PlayerTwoProgress.SetCurrentPosition(2);
             HUDManager.instance.UpdatePlayerPositions(1);
-        } 
+        }
         else if ((PlayerTwoProgress.TotalProgress > PlayerOneProgress.TotalProgress) && PlayerTwoProgress.CurrentPosition != 1)
         {
             PlayerOneProgress.SetCurrentPosition(1);
@@ -89,7 +87,7 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
 
     public void AddPlayerToCheckpointTarget(int playerIndex, GameObject playerObject)
     {
-        if(playerIndex == 1)
+        if (playerIndex == 1)
         {
             _playerOneGO = playerObject;
         }

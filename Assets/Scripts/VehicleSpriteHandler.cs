@@ -3,8 +3,12 @@
 public class VehicleSpriteHandler : MonoBehaviour
 {
     [field: SerializeField] private SpriteRenderer _chassisSprite;
-    [field: SerializeField] private SpriteRenderer _frontWheelsSprite;
-    [field: SerializeField] private SpriteRenderer _backWheelsSprite;
+
+    [field: SerializeField] private GameObject _frontWheelsParent;
+    [field: SerializeField] private SpriteRenderer _frontRightWheelSprite;
+    [field: SerializeField] private SpriteRenderer _frontLeftWheelSprite;
+    [field: SerializeField] private GameObject _backWheelsParent;
+
     [field: SerializeField] private GameObject _exhaust;
     private CapsuleCollider2D _collider;
 
@@ -26,16 +30,26 @@ public class VehicleSpriteHandler : MonoBehaviour
             _chassisSprite.size = visualSettings.VehicleChassisDimensions;
         }
 
-        if (_frontWheelsSprite != null)
+        if (_frontWheelsParent != null)
         {
-            _frontWheelsSprite.sprite = visualSettings.VehicleWheelsSprite;
-            _frontWheelsSprite.transform.localPosition = visualSettings.VehicleFrontWheelsPosition;
+            _frontWheelsParent.transform.localPosition = visualSettings.VehicleFrontWheelsPosition;
+            if (_frontRightWheelSprite != null)
+            {
+                _frontRightWheelSprite.sprite = visualSettings.VehicleWheelsSprite;
+                _frontRightWheelSprite.transform.localPosition = new Vector2(visualSettings.VehicleFrontWheelsDistanceFromCentre, 0f);
+                _frontRightWheelSprite.transform.localScale = visualSettings.VehicleFrontWheelsScale * Vector3.one;
+            }
+            if (_frontLeftWheelSprite != null)
+            {
+                _frontLeftWheelSprite.sprite = visualSettings.VehicleWheelsSprite;
+                _frontLeftWheelSprite.transform.localPosition = new Vector2(-visualSettings.VehicleFrontWheelsDistanceFromCentre, 0f);
+                _frontLeftWheelSprite.transform.localScale = visualSettings.VehicleFrontWheelsScale * Vector3.one;
+            }
         }
 
-        if (_backWheelsSprite != null)
+        if (_backWheelsParent != null)
         {
-            _backWheelsSprite.sprite = visualSettings.VehicleWheelsSprite;
-            _backWheelsSprite.transform.localPosition = visualSettings.VehicleBackWheelsPosition;
+            _backWheelsParent.transform.localPosition = visualSettings.VehicleBackWheelsPosition;
         }
 
         if (_exhaust != null)

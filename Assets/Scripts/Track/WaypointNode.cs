@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WaypointNode : MonoBehaviour
 {
-    public WaypointNode[] nextWaypointNode;
-    public float minDistanceToReachWaypoint = 5;
-
-    public float maxSpeed;
+    [field: SerializeField] public WaypointNode NextWaypointNode { get; set; }
+    [field: SerializeField] public float MinDistanceToReachWaypoint { get; set; } = 5f;
+    [field: SerializeField] public float RecommendedSpeed { get; set; }
 }

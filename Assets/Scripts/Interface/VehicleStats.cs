@@ -28,6 +28,7 @@ public class VehicleStats : ScriptableObject
     [field: SerializeField, Range(min: 0, max: 100)] public float MinSpeedForSteering { get; set; }
     [field: SerializeField, Range(min: 0, max: 1)] public float MaxTurnSpeedLossPercentage { get; set; }
     [field: SerializeField, Range(min: 0, max: 1)] public float MaxSteerStrengthLossPercentage { get; set; }
+    [field: SerializeField, Range(min: 0, max: 1)] public float MaxOffRoadTractionLossPercentage { get; set; }
     [field: SerializeField, Range(min: 0, max: 50)] public float NormalGrip { get; set; }
     [field: SerializeField, Range(min: 0, max: 50)] public float DriftGrip { get; set; }
     [field: SerializeField, Range(min: 0, max: 100)] public float MinSpeedToStartDrift { get; set; }

@@ -28,6 +28,7 @@ MonoBehaviour:
   <MinSpeedForSteering>k__BackingField: 10
   <MaxTurnSpeedLossPercentage>k__BackingField: 0.45
   <MaxSteerStrengthLossPercentage>k__BackingField: 0.75
+  <MaxOffRoadTractionLossPercentage>k__BackingField: 0.7
   <NormalGrip>k__BackingField: 9
   <DriftGrip>k__BackingField: 8
   <MinSpeedToStartDrift>k__BackingField: 40

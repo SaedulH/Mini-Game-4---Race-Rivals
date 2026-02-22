@@ -9,24 +9,12 @@ public class AIHandler : MonoBehaviour, IInputHandler
     public float Steering { get; set; }
     public bool HandBrake { get; set; }
 
-    [SerializeField] private Rigidbody2D rb;
-    private Movement movement;
-
     Vector3 targetPosition = Vector3.zero;
     Transform targetTransform = null;
     [SerializeField] private float angleToTarget;
-    [SerializeReference] WaypointNode currentNode;
-    [SerializeReference] WaypointNode[] allWaypointNodes;
     [SerializeField] private float throttleAI;
     [SerializeField] private float steeringAI;
-
-    // Start is called before the first frame update
-    void Awake()
-    {
-        movement = GetComponent<Movement>();
-        rb = GetComponent<Rigidbody2D>();
-        allWaypointNodes = FindObjectsOfType<WaypointNode>();
-    }
+    [field: SerializeReference] private WaypointNode CurrentNode { get; set; }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -47,23 +35,19 @@ public class AIHandler : MonoBehaviour, IInputHandler
 
     void FollowWaypoints()
     {
-        if(currentNode == null)
-        {
-            currentNode = FindClosestWaypoint();
-        }
 
 
-        if(currentNode != null) 
-        { 
-            targetPosition = currentNode.transform.position;
+        //if(currentNode != null) 
+        //{ 
+        //    targetPosition = currentNode.transform.position;
 
-            float distanceToWaypoint = (targetPosition - transform.position).magnitude;
+        //    float distanceToWaypoint = (targetPosition - transform.position).magnitude;
 
-            if(distanceToWaypoint <= currentNode.minDistanceToReachWaypoint)
-            {
-                currentNode = currentNode.nextWaypointNode[UnityEngine.Random.Range(0, currentNode.nextWaypointNode.Length)];
-            }
-        }
+        //    if(distanceToWaypoint <= currentNode.minDistanceToReachWaypoint)
+        //    {
+        //        currentNode = currentNode.nextWaypointNode[UnityEngine.Random.Range(0, currentNode.nextWaypointNode.Length)];
+        //    }
+        //}
     }
 
     void ChasePlayer()
@@ -79,11 +63,11 @@ public class AIHandler : MonoBehaviour, IInputHandler
         }
     }
 
-    WaypointNode FindClosestWaypoint()
-    {
-        return allWaypointNodes
-            .OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).FirstOrDefault();
-    }
+    //WaypointNode FindClosestWaypoint()
+    //{
+    //    return allWaypointNodes
+    //        .OrderBy(t => Vector3.Distance(transform.position, t.transform.position)).FirstOrDefault();
+    //}
 
     float TurnTowardsTarget()
     {
@@ -138,12 +122,17 @@ public class AIHandler : MonoBehaviour, IInputHandler
         }
 
         //Detect Steering
-        if (steering != 0 && rb.linearVelocity != Vector2.zero)
-        {
+        //if (steering != 0 && rb.linearVelocity != Vector2.zero)
+        //{
 
-            //movement.HandleSteering(steering);
-        }
+        //    //movement.HandleSteering(steering);
+        //}
         //movement.AnimateTyres(steering);
         //.movement.DetectDrift();
+    }
+
+    public void SetNextWaypoint(WaypointNode currentWaypoint)
+    {
+        throw new NotImplementedException();
     }
 }

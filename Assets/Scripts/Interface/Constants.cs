@@ -21,6 +21,7 @@ namespace Utilities
         public const float MIN_SPEED_FOR_TURN = 5f;
         public const float STEERING_RIGHT_ANGLE = 90f;
         public const float STEERING_LEFT_ANGLE = -90f;
+        public const float STEERING_ANIM_LERP_SPEED = 10f;
         public const float EMISSION_MOVE_TOWARDS_RATE = 10f;
         public const float IDLE_EXHAUST_RATE = 1f;
         public const float IDLE_DRIFT_RATE = 0f;
