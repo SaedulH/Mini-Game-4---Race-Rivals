@@ -26,7 +26,11 @@ namespace Utilities
         public const float IDLE_EXHAUST_RATE = 1f;
         public const float IDLE_DRIFT_RATE = 0f;
 
-        //public const string  = "";
+        public const float COLLISION_EFFECT_COOLDOWN_TIME = 0.3f;
+        public const float COLLISION_VOLUME_COEFFICIENT = 0.8f;
+        public const float COLLISION_DURATION_COEFFICIENT = 0.5f;
+        public const float COLLISION_INTENSITY_COEFFICIENT = 0.8f;
+
         public static string FormatTime(float lapTime)
         {
             string formattedTime = TimeSpan.FromSeconds(lapTime).ToString(@"mm\:ss\.ff");

@@ -28,10 +28,21 @@ public class EffectsHandler : MonoBehaviour
 
     [SerializeField] private AudioData _driftAudio;
     private AudioEmitter _driftEmitter;
+
+    [SerializeField] private AudioData _wallCollisionAudio;
+    [SerializeField] private AudioData _vehicleCollisionAudio;
+    private float _timeSinceLastCollisionEffect = 0f;
+
     private VehicleStats _vehicleStats;
+
+    private void FixedUpdate()
+    {
+        _timeSinceLastCollisionEffect += Time.fixedDeltaTime;
+    }
 
     public void SetupEffects(VehicleStats vehicleStats)
     {
+        _timeSinceLastCollisionEffect = 0f;
         _exhaustEffectRate = EffectRate.None;
         _driftSmokeEffectRate = EffectRate.None;
 
@@ -251,14 +262,46 @@ public class EffectsHandler : MonoBehaviour
     {
         var emission = particleSystem.emission;
         if (emission.rateOverTimeMultiplier == clampedRate) return;
-        
-        while(emission.rateOverTimeMultiplier != clampedRate)
+
+        while (emission.rateOverTimeMultiplier != clampedRate)
         {
             emission.rateOverTimeMultiplier = Mathf.MoveTowards(emission.rateOverTimeMultiplier, clampedRate, Time.deltaTime * Constants.EMISSION_MOVE_TOWARDS_RATE);
-            if(Mathf.Approximately(emission.rateOverTimeMultiplier, clampedRate))
+            if (Mathf.Approximately(emission.rateOverTimeMultiplier, clampedRate))
             {
                 emission.rateOverTimeMultiplier = clampedRate;
             }
-        }   
+        }
+    }
+
+    public void PlayCollisionEffects(float speed, bool isAnotherVehicle)
+    {
+        if (_timeSinceLastCollisionEffect < Constants.COLLISION_EFFECT_COOLDOWN_TIME)
+        {
+            return;
+        }
+        _timeSinceLastCollisionEffect = 0f;
+
+        float relativeSpeed = Mathf.InverseLerp(0, _vehicleStats.TopSpeed, speed);
+        float volume = relativeSpeed * Constants.COLLISION_VOLUME_COEFFICIENT;
+        float duration = relativeSpeed * Constants.COLLISION_DURATION_COEFFICIENT;
+        float intensity = relativeSpeed * Constants.COLLISION_INTENSITY_COEFFICIENT;
+
+        Debug.Log($"Speed: {speed}, Relative Speed: {relativeSpeed}, Volume: {volume}, Intensity: {intensity}, Duration: {duration}");
+
+
+        PlayCollisionAudio(volume, isAnotherVehicle);
+        CameraShake.Instance.ShakeCamera(intensity, duration);
+    }
+
+    private void PlayCollisionAudio(float volume, bool isAnotherVehicle)
+    {
+        AudioData collisionAudio = isAnotherVehicle ? _vehicleCollisionAudio : _wallCollisionAudio;
+        if (collisionAudio == null) return;
+
+        AudioManager.Instance.CreateAudioBuilder()
+            .WithParent(transform)
+            .WithRandomPitch()
+            .WithVolume(volume)
+            .Play(collisionAudio);
     }
 }

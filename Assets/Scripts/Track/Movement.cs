@@ -102,7 +102,7 @@ public class Movement : MonoBehaviour
 
         if (_input != null && _isActive)
         {
-            float currentSpeed = Vector2.Dot(_rb.linearVelocity, transform.up);
+            float currentSpeed = GetCurrentSpeed();
             DetectVehicleState(_input, currentSpeed);
             PlayEffects(currentSpeed);
         }
@@ -112,7 +112,7 @@ public class Movement : MonoBehaviour
     {
         if (_input != null && _isActive)
         {
-            float currentSpeed = Vector2.Dot(_rb.linearVelocity, transform.up);
+            float currentSpeed = GetCurrentSpeed();
 
             HandleSteering(_input.Steering, currentSpeed);
 
@@ -454,5 +454,23 @@ public class Movement : MonoBehaviour
         }
     }
 
+    private float GetCurrentSpeed()
+    {
+        return Vector2.Dot(_rb.linearVelocity, transform.up);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        float impactSpeed = collision.relativeVelocity.magnitude;
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            _effects.PlayCollisionEffects(impactSpeed, false);
+        }
+        else if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("AI"))
+        {
+            _effects.PlayCollisionEffects(impactSpeed, true);
+        }
+    }
     #endregion
 }

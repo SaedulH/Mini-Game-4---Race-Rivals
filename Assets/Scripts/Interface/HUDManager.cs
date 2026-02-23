@@ -331,15 +331,15 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
                 MedalText.style.color = Color.white;
                 break;
             case Medal.Bronze:
-                MedalText.text = $"Bronze: {medalTime}";
+                MedalText.text = $"Bronze: {Constants.FormatTime(medalTime)}";
                 MedalText.style.color = new Color(0.804f, 0.498f, 0.196f); // Bronze color
                 break;
             case Medal.Silver:
-                MedalText.text = $"Silver: {medalTime}";
+                MedalText.text = $"Silver: {Constants.FormatTime(medalTime)}";
                 MedalText.style.color = new Color(0.753f, 0.753f, 0.753f); // Silver color
                 break;
             case Medal.Gold:
-                MedalText.text = $"Gold: {medalTime}";
+                MedalText.text = $"Gold: {Constants.FormatTime(medalTime)}";
                 MedalText.style.color = new Color(1f, 0.843f, 0f); // Gold color
                 break;
             default:

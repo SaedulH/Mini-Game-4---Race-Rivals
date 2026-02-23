@@ -3,6 +3,7 @@
 public class VehicleSpriteHandler : MonoBehaviour
 {
     [field: SerializeField] private SpriteRenderer _chassisSprite;
+    [field: SerializeField] private SpriteRenderer _shadowSprite;
 
     [field: SerializeField] private GameObject _frontWheelsParent;
     [field: SerializeField] private SpriteRenderer _frontRightWheelSprite;
@@ -28,6 +29,12 @@ public class VehicleSpriteHandler : MonoBehaviour
         {
             _chassisSprite.sprite = playerOneVehicleChassisSprite;
             _chassisSprite.size = visualSettings.VehicleChassisDimensions;
+        }
+
+        if (_shadowSprite != null)
+        {
+            _shadowSprite.sprite = visualSettings.VehicleShadowSprite;
+            _shadowSprite.size = visualSettings.VehicleChassisDimensions;
         }
 
         if (_frontWheelsParent != null)
