@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AudioSystem;
@@ -28,6 +27,8 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
     [field: SerializeField] public Label PlayerOnePositionOrdinal { get; set; }
     [field: SerializeField] public Label PlayerOneLapCount { get; set; }
     [field: SerializeField] public Label PlayerOneLapTimer { get; set; }
+    [field: SerializeField] public Label PlayerOneBestLapTime { get; set; }
+
     // Player Two HUD Elements
     [field: SerializeField] public VisualElement PlayerTwoHUD { get; set; }
     [field: SerializeField] public VisualElement PlayerTwoHUDBackground { get; set; }
@@ -36,12 +37,15 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
     [field: SerializeField] public Label PlayerTwoPositionOrdinal { get; set; }
     [field: SerializeField] public Label PlayerTwoLapCount { get; set; }
     [field: SerializeField] public Label PlayerTwoLapTimer { get; set; }
+    [field: SerializeField] public Label PlayerTwoBestLapTime { get; set; }
 
     [field: Header("Audio")]
     [field: SerializeField] public AudioData ResumeAudio { get; set; }
     [field: SerializeField] public AudioData RestartAudio { get; set; }
     [field: SerializeField] public AudioData QuitAudio { get; set; }
     [field: SerializeField] public AudioData HoverAudio { get; set; }
+    [field: SerializeField] public AudioData CountdownAudio { get; set; }
+    [field: SerializeField] public AudioData GoAudio { get; set; }
 
     private int _playerOneCurrentPosition = 1;
     private float _playerOneCurrentLapTime = 0f;
@@ -86,6 +90,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         PlayerOnePositionOrdinal = PlayerOneHUD.Q<Label>("PlayerOnePositionOrdinal");
         PlayerOneLapCount = PlayerOneHUD.Q<Label>("PlayerOneLapCount");
         PlayerOneLapTimer = PlayerOneHUD.Q<Label>("PlayerOneLapTimer");
+        PlayerOneBestLapTime = PlayerOneHUD.Q<Label>("PlayerOneBestLapTime");
 
         // Player Two HUD Elements
         PlayerTwoHUD = HUDElement.Q<VisualElement>("PlayerTwoHUD");
@@ -95,11 +100,12 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         PlayerTwoPositionOrdinal = PlayerTwoHUD.Q<Label>("PlayerTwoPositionOrdinal");
         PlayerTwoLapCount = PlayerTwoHUD.Q<Label>("PlayerTwoLapCount");
         PlayerTwoLapTimer = PlayerTwoHUD.Q<Label>("PlayerTwoLapTimer");
+        PlayerTwoBestLapTime = PlayerTwoHUD.Q<Label>("PlayerTwoBestLapTime");
     }
 
     private void Update()
     {
-        if(_currentTrackContext == null) return;
+        if (_currentTrackContext == null) return;
 
         if (_isTimerRunning)
         {
@@ -107,7 +113,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
             _totalElapsedTime += deltaTime;
             if (_currentTrackContext.PlayerCount == 1 &&
                 _currentTrackContext.GameMode == GameMode.Timed)
-            {               
+            {
                 UpdateTimer(_totalElapsedTime);
                 CheckUpdateCurrentMedal(_totalElapsedTime);
             }
@@ -146,6 +152,8 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         PlayerTwoName.text = trackContext.PlayerCount == 2 ? "Player Two" : "CPU";
         UpdatePlayerLapCount(1);
         UpdatePlayerLapCount(2);
+        UpdateBestLapTime(1);
+        UpdateBestLapTime(2);
         UpdatePlayerPositions(1);
         SetupTimers(trackContext, medalTimes);
 
@@ -184,7 +192,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
 
     private void SetPlayerPosition(int playerNumber, int position)
     {
-        if(playerNumber == 1)
+        if (playerNumber == 1)
         {
             PlayerOnePosition.text = position.ToString();
             PlayerOnePositionOrdinal.text = GetOrdinal(position);
@@ -221,7 +229,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
             {
                 _playerOneCurrentLapTime = 0f;
                 PlayerOneLapCount.text = $"{nextLapNumber}/{_totalLapCount}";
-            } 
+            }
             else
             {
                 _playerOneCompletedRace = true;
@@ -243,7 +251,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
             }
         }
 
-        if(_currentTrackContext.GameMode == GameMode.Timed 
+        if (_currentTrackContext.GameMode == GameMode.Timed
             && _currentTrackContext.PlayerCount == 2
             && (previousLapTime < _bestLapTime || _bestLapTime == 0f))
         {
@@ -252,7 +260,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
             UpdatePlayerPositions(playerNumber);
         }
 
-        if(previousLapTime < _bestLapTime || _bestLapTime == 0f)
+        if (previousLapTime < _bestLapTime || _bestLapTime == 0f)
         {
             _bestLapTime = previousLapTime;
         }
@@ -269,28 +277,28 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         _totalElapsedTime = 0f;
         _bestLapTime = 0f;
         _currentTrackMedalTimes = medalTimes;
+        PlayerOneLapTimer.RemoveFromClassList("hideUI");
+        PlayerOneBestLapTime.RemoveFromClassList("hideUI");
         if (trackContext.GameMode == GameMode.Race)
         {
             TimerElement.AddToClassList("hideUI");
-            PlayerOneLapTimer.AddToClassList("hideUI");
-            PlayerTwoLapTimer.AddToClassList("hideUI");
+            ShowPlayerTwoHud(true);
         }
         else if (trackContext.GameMode == GameMode.Timed)
         {
             UpdatePlayerLapTimer(1, 0f);
-            PlayerOneLapTimer.RemoveFromClassList("hideUI");
 
             if (trackContext.PlayerCount == 1)
             {
                 TimerBackground.style.width = new StyleLength(new Length(20, LengthUnit.Percent));
-                PlayerTwoLapTimer.AddToClassList("hideUI");
+                ShowPlayerTwoHud(false);
                 UpdateCurrentMedal(Medal.Gold, _currentTrackMedalTimes[0]);
                 UpdateTimer(0);
             }
             else
             {
                 TimerBackground.style.width = new StyleLength(new Length(30, LengthUnit.Percent));
-                PlayerTwoLapTimer.RemoveFromClassList("hideUI");
+                ShowPlayerTwoHud(true);
                 UpdatePlayerLapTimer(2, 0f);
                 SetTimeToBeat(0f, null);
             }
@@ -298,19 +306,37 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         }
     }
 
+    private void ShowPlayerTwoHud(bool show)
+    {
+        if (show)
+        {
+            PlayerTwoHUD.RemoveFromClassList("hideUI");
+            PlayerTwoHUDBackground.RemoveFromClassList("hideUI");
+            PlayerTwoLapTimer.RemoveFromClassList("hideUI");
+            PlayerTwoBestLapTime.RemoveFromClassList("hideUI");
+        }
+        else
+        {
+            PlayerTwoHUD.AddToClassList("hideUI");
+            PlayerTwoHUDBackground.AddToClassList("hideUI");
+            PlayerTwoLapTimer.AddToClassList("hideUI");
+            PlayerTwoBestLapTime.AddToClassList("hideUI");
+        }
+    }
+
     public void CheckUpdateCurrentMedal(float totalElapsedTime)
     {
-        if(_currentMedal == Medal.None) return;
+        if (_currentMedal == Medal.None) return;
 
         if (_currentMedal == Medal.Gold && totalElapsedTime >= _currentTrackMedalTimes[0])
         {
             UpdateCurrentMedal(Medal.Silver, _currentTrackMedalTimes[1]);
         }
-        else if(_currentMedal == Medal.Silver && totalElapsedTime >= _currentTrackMedalTimes[1])
+        else if (_currentMedal == Medal.Silver && totalElapsedTime >= _currentTrackMedalTimes[1])
         {
             UpdateCurrentMedal(Medal.Bronze, _currentTrackMedalTimes[2]);
         }
-        else if(_currentMedal == Medal.Bronze && totalElapsedTime >= _currentTrackMedalTimes[2])
+        else if (_currentMedal == Medal.Bronze && totalElapsedTime >= _currentTrackMedalTimes[2])
         {
             UpdateCurrentMedal(Medal.Failed, 0f);
         }
@@ -324,7 +350,7 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
 
     private void SetMedalText(Medal medal, float medalTime, string playerName = null)
     {
-        switch (medal) 
+        switch (medal)
         {
             case Medal.Failed:
                 MedalText.text = "Failed";
@@ -373,6 +399,18 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         }
     }
 
+    public void UpdateBestLapTime(int playerNumber, float lapTime = 0f)
+    {
+        if (playerNumber == 1)
+        {
+            PlayerOneBestLapTime.text = Constants.FormatTime(lapTime);
+        }
+        else
+        {
+            PlayerTwoBestLapTime.text = Constants.FormatTime(lapTime);
+        }
+    }
+
     public async Task BeginCountdown(float duration)
     {
         CountdownValue.style.fontSize = 120;
@@ -405,6 +443,11 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
             CountdownValue.text = secondsRemaining.ToString();
 
             CountdownValue.style.fontSize = 160;
+
+            AudioManager.Instance.CreateAudioBuilder()
+                .WithParent(transform)
+                .Play(CountdownAudio);
+
             await Task.Delay(500);
             CountdownValue.style.fontSize = 120;
 
@@ -414,6 +457,10 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
         }
 
         CountdownValue.text = "GO!";
+        AudioManager.Instance.CreateAudioBuilder()
+            .WithParent(transform)
+            .Play(GoAudio);
+
         GameManager.Instance.StartRace();
     }
 

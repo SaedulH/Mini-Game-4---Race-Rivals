@@ -52,6 +52,7 @@ public class VehicleStats : ScriptableObject
 
     [field: Header("Drift Effects")]
     [field: SerializeField, Range(min: 0, max: 100)] public float MinSpeedForBrakeEffect { get; set; } = 10f;
+    [field: SerializeField, Range(min: 0, max: 100)] public float MinSpeedForOffRoadEffect { get; set; } = 15f;
     [field: SerializeField, Range(min: 0, max: 100)] public float MinSpeedForDriftEffect { get; set; } = 20f;
     [field: SerializeField, Range(min: 0, max: 360)] public float MinAngularVelocityForDriftEffect { get; set; } = 120f;
     [field: SerializeField, Range(min: 0, max: 1)] public float LowDriftRange { get; set; } = 0.2f;

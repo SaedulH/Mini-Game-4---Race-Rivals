@@ -110,7 +110,7 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
             }
             else
             {
-                Debug.Log($"Player 1 missed a checkpoint! Current: {PlayerOneProgress.CurrentCheckpoint}, Triggered: {checkpointNumber}");
+               // Debug.Log($"Player 1 missed a checkpoint! Current: {PlayerOneProgress.CurrentCheckpoint}, Triggered: {checkpointNumber}");
             }
         }
         else if (playerNumber == 2)
@@ -124,7 +124,7 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
             }
             else
             {
-                Debug.Log($"Player 2 missed a checkpoint! Current: {PlayerTwoProgress.CurrentCheckpoint}, Triggered: {checkpointNumber}");
+               // Debug.Log($"Player 2 missed a checkpoint! Current: {PlayerTwoProgress.CurrentCheckpoint}, Triggered: {checkpointNumber}");
             }
         }
     }
@@ -137,6 +137,7 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
             if (lapTime < playerProgress.BestLapTime || playerProgress.BestLapTime == 0f)
             {
                 playerProgress.SetBestLapTime(lapTime);
+                HUDManager.instance.UpdateBestLapTime(playerNumber, lapTime);
             }
 
             if (playerProgress.CurrentLap < _maxLaps)

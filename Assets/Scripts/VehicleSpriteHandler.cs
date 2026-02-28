@@ -9,6 +9,8 @@ public class VehicleSpriteHandler : MonoBehaviour
     [field: SerializeField] private SpriteRenderer _frontRightWheelSprite;
     [field: SerializeField] private SpriteRenderer _frontLeftWheelSprite;
     [field: SerializeField] private GameObject _backWheelsParent;
+    [field: SerializeField] private GameObject _backRightWheelParent;
+    [field: SerializeField] private GameObject _backLeftWheelParent;
 
     [field: SerializeField] private GameObject _exhaust;
     private CapsuleCollider2D _collider;
@@ -39,24 +41,32 @@ public class VehicleSpriteHandler : MonoBehaviour
 
         if (_frontWheelsParent != null)
         {
-            _frontWheelsParent.transform.localPosition = visualSettings.VehicleFrontWheelsPosition;
+            _frontWheelsParent.transform.localPosition = new Vector2(0f, visualSettings.VehicleFrontWheelsPosition.y);
             if (_frontRightWheelSprite != null)
             {
                 _frontRightWheelSprite.sprite = visualSettings.VehicleWheelsSprite;
-                _frontRightWheelSprite.transform.localPosition = new Vector2(visualSettings.VehicleFrontWheelsDistanceFromCentre, 0f);
+                _frontRightWheelSprite.transform.localPosition = new Vector2(visualSettings.VehicleFrontWheelsPosition.x, 0f);
                 _frontRightWheelSprite.transform.localScale = visualSettings.VehicleFrontWheelsScale * Vector3.one;
             }
             if (_frontLeftWheelSprite != null)
             {
                 _frontLeftWheelSprite.sprite = visualSettings.VehicleWheelsSprite;
-                _frontLeftWheelSprite.transform.localPosition = new Vector2(-visualSettings.VehicleFrontWheelsDistanceFromCentre, 0f);
+                _frontLeftWheelSprite.transform.localPosition = new Vector2(-visualSettings.VehicleFrontWheelsPosition.x, 0f);
                 _frontLeftWheelSprite.transform.localScale = visualSettings.VehicleFrontWheelsScale * Vector3.one;
             }
         }
 
         if (_backWheelsParent != null)
         {
-            _backWheelsParent.transform.localPosition = visualSettings.VehicleBackWheelsPosition;
+            _backWheelsParent.transform.localPosition = new Vector2(0f, visualSettings.VehicleBackWheelsPosition.y);
+            if (_backRightWheelParent != null)
+            {
+                _backRightWheelParent.transform.localPosition = new Vector2(visualSettings.VehicleBackWheelsPosition.x, 0f);
+            }
+            if (_backLeftWheelParent != null)
+            {
+                _backLeftWheelParent.transform.localPosition = new Vector2(-visualSettings.VehicleBackWheelsPosition.x, 0f);
+            }
         }
 
         if (_exhaust != null)

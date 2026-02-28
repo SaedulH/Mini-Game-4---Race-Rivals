@@ -1,3 +1,4 @@
+using System;
 using AudioSystem;
 using UnityEngine;
 using Utilities;
@@ -5,17 +6,27 @@ using Utilities;
 public class EffectsHandler : MonoBehaviour
 {
     [field: Header("Effects")]
+
+    [field: Header("Exhaust")]
     [SerializeField] private ParticleSystem _exhaustEffect;
     private EffectRate _exhaustEffectRate = EffectRate.None;
 
-    [SerializeField] private ParticleSystem _leftDriftSmokeEffect;
+    [field: Header("Offroad")]
+    [SerializeField] private ParticleSystem[] _wheelOffRoadEffects;
+    [SerializeField] private TerrainEffectPreset[] _terrainEffectPresets;
+    [SerializeField] private TerrainType[] _currentWheelTerrains = new TerrainType[4];
+    [SerializeField] private AudioData _offRoadAudio;
+    private AudioEmitter _offRoadEmitter;
+
+    [field: Header("Drift")]
     [SerializeField] private ParticleSystem _rightDriftSmokeEffect;
+    [SerializeField] private ParticleSystem _leftDriftSmokeEffect;
     private EffectRate _driftSmokeEffectRate = EffectRate.None;
     private bool _driftSmokePlaying = false;
 
-    [SerializeField] private TrailRenderer _leftDriftTrailEffect;
-    [SerializeField] private TrailRenderer _rightDriftTrailEffect;
-    private bool _driftTrailEmitting = false;
+    [SerializeField] private TrailRenderer[] _wheelTrailEffects;
+    private bool _frontTrailsEmitting = false;
+    private bool _backTrailsEmitting = false;
 
     [field: Header("Audio")]
     [SerializeField] private AudioData _idleAudio;
@@ -50,9 +61,20 @@ public class EffectsHandler : MonoBehaviour
         _leftDriftSmokeEffect.Stop();
         _rightDriftSmokeEffect.Stop();
 
-        _driftTrailEmitting = false;
-        _leftDriftTrailEffect.emitting = false;
-        _rightDriftTrailEffect.emitting = false;
+        foreach (ParticleSystem offRoadEffect in _wheelOffRoadEffects)
+        {
+            if (offRoadEffect != null)
+            {
+                offRoadEffect.Stop();
+            }
+        }
+
+        _frontTrailsEmitting = false;
+        _backTrailsEmitting = false;
+        foreach (TrailRenderer trail in _wheelTrailEffects)
+        {
+            trail.emitting = false;
+        }
 
         _vehicleStats = vehicleStats;
     }
@@ -124,7 +146,7 @@ public class EffectsHandler : MonoBehaviour
 
     #endregion
 
-    #region Drift Effects
+    #region Trail Effects
 
     public void SetDriftRate(float rate)
     {
@@ -171,11 +193,11 @@ public class EffectsHandler : MonoBehaviour
         return _driftSmokeEffectRate;
     }
 
-    public void PlayDriftEffects(bool play = true)
+    public void PlayDriftEffects(bool play, bool isDrifting = false)
     {
         PlayDriftAudio(play);
         PlayDriftSmokeEffect(play);
-        PlayDriftTrailEffect(play);
+        PlayDriftTrailEffect(play, isDrifting);
     }
 
     public void PlayDriftSmokeEffect(bool play)
@@ -194,19 +216,40 @@ public class EffectsHandler : MonoBehaviour
         }
     }
 
-    public void PlayDriftTrailEffect(bool play)
+    public void PlayDriftTrailEffect(bool play, bool isDrifting)
     {
-        if (play && !_driftTrailEmitting)
+        if (play) 
         {
-            _driftTrailEmitting = true;
-            _leftDriftTrailEffect.emitting = true;
-            _rightDriftTrailEffect.emitting = true;
+            if (!_frontTrailsEmitting && isDrifting)
+            {
+                _frontTrailsEmitting = true;
+
+                _wheelTrailEffects[0].emitting = true;
+                _wheelTrailEffects[1].emitting = true;
+            }
+            if (!_backTrailsEmitting)
+            {
+                _backTrailsEmitting = true;
+
+                _wheelTrailEffects[2].emitting = true;
+                _wheelTrailEffects[3].emitting = true;
+            }
         }
-        else if (!play && _driftTrailEmitting)
+        else if (!play)
         {
-            _driftTrailEmitting = false;
-            _leftDriftTrailEffect.emitting = false;
-            _rightDriftTrailEffect.emitting = false;
+            if (_frontTrailsEmitting)
+            {
+                _frontTrailsEmitting = false;
+                _wheelTrailEffects[0].emitting = false;
+                _wheelTrailEffects[1].emitting = false;
+            }
+            if (_backTrailsEmitting)
+            {
+                _backTrailsEmitting = false;
+
+                _wheelTrailEffects[2].emitting = false;
+                _wheelTrailEffects[3].emitting = false;
+            }
         }
     }
 
@@ -258,6 +301,88 @@ public class EffectsHandler : MonoBehaviour
 
     #endregion
 
+    #region OffRoad Effects
+    public void PlayOffRoadEffects(int wheelIndex, bool play = true, TerrainType terrain = 0)
+    {
+        ParticleSystem wheelEffect = _wheelOffRoadEffects[wheelIndex];
+        if (wheelEffect == null)
+        {
+            return;
+        }
+
+        if (play && terrain != TerrainType.Road)
+        {
+            if (!wheelEffect.isPlaying)
+            {
+                PlayTerrainEffect(wheelIndex, terrain, wheelEffect);
+            }
+        }
+        else
+        {
+            if (wheelEffect.isPlaying)
+            {
+                _wheelOffRoadEffects[wheelIndex].Stop();
+            }
+        }
+
+        _currentWheelTerrains[wheelIndex] = terrain;
+    }
+
+    private void PlayTerrainEffect(int wheelIndex, TerrainType terrain, ParticleSystem wheelEffect)
+    {
+        if (_currentWheelTerrains[wheelIndex] == terrain)
+        {
+            wheelEffect.Play();
+            return;
+        }
+
+        TerrainEffectPreset terrainEffect = _terrainEffectPresets[(int)terrain];
+
+        var main = wheelEffect.main;
+        main.startColor = terrainEffect.startColor;
+        main.startSize = terrainEffect.startSize;
+        main.startLifetime = terrainEffect.lifetime;
+
+        var emission = wheelEffect.emission;
+        emission.rateOverTimeMultiplier = terrainEffect.emissionRate;
+
+        var textureSheet = wheelEffect.textureSheetAnimation;
+        for (int i = 0; i < terrainEffect.effectSpriteSheet.Length; i++)
+        {
+            textureSheet.SetSprite(i, terrainEffect.effectSpriteSheet[i]);
+        }
+        wheelEffect.Play();
+        return;
+    }
+
+    public void PlayOffRoadAudio(float offRoadFactor, bool isMovingFastEnough)
+    {
+        if (_offRoadAudio == null) return;
+
+        if (_driftEmitter != null)
+        {
+            if (offRoadFactor > 0 && !_driftEmitter.IsPlaying() && isMovingFastEnough)
+            {
+                //_driftEmitter.WithVolume(offRoadFactor).Play();
+            }
+            else if (offRoadFactor <= 0 && _driftEmitter.IsPlaying() || !isMovingFastEnough)
+            {
+                _driftEmitter.Stop();
+            }
+        }
+        else if (offRoadFactor > 0 && isMovingFastEnough)
+        {
+            _driftEmitter = AudioManager.Instance.CreateAudioBuilder()
+                .WithParent(transform)
+                .WithFadeIn()
+                .WithLoop()
+                .WithVolume(offRoadFactor)
+                .Play(_driftAudio);
+        }
+    }
+
+    #endregion
+
     private void SetEmissionRate(ParticleSystem particleSystem, float clampedRate)
     {
         var emission = particleSystem.emission;
@@ -286,8 +411,7 @@ public class EffectsHandler : MonoBehaviour
         float duration = relativeSpeed * Constants.COLLISION_DURATION_COEFFICIENT;
         float intensity = relativeSpeed * Constants.COLLISION_INTENSITY_COEFFICIENT;
 
-        Debug.Log($"Speed: {speed}, Relative Speed: {relativeSpeed}, Volume: {volume}, Intensity: {intensity}, Duration: {duration}");
-
+        //Debug.Log($"Speed: {speed}, Relative Speed: {relativeSpeed}, Volume: {volume}, Intensity: {intensity}, Duration: {duration}");
 
         PlayCollisionAudio(volume, isAnotherVehicle);
         CameraShake.Instance.ShakeCamera(intensity, duration);

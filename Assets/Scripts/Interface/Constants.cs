@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 
 namespace Utilities
 {
@@ -30,6 +31,11 @@ namespace Utilities
         public const float COLLISION_VOLUME_COEFFICIENT = 0.8f;
         public const float COLLISION_DURATION_COEFFICIENT = 0.5f;
         public const float COLLISION_INTENSITY_COEFFICIENT = 0.8f;
+
+        public const float ROAD_TERRAIN_FACTOR = 0f;
+        public const float GRASS_TERRAIN_FACTOR = 0.6f;
+        public const float DIRT_TERRAIN_FACTOR = 0.8f;
+        public const float GRAVEL_TERRAIN_FACTOR = 1f;
 
         public static string FormatTime(float lapTime)
         {
@@ -80,7 +86,7 @@ namespace Utilities
     }
 
     public enum EffectRate
-    { 
+    {
         None,
         Low,
         High
@@ -92,5 +98,13 @@ namespace Utilities
         Drifter = 1,
         Muscle = 2,
         Racer = 3
+    }
+
+    public enum TerrainType : int
+    {
+        Road = 0,
+        Grass = 1,
+        Dirt = 2,
+        Gravel = 3,
     }
 }

@@ -15,8 +15,10 @@ TagManager:
   - AI
   - VirtualCamera
   - Road
-  - OffRoad
   - Wall
+  - Dirt
+  - Grass
+  - Gravel
   layers:
   - Default
   - TransparentFX

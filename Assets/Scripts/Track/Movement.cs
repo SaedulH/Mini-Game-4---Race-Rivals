@@ -231,7 +231,7 @@ public class Movement : MonoBehaviour
         maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxTurnSpeedLossPercentage, turnFactor);
 
         // How much speed you lose offroad
-        maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadSpeedLossPercentage, _terrainDetector.OffRoadFactor);
+        maxSpeed *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadSpeedLossPercentage, _terrainDetector.TotalOffRoadFactor);
 
         _rb.linearVelocity = Vector2.ClampMagnitude(
             _rb.linearVelocity,
@@ -253,7 +253,7 @@ public class Movement : MonoBehaviour
         );
 
         //How much grip you lose offroad
-        gripStrength *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadTractionLossPercentage, _terrainDetector.OffRoadFactor);
+        gripStrength *= Mathf.Lerp(1f, 1f - _stats.MaxOffRoadTractionLossPercentage, _terrainDetector.TotalOffRoadFactor);
 
         // Smoothly remove sideways velocity
         lateralVel = Mathf.Lerp(
@@ -407,6 +407,7 @@ public class Movement : MonoBehaviour
         AnimateSteering(_input.Steering);
         BrakeEffect(currentSpeed);
         DriftEffect(currentSpeed);
+        OffRoadEffect(currentSpeed);
     }
 
     private void BrakeEffect(float currentSpeed)
@@ -437,13 +438,30 @@ public class Movement : MonoBehaviour
             );
 
             _effects.SetDriftRate(driftRate);
-            _effects.PlayDriftEffects(true);
+            _effects.PlayDriftEffects(true, _isDrifting);
         }
         else
         {
             _effects.PlayDriftEffects(false);
         }
     }
+
+    private void OffRoadEffect(float currentSpeed)
+    {
+        if (_terrainDetector.WheelDetectors.Length == 0)
+        {
+            return;
+        }
+
+        bool isMovingFastEnough = Mathf.Abs(currentSpeed) > _stats.MinSpeedForOffRoadEffect;
+        _effects.PlayOffRoadAudio(_terrainDetector.TotalOffRoadFactor, isMovingFastEnough);
+        for (int i = 0; i < _terrainDetector.WheelDetectors.Length; i++)
+        {
+            TerrainType terrainType = _terrainDetector.WheelDetectors[i].DetectOffRoadTerrain();
+            _effects.PlayOffRoadEffects(i, isMovingFastEnough, terrainType);
+        }
+    }
+
 
     public void AnimateSteering(float steering)
     {

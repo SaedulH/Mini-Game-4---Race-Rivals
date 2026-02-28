@@ -44,6 +44,7 @@ MonoBehaviour:
   <LowExhaustRate>k__BackingField: 5
   <HighExhaustRate>k__BackingField: 10
   <MinSpeedForBrakeEffect>k__BackingField: 15
+  <MinSpeedForOffRoadEffect>k__BackingField: 5
   <MinSpeedForDriftEffect>k__BackingField: 40
   <MinAngularVelocityForDriftEffect>k__BackingField: 120
   <LowDriftRange>k__BackingField: 0.2
