@@ -1728,6 +1728,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8090446288908020629}
     m_Modifications:
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.y.minMaxState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.z.minMaxState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.minMaxState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].time
+      value: 0.42700747
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.minCurve.m_Curve.Array.data[0].time
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.4235537
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.minCurve.m_Curve.Array.data[0].value
+      value: 0.5189506
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.minCurve.m_Curve.Array.data[0].inSlope
+      value: 0.42747673
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.minCurve.m_Curve.Array.data[0].outSlope
+      value: 0.42747673
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469354371517152152, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
+      propertyPath: SizeModule.curve.minCurve.m_Curve.Array.data[0].outWeight
+      value: 0.0822622
+      objectReference: {fileID: 0}
     - target: {fileID: 8431945714200937869, guid: ef3defdd05c2d8c4e920914299e7bb96, type: 3}
       propertyPath: m_Name
       value: Exhaust

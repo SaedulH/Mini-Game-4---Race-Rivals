@@ -312,7 +312,7 @@ public class EffectsHandler : MonoBehaviour
 
         if (play && terrain != TerrainType.Road)
         {
-            if (!wheelEffect.isPlaying)
+            if (!wheelEffect.isPlaying || _currentWheelTerrains[wheelIndex] != terrain)
             {
                 PlayTerrainEffect(wheelIndex, terrain, wheelEffect);
             }

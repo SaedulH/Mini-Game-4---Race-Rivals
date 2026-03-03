@@ -34,8 +34,19 @@ public class LoadingScreen : NonPersistentSingleton<LoadingScreen>
 
     public async Task SetLevelInfo(string title, string description, Sprite image, TrackContext context)
     {
+        if(title == "Main Menu")
+        {
+            TrackMode.AddToClassList("hideUI");
+            TrackPlayerCount.AddToClassList("hideUI");
+            TrackImage.AddToClassList("hideUI");
+        } 
+        else
+        {
+            TrackMode.RemoveFromClassList("hideUI");
+            TrackPlayerCount.RemoveFromClassList("hideUI");
+            TrackImage.RemoveFromClassList("hideUI");
+        }
         TrackTitle.text = title;
-        //TrackDescription.text = description;
         TrackMode.text = $"Mode: {context.GameMode}";
         TrackPlayerCount.text = $"Players: {context.PlayerCount}";
         TrackImage.style.backgroundImage = new StyleBackground(image);

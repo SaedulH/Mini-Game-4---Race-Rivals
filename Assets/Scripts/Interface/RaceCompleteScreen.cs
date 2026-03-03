@@ -15,6 +15,8 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
     [field: SerializeField] public Button QuitButton { get; set; }
 
     [field: Header("Audio")]
+    [field: SerializeField] public AudioData RaceCompleteAudio { get; set; }
+    [field: SerializeField] public AudioData RaceCompleteBGM { get; set; }
     [field: SerializeField] public AudioData RestartAudio { get; set; }
     [field: SerializeField] public AudioData QuitAudio { get; set; }
     [field: SerializeField] public AudioData HoverAudio { get; set; }
@@ -57,8 +59,13 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
     {
         if(state == GameState.GameOver)
         {
+
+            AudioManager.Instance.CreateAudioBuilder()
+                .Play(RaceCompleteAudio);
+
             await Task.Delay(1000);
 
+            BackgroundMusic.Instance.PlayNewBackgroundMusic(RaceCompleteBGM);
             await ShowRaceCompleteScreen();
         }
         else

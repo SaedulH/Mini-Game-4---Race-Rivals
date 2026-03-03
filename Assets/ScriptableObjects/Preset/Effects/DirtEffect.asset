@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: DirtEffect
   m_EditorClassIdentifier: Assembly-CSharp::TerrainEffectPreset
   effectSpriteSheet:
-  - {fileID: 21300000, guid: 3a31cc0ffdfba7a41bd4e80a3c1a32cf, type: 3}
-  startColor: {r: 0.754717, g: 0.3818208, b: 0, a: 0.5882353}
-  emissionRate: 5
-  startSize: 0.3
+  - {fileID: -1504967753, guid: 892372e2ae2968e4eb1cfddf3a6a028c, type: 3}
+  - {fileID: -368524755, guid: 892372e2ae2968e4eb1cfddf3a6a028c, type: 3}
+  - {fileID: -1591763250, guid: 892372e2ae2968e4eb1cfddf3a6a028c, type: 3}
+  startColor: {r: 0.4528302, g: 0.2403314, b: 0.023495909, a: 0.98039216}
+  emissionRate: 12
+  startSize: 0.25
   lifetime: 0.5

@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c1c105b9c91384db7dd8f06bf36ece, type: 3}
   m_Name: GravelEffect
   m_EditorClassIdentifier: Assembly-CSharp::TerrainEffectPreset
-  effectSpriteSheet: []
-  startColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0.5882353}
-  emissionRate: 6
+  effectSpriteSheet:
+  - {fileID: 1469561898, guid: c1dfe300e9475684a95c86f6c84f9f83, type: 3}
+  - {fileID: -1703894304, guid: c1dfe300e9475684a95c86f6c84f9f83, type: 3}
+  - {fileID: -602193518, guid: c1dfe300e9475684a95c86f6c84f9f83, type: 3}
+  startColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 0.78431374}
+  emissionRate: 11
   startSize: 0.2
-  lifetime: 0.5
+  lifetime: 0.4
