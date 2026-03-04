@@ -49,19 +49,6 @@ public class GameManager : NonPersistentSingleton<GameManager>
     public void EnterGameState(GameState newState)
     {
         Debug.Log($"Entering Game State: {newState}");
-        //switch (newState)
-        //{
-        //    case GameState.Playing:
-        //        break;
-        //    case GameState.Loading:
-        //        //Input.SwitchCurrentActionMap("Gameplay");
-        //        break;
-        //    case GameState.Menu:
-        //    case GameState.Paused:
-        //    case GameState.GameOver:
-        //        //Input.SwitchCurrentActionMap("UI");
-        //        break;
-        //}
         CurrentGameState = newState;
         OnGameStateChanged?.Invoke(newState);
     }

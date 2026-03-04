@@ -190,17 +190,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <VehicleSelector>k__BackingField: {fileID: 11400000, guid: 79970dd803758e342b069334087a5af3, type: 2}
   <SelectedVehicleOne>k__BackingField:
-    <PlayerOneName>k__BackingField: 
-    <PlayerOneIcon>k__BackingField: {fileID: 0}
-    <PlayerTwoName>k__BackingField: 
-    <PlayerTwoIcon>k__BackingField: {fileID: 0}
+    <VehicleName>k__BackingField: 
     <Stats>k__BackingField: {fileID: 0}
+    <VisualSettings>k__BackingField: {fileID: 0}
+    <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 0}
+    <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
+    <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
+    <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
   <SelectedVehicleTwo>k__BackingField:
-    <PlayerOneName>k__BackingField: 
-    <PlayerOneIcon>k__BackingField: {fileID: 0}
-    <PlayerTwoName>k__BackingField: 
-    <PlayerTwoIcon>k__BackingField: {fileID: 0}
+    <VehicleName>k__BackingField: 
     <Stats>k__BackingField: {fileID: 0}
+    <VisualSettings>k__BackingField: {fileID: 0}
+    <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 0}
+    <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
+    <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
+    <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
   <PlayAudio>k__BackingField: {fileID: 11400000, guid: 1e11a5d2a2f30724c8c0674392944227, type: 2}
   <SelectAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
   <BackAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
@@ -211,7 +215,7 @@ MonoBehaviour:
   <TrackInfo>k__BackingField:
   - {fileID: 11400000, guid: fdd1a11a18c02d04b96156213fd5bc64, type: 2}
   - {fileID: 11400000, guid: e111a448867d16344b6f232eb0725d44, type: 2}
-  - {fileID: 11400000, guid: 1dd7aed56752edd46b1917d12fdeeb4e, type: 2}
+  - {fileID: 11400000, guid: 6eaa8d356e49600478402dcc2e21b9c0, type: 2}
 --- !u!114 &1052471324
 MonoBehaviour:
   m_ObjectHideFlags: 0

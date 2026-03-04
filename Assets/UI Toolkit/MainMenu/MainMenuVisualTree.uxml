@@ -29,16 +29,38 @@
                         </ui:GroupBox>
                         <ui:Label tabindex="-1" text="Track" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectTrack" class="subheader" style="font-size: 45px; -unity-text-align: upper-center;"/>
                         <ui:GroupBox name="Tracks" class="selectionOption">
-                            <ui:Button text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackOne" class="selectionButton" style="min-width: 20%;"/>
-                            <ui:Button text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackTwo" class="selectionButton" style="min-width: 20%;"/>
-                            <ui:Button text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackThree" class="selectionButton" style="min-width: 20%;"/>
+                            <ui:Button text="1" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackOne" class="selectionButton" style="min-width: 22.5%;"/>
+                            <ui:Button text="2" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackTwo" class="selectionButton" style="min-width: 22.5%;"/>
+                            <ui:Button text="3" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TrackThree" class="selectionButton" style="min-width: 22.5%;"/>
                         </ui:GroupBox>
                         <ui:Label tabindex="-1" text="Laps" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SelectLapCount" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; display: none;"/>
                         <ui:SliderInt label="SliderInt" value="42" high-value="100" class="selectionOption" style="display: none;"/>
                     </ui:GroupBox>
                     <ui:GroupBox name="SelectMap" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 40%; height: 100%; flex-direction: column; padding-left: 0; padding-right: 5%;">
-                        <ui:Label tabindex="-1" text="Track Map" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MapName" class="subheader" style="font-size: 45px; margin-top: 41px; -unity-text-align: upper-center; flex-shrink: 1; flex-grow: 1; margin-bottom: 0; padding-bottom: 0;"/>
-                        <ui:VisualElement name="MapImage" class="mapImage" style="background-image: url(&quot;project://database/Assets/Sprites/Maps/Track1Map.asset?fileID=21300000&amp;guid=b19b499b4d39e9141a01b37ca4d80fe1&amp;type=2#Track1Map&quot;); border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2);"/>
+                        <ui:Label tabindex="-1" text="Track Map" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MapName" class="subheader" style="font-size: 45px; margin-top: 10%; -unity-text-align: upper-center; flex-shrink: 1; flex-grow: 0; margin-bottom: 5%; padding-bottom: 0;"/>
+                        <ui:VisualElement name="MapImageElement" class="mapImage" style="border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2);">
+                            <ui:VisualElement name="MapImage" style="background-image: url(&quot;project://database/Assets/Sprites/Maps/Track1OutlineNoBG.png?fileID=21300000&amp;guid=5f304aed27159494e878c217c72ab43d&amp;type=3#Track1OutlineNoBG&quot;); border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2); width: 100%; height: 100%; scale: 0.8 0.7; -unity-background-image-tint-color: rgb(156, 156, 156);"/>
+                        </ui:VisualElement>
+                        <ui:GroupBox class="mapImage" style="flex-direction: row; height: 5%; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                            <ui:VisualElement name="MapLapCount" class="mapInfo" style="border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2); flex-grow: 1;">
+                                <ui:Label text="x" name="LapCount" class="mapInfoText" style="font-size: 50px; -unity-font-style: bold; margin-bottom: 0; padding-bottom: 0;"/>
+                                <ui:Label text="Laps" name="Lap" class="mapInfoText" style="margin-top: 0; padding-top: 0;"/>
+                            </ui:VisualElement>
+                            <ui:GroupBox name="SelectedMapTimedModeElement" style="flex-direction: row; flex-grow: 1; height: 100%; flex-shrink: 1; width: 75%; align-self: center; align-items: center; align-content: stretch; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0;">
+                                <ui:VisualElement name="MapGoldTime" class="mapInfo" style="border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2);">
+                                    <ui:Label text="Gold" name="Gold" class="mapInfoText" style="color: rgb(255, 215, 0);"/>
+                                    <ui:Label text="time" name="GoldTime" class="mapInfoText"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="MapSilverTime" class="mapInfo" style="border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2);">
+                                    <ui:Label text="Silver" name="Silver" class="mapInfoText" style="color: rgb(192, 192, 192);"/>
+                                    <ui:Label text="time" name="SilverTime" class="mapInfoText"/>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="MapBronzeTime" class="mapInfo" style="border-left-color: rgba(0, 148, 255, 0.2); border-right-color: rgba(0, 148, 255, 0.2); border-top-color: rgba(0, 148, 255, 0.2); border-bottom-color: rgba(0, 148, 255, 0.2);">
+                                    <ui:Label text="Bronze" name="Bronze" class="mapInfoText" style="color: rgb(205, 127, 50);"/>
+                                    <ui:Label text="time" name="BronzeTime" class="mapInfoText"/>
+                                </ui:VisualElement>
+                            </ui:GroupBox>
+                        </ui:GroupBox>
                     </ui:GroupBox>
                 </ui:VisualElement>
                 <ui:VisualElement name="VehicleScreen" view-data-key="SecondScreen" class="vehicleScreen hideUI" style="flex-grow: 1; width: 100%; height: 100%;">

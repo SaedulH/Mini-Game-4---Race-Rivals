@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,11 @@ public class MenuManager : MonoBehaviour
     [field: SerializeField] public Button StartButton { get; set; }
     [field: SerializeField] public Button BackButton { get; set; }
     [field: SerializeField] public VisualElement SelectedMapImage { get; set; }
+    [field: SerializeField] public VisualElement SelectedMapTimedModeElement { get; set; }
+    [field: SerializeField] public Label SelectedMapLapCount { get; set; }
+    [field: SerializeField] public Label SelectedMapGoldTime { get; set; }
+    [field: SerializeField] public Label SelectedMapSilverTime { get; set; }
+    [field: SerializeField] public Label SelectedMapBronzeTime { get; set; }
 
     // Vehicle Selection
     [field: Header("Vehicle Selection")]
@@ -117,6 +123,11 @@ public class MenuManager : MonoBehaviour
         TrackThreeButton.clicked += () => OnTrackThreeClicked();
 
         SelectedMapImage = SelectionScreen.Q<VisualElement>("MapImage");
+        SelectedMapTimedModeElement = SelectionScreen.Q<VisualElement>("SelectedMapTimedModeElement");
+        SelectedMapLapCount = SelectionScreen.Q<Label>("LapCount");
+        SelectedMapGoldTime = SelectionScreen.Q<Label>("GoldTime");
+        SelectedMapSilverTime = SelectionScreen.Q<Label>("SilverTime");
+        SelectedMapBronzeTime = SelectionScreen.Q<Label>("BronzeTime"); 
 
         StartButton = MainMenu.Q<Button>("Start");
         StartButton.clicked += OnStartClicked;
@@ -164,6 +175,7 @@ public class MenuManager : MonoBehaviour
         TwoPlayerButton.clicked -= () => OnTwoPlayerClicked();
         TrackOneButton.clicked -= () => OnTrackOneClicked();
         TrackTwoButton.clicked -= () => OnTrackTwoClicked();
+        TrackTwoButton.clicked -= () => OnTrackThreeClicked();
         StartButton.clicked -= OnStartClicked;
         BackButton.clicked -= OnBackClicked;
 
@@ -319,7 +331,7 @@ public class MenuManager : MonoBehaviour
 
     #region Race Selection Handlers
 
-    public void OnRaceModeClicked(bool playSound = true)
+    public void OnRaceModeClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"Mode: Race");
@@ -327,9 +339,10 @@ public class MenuManager : MonoBehaviour
         TimedModeButton.SetEnabled(true);
 
         _gameMode = GameMode.Race;
+        UpdateMapInfo(updateMapInfo);
     }
 
-    public void OnTimedModeClicked(bool playSound = true)
+    public void OnTimedModeClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"Mode: Timed");
@@ -337,9 +350,10 @@ public class MenuManager : MonoBehaviour
         TimedModeButton.SetEnabled(false);
 
         _gameMode = GameMode.Timed;
+        UpdateMapInfo(updateMapInfo);
     }
 
-    public void OnOnePlayerClicked(bool playSound = true)
+    public void OnOnePlayerClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"PlayerCount: 1");
@@ -351,9 +365,10 @@ public class MenuManager : MonoBehaviour
         TwoPlayerButton.SetEnabled(true);
 
         _playerCount = 1;
+        UpdateMapInfo(updateMapInfo);
     }
 
-    public void OnTwoPlayerClicked(bool playSound = true)
+    public void OnTwoPlayerClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"PlayerCount: 2");
@@ -364,9 +379,10 @@ public class MenuManager : MonoBehaviour
         TwoPlayerButton.SetEnabled(false);
 
         _playerCount = 2;
+        UpdateMapInfo(updateMapInfo);
     }
 
-    public void OnTrackOneClicked(bool playSound = true)
+    public void OnTrackOneClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"Track: 1");
@@ -374,10 +390,12 @@ public class MenuManager : MonoBehaviour
         TrackTwoButton.SetEnabled(true);
         TrackThreeButton.SetEnabled(true);
         SelectedMapImage.style.backgroundImage = new StyleBackground(TrackInfo[0].TrackImage);
+
         _trackNum = 1;
+        UpdateMapInfo(updateMapInfo);
     }
 
-    public void OnTrackTwoClicked(bool playSound = true)
+    public void OnTrackTwoClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"Track: 2");
@@ -385,10 +403,12 @@ public class MenuManager : MonoBehaviour
         TrackTwoButton.SetEnabled(false);
         TrackThreeButton.SetEnabled(true);
         SelectedMapImage.style.backgroundImage = new StyleBackground(TrackInfo[1].TrackImage);
+
         _trackNum = 2;
+        UpdateMapInfo(updateMapInfo);
     }
 
-    public void OnTrackThreeClicked(bool playSound = true)
+    public void OnTrackThreeClicked(bool playSound = true, bool updateMapInfo = true)
     {
         PlaySelectAudio(playSound);
         //Debug.Log($"Track: 3");
@@ -396,14 +416,46 @@ public class MenuManager : MonoBehaviour
         TrackTwoButton.SetEnabled(true);
         TrackThreeButton.SetEnabled(false);
         SelectedMapImage.style.backgroundImage = new StyleBackground(TrackInfo[2].TrackImage);
+
         _trackNum = 3;
+        UpdateMapInfo(updateMapInfo);
     }
 
     private void ResetSelections()
     {
-        OnRaceModeClicked(false);
-        OnOnePlayerClicked(false);
-        OnTrackOneClicked(false);
+        OnTrackOneClicked(false, false);
+        OnOnePlayerClicked(false, false);
+        OnRaceModeClicked(false, false);
+        UpdateMapInfo(true);
+    }
+
+    private void SetTrackAwardTimes(TrackInfo trackInfo)
+    {
+        InitHUDStepSO setupHUDStep = (InitHUDStepSO) trackInfo.StepOrder.First(s => s.Description == "Setting up HUD");
+        if (setupHUDStep == null)
+        {
+            Debug.LogError($"No HUD setup step found for track {trackInfo.TrackName}");
+            return;
+        }
+        SelectedMapGoldTime.text = Constants.FormatTime(setupHUDStep.GoldTime);
+        SelectedMapSilverTime.text = Constants.FormatTime(setupHUDStep.SilverTime);
+        SelectedMapBronzeTime.text = Constants.FormatTime(setupHUDStep.BronzeTime);
+    }
+
+    private void UpdateMapInfo(bool updateMapInfo)
+    {
+        if (!updateMapInfo) return;
+
+        SelectedMapLapCount.text = TrackInfo[_trackNum - 1].GetLapCountForMode(_gameMode).ToString();
+        if (_gameMode == GameMode.Race || _playerCount > 1)
+        {
+            SelectedMapTimedModeElement.AddToClassList("hideUI");
+        }
+        else
+        {
+            SetTrackAwardTimes(TrackInfo[_trackNum -1]);
+            SelectedMapTimedModeElement.RemoveFromClassList("hideUI");
+        }
     }
 
     #endregion
