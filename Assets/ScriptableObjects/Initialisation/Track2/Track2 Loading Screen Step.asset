@@ -17,4 +17,4 @@ MonoBehaviour:
   <StepPriority>k__BackingField: 0
   TrackTitle: Daytona
   TrackDescription: 
-  TrackImage: {fileID: 0}
+  TrackImage: {fileID: 21300000, guid: ae81aa4a959619c4d87c4ffec428416f, type: 3}

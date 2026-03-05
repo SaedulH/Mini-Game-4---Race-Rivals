@@ -3063,7 +3063,7 @@ GameObject:
   - component: {fileID: 251794736}
   m_Layer: 6
   m_Name: OffRoadCollider_Inner_Dirt
-  m_TagString: Gravel
+  m_TagString: Dirt
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

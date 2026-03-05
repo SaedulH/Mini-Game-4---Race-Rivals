@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 809ae8ffd1f4a114a9db3a61ad20dddd, type: 3}
   m_Name: Track2 Info
   m_EditorClassIdentifier: Assembly-CSharp::CoreSystem.TrackInfo
-  <TrackName>k__BackingField: Multi Story
+  <TrackName>k__BackingField: Daytona
   <TrackIndex>k__BackingField: 1
-  <TrackImage>k__BackingField: {fileID: 21300000, guid: c24213e343aab4e2798c3eb3b82bd43d, type: 3}
+  <TrackImage>k__BackingField: {fileID: 21300000, guid: ae81aa4a959619c4d87c4ffec428416f, type: 3}
   <StepOrder>k__BackingField:
   - {fileID: 11400000, guid: 0e9a3bcbba1d7a349833be690102989c, type: 2}
   - {fileID: 11400000, guid: 1d5f425d8ffb285478e43636e1315a68, type: 2}
