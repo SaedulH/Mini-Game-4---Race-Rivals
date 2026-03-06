@@ -17900,7 +17900,7 @@ GameObject:
   - component: {fileID: 1367093880}
   - component: {fileID: 1367093881}
   m_Layer: 6
-  m_Name: OffRoadCollider_Outer
+  m_Name: OffRoadCollider_Outer_Grass
   m_TagString: Grass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

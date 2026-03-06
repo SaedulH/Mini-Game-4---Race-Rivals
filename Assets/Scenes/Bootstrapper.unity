@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UsePreset: 0
-  ScenePreset: {fileID: 11400000, guid: 117d2b3a625322b4a85824f7e8ef264b, type: 2}
+  ScenePreset: {fileID: 11400000, guid: b61124426d4e98f48b2874d35f0f089d, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
