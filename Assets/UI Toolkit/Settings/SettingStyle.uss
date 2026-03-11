@@ -43,16 +43,16 @@
     -unity-font-definition: initial;
 }
 
-.mapInfoText {
+.selectionScreen {
     align-self: center;
     align-items: center;
-    font-size: 25px;
-    color: rgb(183, 183, 183);
-    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
-    -unity-font-style: normal;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    -unity-font-definition: initial;
+    justify-content: flex-end;
+    position: relative;
+    flex-grow: 1;
+}
+
+.settingSubMenu {
+    position: absolute;
 }
 
 .hideUI {
@@ -61,20 +61,76 @@
     transition-duration: 0.2s;
 }
 
-.selectionScreen {
+.button {
+    font-size: 50px;
+    -unity-text-align: middle-center;
+    color: rgb(183, 183, 183);
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
+    -unity-font-style: normal;
+    text-overflow: clip;
+    white-space: normal;
     align-self: center;
+    justify-content: center;
     align-items: center;
-    justify-content: flex-end;
-    position: absolute;
+    position: relative;
+    opacity: 1;
+    border-left-color: rgba(0, 148, 255, 0.2);
+    border-right-color: rgba(0, 148, 255, 0.2);
+    border-top-color: rgba(0, 148, 255, 0.2);
+    border-bottom-color: rgba(0, 148, 255, 0.2);
+    rotate: 0;
+    width: 25%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-width: 5px;
+    border-right-width: 5px;
+    border-bottom-width: 5px;
+    border-left-width: 5px;
+    -unity-font-definition: initial;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+    transition-property: all;
+    background-image: url("project://database/Assets/Sprites/Misc/background-inverted.png?fileID=2800000&guid=31953fe7d7122194fa329c6ae6f95161&type=3#background-inverted");
+    -unity-background-image-tint-color: rgba(20, 23, 67, 0.39);
+    -unity-background-scale-mode: scale-and-crop;
+    background-color: rgba(0, 163, 255, 0.66);
+    padding-top: 10px;
+    padding-right: 12px;
+    padding-bottom: 10px;
+    padding-left: 12px;
+    margin-top: 2px;
+    margin-right: 4px;
+    margin-bottom: 50px;
+    margin-left: 4px;
     flex-grow: 1;
 }
 
-.vehicleScreen {
+.button:hover {
+    scale: 1.2 1.2;
+    color: rgb(0, 148, 255);
+    transition-duration: 0.15s;
+    border-left-color: rgb(0, 148, 255);
+    border-right-color: rgb(0, 148, 255);
+    border-top-color: rgb(0, 148, 255);
+    border-bottom-color: rgb(0, 148, 255);
+    -unity-background-image-tint-color: rgba(20, 23, 67, 0.59);
+    background-color: rgba(0, 112, 176, 0.59);
+    -unity-slice-top: 20;
+    -unity-slice-bottom: 20;
+}
+
+.button:active {
+    scale: 0.9 0.9;
+    -unity-background-image-tint-color: rgba(20, 23, 67, 0.78);
+    background-color: rgba(0, 112, 176, 0.59);
+    transition-duration: 0.05s;
 }
 
 .selectionOption {
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
     align-content: center;
     overflow: visible;
@@ -100,17 +156,17 @@
     color: rgb(183, 183, 183);
     -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
     -unity-font-style: normal;
-    margin-top: 2.5%;
-    margin-right: 1%;
+    margin-top: 0%;
+    margin-right: 2.5%;
     margin-bottom: 2.5%;
-    margin-left: 1%;
+    margin-left: 2.5%;
     text-overflow: clip;
     white-space: normal;
     align-self: center;
     align-items: center;
     position: relative;
     opacity: 1;
-    height: 60%;
+    height: 80%;
     -unity-font-definition: initial;
     transition-duration: 0.15s;
     transition-timing-function: ease;
@@ -131,12 +187,14 @@
     background-image: url("project://database/Assets/Sprites/Misc/background-inverted.png?fileID=2800000&guid=31953fe7d7122194fa329c6ae6f95161&type=3#background-inverted");
     -unity-background-scale-mode: scale-and-crop;
     -unity-background-image-tint-color: rgba(20, 23, 67, 0.39);
-    min-width: 30%;
-    max-width: 50%;
     align-content: center;
-    padding-top: 2.5%;
-    padding-bottom: 2.5%;
+    padding-top: 0%;
+    padding-bottom: 0%;
     -unity-slice-type: sliced;
+    width: 20%;
+    flex-grow: 0;
+    padding-right: 0%;
+    padding-left: 0%;
 }
 
 .selectionButton:hover {
@@ -177,65 +235,7 @@
     transition-duration: 0.05s;
 }
 
-.mapImage {
-    background-color: rgba(47, 50, 84, 0.59);
-    align-items: center;
-    justify-content: center;
-    align-self: auto;
-    -unity-background-scale-mode: scale-to-fit;
-    border-top-width: 5px;
-    border-right-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-left-color: rgba(78, 84, 255, 0.2);
-    border-right-color: rgba(78, 84, 255, 0.2);
-    border-top-color: rgba(78, 84, 255, 0.2);
-    border-bottom-color: rgba(78, 84, 255, 0.2);
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    height: 50%;
-    overflow: hidden;
-    flex-grow: 1;
-    width: 100%;
-    padding-top: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    transition-duration: 0.15s;
-}
-
-.mapInfo {
-    background-color: rgba(47, 50, 84, 0.59);
-    align-items: center;
-    justify-content: center;
-    align-self: auto;
-    -unity-background-scale-mode: scale-to-fit;
-    border-top-width: 5px;
-    border-right-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-left-color: rgba(78, 84, 255, 0.2);
-    border-right-color: rgba(78, 84, 255, 0.2);
-    border-top-color: rgba(78, 84, 255, 0.2);
-    border-bottom-color: rgba(78, 84, 255, 0.2);
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    overflow: hidden;
-    flex-grow: 1;
-    padding-top: 5px;
-    padding-right: 5px;
-    padding-bottom: 5px;
-    padding-left: 5px;
-    transition-duration: 0.15s;
-    width: 25%;
-    height: 100%;
-}
-
-.button {
+.footerButton {
     font-size: 50px;
     -unity-text-align: middle-center;
     color: rgb(183, 183, 183);
@@ -273,7 +273,7 @@
     background-color: rgba(0, 163, 255, 0.66);
 }
 
-.button:hover {
+.footerButton:hover {
     scale: 1.2 1.2;
     color: rgb(0, 148, 255);
     transition-duration: 0.15s;
@@ -287,123 +287,15 @@
     -unity-slice-bottom: 20;
 }
 
-.button:active {
+.footerButton:active {
     scale: 0.9 0.9;
     -unity-background-image-tint-color: rgba(20, 23, 67, 0.78);
     background-color: rgba(0, 112, 176, 0.59);
     transition-duration: 0.05s;
 }
 
-.vehicleButton {
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    opacity: 1;
-    transition-duration: 0.15s;
-    transition-timing-function: ease;
-    transition-property: all;
-    background-color: rgba(0, 0, 0, 0);
-    -unity-background-image-tint-color: rgb(0, 87, 149);
-    border-left-color: rgba(0, 0, 0, 0);
-    border-right-color: rgba(0, 0, 0, 0);
-    border-top-color: rgba(0, 0, 0, 0);
-    border-bottom-color: rgba(0, 0, 0, 0);
-    flex-grow: 1;
-    width: 150px;
-    height: 100px;
-    margin-right: 10px;
-    margin-left: 10px;
-    -unity-background-scale-mode: scale-to-fit;
-}
-
-.vehicleButton:hover {
-    align-self: center;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    opacity: 1;
-    transition-duration: 0.15s;
-    transition-timing-function: ease;
-    transition-property: all;
-    scale: 1.2 1.2;
-    -unity-background-image-tint-color: rgb(0, 148, 255);
-}
-
-.vehicleButton:active {
-    scale: 0.9 0.9;
-}
-
-.vehicleChoice {
-    align-items: center;
-    overflow: visible;
-    position: relative;
-    opacity: 1;
-    height: 100%;
-    width: 50%;
-    align-self: center;
-    flex-direction: column;
-}
-
-.vehicleChoice:disabled {
-    opacity: 0;
-    display: none;
-    transition-property: opacity, display;
-    transition-duration: 0.2s, 0s;
-    transition-timing-function: ease, ease;
-    transition-delay: 0s, 0.3s;
-}
-
-.vehicleChoice:enabled {
-    transition-property: opacity, display;
-    display: flex;
-    opacity: 1;
-    transition-delay: 0.3s, 0s;
-}
-
-.vehicleImage {
-    background-color: rgba(47, 50, 84, 0.59);
-    align-items: center;
-    justify-content: center;
-    align-self: auto;
-    -unity-background-scale-mode: scale-to-fit;
-    border-top-width: 5px;
-    border-right-width: 0;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
-    border-top-left-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-left-color: rgba(255, 255, 255, 0.2);
-    border-right-color: rgba(255, 255, 255, 0.2);
-    border-top-color: rgba(255, 255, 255, 0.2);
-    border-bottom-color: rgba(255, 255, 255, 0.2);
-}
-
-.vehicleStats {
-    background-color: rgba(47, 50, 84, 0.59);
-    justify-content: space-between;
-    align-items: stretch;
-    overflow: hidden;
-    flex-grow: 1;
-    flex-direction: column;
-    padding-bottom: 10%;
-    padding-top: 5%;
-    padding-right: 5%;
-    padding-left: 5%;
-    border-top-width: 5px;
-    border-right-width: 5px;
-    border-bottom-width: 5px;
-    border-left-width: 5px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-left-color: rgba(255, 255, 255, 0.2);
-    border-right-color: rgba(255, 255, 255, 0.2);
-    border-top-color: rgba(255, 255, 255, 0.2);
-    border-bottom-color: rgba(255, 255, 255, 0.2);
-}
-
-.statsSlider {
-    width: 100%;
+.audioSlider {
+    width: 60%;
     -unity-text-align: middle-left;
     -unity-font-style: normal;
     color: rgb(217, 217, 217);
@@ -414,13 +306,15 @@
     flex-direction: column;
     -unity-font-definition: initial;
     letter-spacing: 10px;
+    height: 20%;
+    align-items: stretch;
 }
 
-#Vehicle Slider #unity-drag-container {
+#AudioSettings SliderInt #unity-drag-container {
     width: 100%;
 }
 
-#Vehicle Slider #unity-tracker {
+#AudioSettings SliderInt #unity-tracker {
     display: flex;
     overflow: hidden;
     border-top-left-radius: 5px;
@@ -439,7 +333,7 @@
     -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
-#Vehicle Slider #unity-dragger {
+#AudioSettings SliderInt #unity-dragger {
     display: flex;
     background-color: rgb(0, 148, 255);
     height: 70%;
@@ -457,6 +351,6 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-#Vehicle Slider #unity-fill {
+#AudioSettings SliderInt #unity-fill {
     background-color: rgb(0, 148, 255);
 }
