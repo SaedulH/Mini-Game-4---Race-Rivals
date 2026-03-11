@@ -58,7 +58,15 @@ namespace Utilities
     {
         Home,
         Selection,
-        Vehicle
+        Vehicle,
+        Settings
+    }
+
+    public enum SettingScreenType
+    {
+        Game,
+        Audio,
+        Controls
     }
 
     public enum GameMode

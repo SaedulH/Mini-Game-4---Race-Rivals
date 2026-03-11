@@ -4,7 +4,7 @@
         <ui:VisualElement name="Border" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; align-self: center; justify-content: center; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%;">
             <ui:VisualElement style="border-left-color: rgba(0, 217, 255, 0.2); border-right-color: rgba(0, 217, 255, 0.2); border-top-color: rgba(0, 217, 255, 0.2); border-bottom-color: rgba(0, 217, 255, 0.2); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; width: 100%; height: 100%;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="HomeScreen" view-data-key="FirstScreen" class="hideUI" style="flex-grow: 1; width: 100%; height: 100%; position: absolute;">
+        <ui:VisualElement name="HomeScreen" view-data-key="FirstScreen" style="flex-grow: 1; width: 100%; height: 100%; position: absolute;">
             <ui:GroupBox name="Title" style="justify-content: space-between; margin-top: 100px; margin-bottom: 150px;">
                 <ui:Label tabindex="-1" text="INDY 500" parse-escape-sequences="true" display-tooltip-when-elided="true" name="TItle" class="header" style="top: 0; margin-bottom: 10px;"/>
                 <ui:Label tabindex="-1" text="Mini Game #4" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MiniGame4" class="subheader" style="font-size: 60px; top: -43px;"/>
@@ -13,7 +13,7 @@
             <ui:Button text="Settings" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Settings" class="button" style="width: 25%; height: auto; margin-bottom: 50px;"/>
             <ui:Button text="Quit" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Quit" class="button" style="display: flex; width: 25%; height: auto;"/>
         </ui:VisualElement>
-        <ui:VisualElement name="SetupScreens" style="flex-grow: 1; position: relative; height: 100%; width: 100%; flex-direction: column;">
+        <ui:VisualElement name="SetupScreens" class="hideUI" style="flex-grow: 1; position: relative; height: 100%; width: 100%; flex-direction: column;">
             <ui:VisualElement name="SetupBody" style="flex-grow: 1; align-self: center; height: 100%; width: 100%;">
                 <ui:VisualElement name="SelectionScreen" view-data-key="SecondScreen" class="selectionScreen hideUI" style="flex-grow: 1; width: 100%; height: 100%; flex-direction: row;">
                     <ui:GroupBox name="SelectOptions" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; height: 100%; width: 60%; padding-top: 10%; padding-right: 5%; padding-bottom: 10%; padding-left: 5%;">

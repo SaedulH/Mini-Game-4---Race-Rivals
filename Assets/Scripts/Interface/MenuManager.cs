@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
-public class MenuManager : MonoBehaviour
+public class MenuManager : NonPersistentSingleton<MenuManager>
 {
     [field: SerializeField] public VisualElement Root { get; set; }
     // Home Screen
@@ -16,6 +16,11 @@ public class MenuManager : MonoBehaviour
     [field: SerializeField] public VisualElement SetupScreens { get; set; }
     [field: SerializeField] public Button PlayButton { get; set; }
     [field: SerializeField] public Button QuitButton { get; set; }
+
+    // Settings
+    [field: SerializeField] public VisualElement SettingScreen { get; set; }
+    [field: SerializeField] public Button SettingsButton { get; set; }
+    [field: SerializeField] public Action ShowSettingsAction { get; set; }
 
     // Game Selection
     [field: SerializeField] public VisualElement SelectionScreen { get; set; }
@@ -77,10 +82,12 @@ public class MenuManager : MonoBehaviour
     [field: SerializeField] public float SliderLerpSpeed { get; private set; } = 50f;
     [field: SerializeField] public List<TrackInfo> TrackInfo { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Root = GetComponent<UIDocument>().rootVisualElement;
     }
+
     private void Start()
     {
         InitialiseMenu();
@@ -95,6 +102,11 @@ public class MenuManager : MonoBehaviour
 
         PlayButton = MainMenu.Q<Button>("Play");
         PlayButton.clicked += OnPlayClicked;
+
+        SettingsButton = MainMenu.Q<Button>("Settings");
+        SettingsButton.clicked += OnSettingsClicked;
+
+        SettingsManager.Instance.HideSettingsAction += HideSettingsScreen;
 
         QuitButton = MainMenu.Q<Button>("Quit");
         QuitButton.clicked += OnQuitClicked;
@@ -127,7 +139,7 @@ public class MenuManager : MonoBehaviour
         SelectedMapLapCount = SelectionScreen.Q<Label>("LapCount");
         SelectedMapGoldTime = SelectionScreen.Q<Label>("GoldTime");
         SelectedMapSilverTime = SelectionScreen.Q<Label>("SilverTime");
-        SelectedMapBronzeTime = SelectionScreen.Q<Label>("BronzeTime"); 
+        SelectedMapBronzeTime = SelectionScreen.Q<Label>("BronzeTime");
 
         StartButton = MainMenu.Q<Button>("Start");
         StartButton.clicked += OnStartClicked;
@@ -169,6 +181,8 @@ public class MenuManager : MonoBehaviour
     {
         PlayButton.clicked -= OnPlayClicked;
         QuitButton.clicked -= OnQuitClicked;
+        SettingsButton.clicked -= OnSettingsClicked;
+        SettingsManager.Instance.HideSettingsAction -= HideSettingsScreen;
         RaceModeButton.clicked -= () => OnRaceModeClicked();
         TimedModeButton.clicked -= () => OnTimedModeClicked();
         OnePlayerButton.clicked -= () => OnOnePlayerClicked();
@@ -257,6 +271,19 @@ public class MenuManager : MonoBehaviour
         HomeScreen.RemoveFromClassList("hideUI");
     }
 
+    private void HideSettingsScreen()
+    {
+        StartCoroutine(ShowHomeScreen());
+    }
+
+    private IEnumerator ShowSettingsScreen()
+    {
+        CurrentScreen = MenuScreenType.Settings;
+        HomeScreen.AddToClassList("hideUI");
+        yield return new WaitForSeconds(ScreenTransitionTime);
+        ShowSettingsAction?.Invoke();
+    }
+
     private IEnumerator ShowSelectionScreen()
     {
         if (CurrentScreen == MenuScreenType.Vehicle)
@@ -273,6 +300,7 @@ public class MenuManager : MonoBehaviour
         SetupScreens.RemoveFromClassList("hideUI");
         SelectionScreen.RemoveFromClassList("hideUI");
     }
+
     private IEnumerator ShowVehicleScreen()
     {
         CurrentScreen = MenuScreenType.Vehicle;
@@ -289,6 +317,13 @@ public class MenuManager : MonoBehaviour
         ResetSelections();
         ResetVehicleSelections();
         StartCoroutine(ShowSelectionScreen());
+    }
+
+    private void OnSettingsClicked()
+    {
+        //Debug.Log("Go to Selection Screen");
+        PlayForwardAudio();
+        StartCoroutine(ShowSettingsScreen());
     }
 
     public void OnQuitClicked()
@@ -431,7 +466,7 @@ public class MenuManager : MonoBehaviour
 
     private void SetTrackAwardTimes(TrackInfo trackInfo)
     {
-        InitHUDStepSO setupHUDStep = (InitHUDStepSO) trackInfo.StepOrder.First(s => s.Description == "Setting up HUD");
+        InitHUDStepSO setupHUDStep = (InitHUDStepSO)trackInfo.StepOrder.First(s => s.Description == "Setting up HUD");
         if (setupHUDStep == null)
         {
             Debug.LogError($"No HUD setup step found for track {trackInfo.TrackName}");
@@ -453,7 +488,7 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            SetTrackAwardTimes(TrackInfo[_trackNum -1]);
+            SetTrackAwardTimes(TrackInfo[_trackNum - 1]);
             SelectedMapTimedModeElement.RemoveFromClassList("hideUI");
         }
     }
@@ -637,7 +672,7 @@ public class MenuManager : MonoBehaviour
 
         int totalWeight = (int)trackInfo.StepOrder.Sum(s => s.Weight);
 
-        if(_playerCount == 1 && _gameMode != GameMode.Timed)
+        if (_playerCount == 1 && _gameMode != GameMode.Timed)
         {
             _currentVehicleTwoIndex = _currentVehicleOneIndex;
         }
@@ -646,7 +681,7 @@ public class MenuManager : MonoBehaviour
         {
             GameMode = _gameMode,
             PlayerCount = _playerCount,
-            VehicleOne =  VehicleSelector.AvailableVehicles[_currentVehicleOneIndex],
+            VehicleOne = VehicleSelector.AvailableVehicles[_currentVehicleOneIndex],
             VehicleTwo = VehicleSelector.AvailableVehicles[_currentVehicleTwoIndex],
             LapCount = trackInfo.GetLapCountForMode(_gameMode),
             TotalWeight = totalWeight

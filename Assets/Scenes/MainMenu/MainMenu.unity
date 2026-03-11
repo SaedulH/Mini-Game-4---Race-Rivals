@@ -164,6 +164,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3015afb22f8c5824eb33dd7b4c9b94a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
+  AutoUnparentOnAwake: 1
+  <CurrentScreen>k__BackingField: 0
+  <SelectAudio>k__BackingField: {fileID: 0}
+  <BackAudio>k__BackingField: {fileID: 0}
+  <HoverAudio>k__BackingField: {fileID: 0}
 --- !u!114 &123340258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,7 +217,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052471320}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
