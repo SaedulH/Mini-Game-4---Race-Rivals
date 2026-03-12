@@ -12,7 +12,7 @@
             </ui:GroupBox>
             <ui:VisualElement name="SettingsBody" style="flex-grow: 1; align-self: center; height: 100%; width: 100%;">
                 <ui:VisualElement name="SelectionScreen" view-data-key="SecondScreen" class="selectionScreen" style="flex-grow: 1; width: 100%; height: 100%; flex-direction: row; position: relative;">
-                    <ui:GroupBox name="GameSettings" class="settingSubMenu hideUI" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; height: 100%; padding-top: 2.5%; padding-right: 5%; padding-bottom: 10%; padding-left: 5%; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 10%;">
+                    <ui:GroupBox name="GameSettings" enabled="true" class="settingSubMenu hideUI" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; height: 100%; padding-top: 2.5%; padding-right: 5%; padding-bottom: 10%; padding-left: 5%; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 10%;">
                         <ui:Label tabindex="-1" text="Difficulty" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Difficulty" enable-rich-text="true" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; margin-top: 4px; margin-bottom: 10px;"/>
                         <ui:GroupBox name="DifficultySettings" class="selectionOption">
                             <ui:Button text="Easy" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Easy" class="selectionButton"/>
@@ -30,17 +30,17 @@
                             <ui:Button text="High" parse-escape-sequences="true" display-tooltip-when-elided="true" name="High" class="selectionButton"/>
                         </ui:GroupBox>
                     </ui:GroupBox>
-                    <ui:GroupBox name="AudioSettings" class="settingSubMenu hideUI" style="flex-grow: 1; justify-content: center; align-items: center; align-self: auto; flex-shrink: 1; height: 100%; padding-top: 10%; padding-right: 5%; padding-bottom: 10%; padding-left: 5%; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 0%;">
-                        <ui:Label tabindex="-1" text="Master" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MasterAudio" enable-rich-text="true" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; margin-top: 30px;"/>
-                        <ui:SliderInt label="" value="54" high-value="100" name="MasterVolume" class="audioSlider"/>
+                    <ui:GroupBox name="AudioSettings" enabled="true" class="settingSubMenu" style="flex-grow: 1; justify-content: center; align-items: center; align-self: auto; flex-shrink: 1; height: 100%; padding-top: 10%; padding-right: 5%; padding-bottom: 10%; padding-left: 5%; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 0%;">
+                        <ui:Label tabindex="-1" text="Master" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MasterAudio" enable-rich-text="true" focusable="false" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; margin-top: 30px;"/>
+                        <ui:SliderInt label="" value="54" high-value="100" name="MasterVolume" fill="true" enabled="true" show-input-field="false" class="audioSlider"/>
                         <ui:Label tabindex="-1" text="Music" parse-escape-sequences="true" display-tooltip-when-elided="true" name="MusicAudio" class="subheader" style="font-size: 45px; -unity-text-align: upper-center;"/>
-                        <ui:SliderInt label="" value="42" high-value="100" name="MusicVolume" class="audioSlider"/>
+                        <ui:SliderInt label="" value="42" high-value="100" name="MusicVolume" fill="true" class="audioSlider"/>
                         <ui:Label tabindex="-1" text="UI" parse-escape-sequences="true" display-tooltip-when-elided="true" name="UIAudio" class="subheader" style="font-size: 45px; -unity-text-align: upper-center;"/>
-                        <ui:SliderInt label="" value="42" high-value="100" name="UIVolume" class="audioSlider"/>
+                        <ui:SliderInt label="" value="42" high-value="100" name="UIVolume" fill="true" class="audioSlider"/>
                         <ui:Label tabindex="-1" text="Vehicle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="VfxAudio" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; display: flex;"/>
-                        <ui:SliderInt label="" value="42" high-value="100" name="VfxVolume" class="audioSlider"/>
+                        <ui:SliderInt label="" value="42" high-value="100" name="VfxVolume" fill="true" class="audioSlider"/>
                     </ui:GroupBox>
-                    <ui:GroupBox name="ControlSettings" class="settingSubMenu" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; padding-top: 0%; padding-right: 2.5%; padding-bottom: 5%; padding-left: 2.5%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 10%; flex-direction: row; width: 100%; height: 100%;">
+                    <ui:GroupBox name="ControlSettings" class="settingSubMenu hideUI" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; padding-top: 0%; padding-right: 2.5%; padding-bottom: 5%; padding-left: 2.5%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 10%; flex-direction: row; width: 100%; height: 100%;">
                         <ui:GroupBox name="PlayerOneControls" style="flex-grow: 1; width: 50%; height: 100%;">
                             <ui:GroupBox name="Throttle" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
                                 <ui:Label text="Throttle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ThrottleText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
