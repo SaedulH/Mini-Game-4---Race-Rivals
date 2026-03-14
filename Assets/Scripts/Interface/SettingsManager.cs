@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AudioSystem;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -39,24 +40,30 @@ namespace CoreSystem
 
         // Control Settings
         [field: SerializeField] public VisualElement ControlsSettings { get; set; }
+        [field: SerializeField] public VisualElement InputPopup { get; set; }
+        [field: SerializeField] public Label InputPlayerLabel { get; set; }
+        [field: SerializeField] public Label InputButtonLabel { get; set; }
+        [field: SerializeField] public InputActionAsset PlayerInputActions { get; set; }
+
         // Player One
-        [field: SerializeField] public TextField PlayerOneThrottleInput { get; set; }
-        [field: SerializeField] public TextField PlayerOneReverseInput { get; set; }
-        [field: SerializeField] public TextField PlayerOneLeftInput { get; set; }
-        [field: SerializeField] public TextField PlayerOneRightInput { get; set; }
-        [field: SerializeField] public TextField PlayerOneHandbrakeInput { get; set; }
+        [field: SerializeField] public Button PlayerOneThrottleInput { get; set; }
+        [field: SerializeField] public Button PlayerOneReverseInput { get; set; }
+        [field: SerializeField] public Button PlayerOneLeftInput { get; set; }
+        [field: SerializeField] public Button PlayerOneRightInput { get; set; }
+        [field: SerializeField] public Button PlayerOneHandbrakeInput { get; set; }
         // Player Two
-        [field: SerializeField] public TextField PlayerTwoThrottleInput { get; set; }
-        [field: SerializeField] public TextField PlayerTwoReverseInput { get; set; }
-        [field: SerializeField] public TextField PlayerTwoLeftInput { get; set; }
-        [field: SerializeField] public TextField PlayerTwoRightInput { get; set; }
-        [field: SerializeField] public TextField PlayerTwoHandbrakeInput { get; set; }
+        [field: SerializeField] public Button PlayerTwoThrottleInput { get; set; }
+        [field: SerializeField] public Button PlayerTwoReverseInput { get; set; }
+        [field: SerializeField] public Button PlayerTwoLeftInput { get; set; }
+        [field: SerializeField] public Button PlayerTwoRightInput { get; set; }
+        [field: SerializeField] public Button PlayerTwoHandbrakeInput { get; set; }
 
         // Footer
         [field: SerializeField] public Button BackButton { get; set; }
         [field: SerializeField] public Button ResetButton { get; set; }
         [field: SerializeField] public Action HideSettingsAction { get; set; }
         [field: SerializeField] public SettingScreenType CurrentScreen { get; private set; }
+        [field: SerializeField] public SettingScreenType CachedScreen { get; private set; }
 
         [field: Header("Audio")]
         [field: SerializeField] public AudioData SelectAudio { get; set; }
@@ -83,6 +90,8 @@ namespace CoreSystem
             {
                 MenuManager.ShowSettingsAction += ShowSettingsScreen;
             }
+            GameManager.Instance.OnBackAction += HandleBackAction;
+
             //Settings Screen
             GameSettings = SettingsScreen.Q<VisualElement>("GameSettings");
             AudioSettings = SettingsScreen.Q<VisualElement>("AudioSettings");
@@ -136,35 +145,39 @@ namespace CoreSystem
             SetupSliders(VolumeSliders);
 
             //Control Settings
-            PlayerOneThrottleInput = ControlsSettings.Q<TextField>("PlayerOneThrottleInput");
-            PlayerOneThrottleInput.RegisterValueChangedCallback((e) => OnPlayerOneThrottleInputChanged(e.newValue));
+            PlayerOneThrottleInput = ControlsSettings.Q<Button>("PlayerOneThrottleInput");
+            PlayerOneThrottleInput.clicked += () => OnPlayerOneThrottleInputChanged();
 
-            PlayerOneReverseInput = ControlsSettings.Q<TextField>("PlayerOneReverseInput");
-            PlayerOneReverseInput.RegisterValueChangedCallback((e) => OnPlayerOneReverseInputChanged(e.newValue));
+            PlayerOneReverseInput = ControlsSettings.Q<Button>("PlayerOneReverseInput");
+            PlayerOneReverseInput.clicked += () => OnPlayerOneReverseInputChanged();
 
-            PlayerOneLeftInput = ControlsSettings.Q<TextField>("PlayerOneLeftInput");
-            PlayerOneLeftInput.RegisterValueChangedCallback((e) => OnPlayerOneLeftInputChanged(e.newValue));
+            PlayerOneLeftInput = ControlsSettings.Q<Button>("PlayerOneLeftInput");
+            PlayerOneLeftInput.clicked += () => OnPlayerOneLeftInputChanged();
 
-            PlayerOneRightInput = ControlsSettings.Q<TextField>("PlayerOneRightInput");
-            PlayerOneRightInput.RegisterValueChangedCallback((e) => OnPlayerOneRightInputChanged(e.newValue));
+            PlayerOneRightInput = ControlsSettings.Q<Button>("PlayerOneRightInput");
+            PlayerOneRightInput.clicked += () => OnPlayerOneRightInputChanged();
 
-            PlayerOneHandbrakeInput = ControlsSettings.Q<TextField>("PlayerOneHandbrakeInput");
-            PlayerOneHandbrakeInput.RegisterValueChangedCallback((e) => OnPlayerOneHandbrakeInputChanged(e.newValue));
+            PlayerOneHandbrakeInput = ControlsSettings.Q<Button>("PlayerOneHandbrakeInput");
+            PlayerOneHandbrakeInput.clicked += () => OnPlayerOneHandbrakeInputChanged();
 
-            PlayerTwoThrottleInput = ControlsSettings.Q<TextField>("PlayerTwoThrottleInput");
-            PlayerTwoThrottleInput.RegisterValueChangedCallback((e) => OnPlayerTwoThrottleInputChanged(e.newValue));
+            PlayerTwoThrottleInput = ControlsSettings.Q<Button>("PlayerTwoThrottleInput");
+            PlayerTwoThrottleInput.clicked += () => OnPlayerTwoThrottleInputChanged();
 
-            PlayerTwoReverseInput = ControlsSettings.Q<TextField>("PlayerTwoReverseInput");
-            PlayerTwoReverseInput.RegisterValueChangedCallback((e) => OnPlayerTwoReverseInputChanged(e.newValue));
+            PlayerTwoReverseInput = ControlsSettings.Q<Button>("PlayerTwoReverseInput");
+            PlayerTwoReverseInput.clicked += () => OnPlayerTwoReverseInputChanged();
 
-            PlayerTwoLeftInput = ControlsSettings.Q<TextField>("PlayerTwoLeftInput");
-            PlayerTwoLeftInput.RegisterValueChangedCallback((e) => OnPlayerTwoLeftInputChanged(e.newValue));
+            PlayerTwoLeftInput = ControlsSettings.Q<Button>("PlayerTwoLeftInput");
+            PlayerTwoLeftInput.clicked += () => OnPlayerTwoLeftInputChanged();
 
-            PlayerTwoRightInput = ControlsSettings.Q<TextField>("PlayerTwoRightInput");
-            PlayerTwoRightInput.RegisterValueChangedCallback((e) => OnPlayerTwoRightInputChanged(e.newValue));
+            PlayerTwoRightInput = ControlsSettings.Q<Button>("PlayerTwoRightInput");
+            PlayerTwoRightInput.clicked += () => OnPlayerTwoRightInputChanged();
 
-            PlayerTwoHandbrakeInput = ControlsSettings.Q<TextField>("PlayerTwoHandbrakeInput");
-            PlayerTwoHandbrakeInput.RegisterValueChangedCallback((e) => OnPlayerTwoHandbrakeInputChanged(e.newValue));
+            PlayerTwoHandbrakeInput = ControlsSettings.Q<Button>("PlayerTwoHandbrakeInput");
+            PlayerTwoHandbrakeInput.clicked += () => OnPlayerTwoHandbrakeInputChanged();
+
+            InputPopup = SettingsScreen.Q<VisualElement>("InputPopup");
+            InputPlayerLabel = InputPopup.Q<Label>("InputPlayerLabel");
+            InputButtonLabel = InputPopup.Q<Label>("InputButtonLabel");
 
             // Footer
             BackButton = SettingsScreen.Q<Button>("Back");
@@ -180,6 +193,7 @@ namespace CoreSystem
             {
                 MenuManager.ShowSettingsAction -= ShowSettingsScreen;
             }
+            GameManager.Instance.OnBackAction -= HandleBackAction;
 
             GameButton.clicked -= () => OnGameClicked();
             AudioButton.clicked -= () => OnAudioClicked();
@@ -196,16 +210,17 @@ namespace CoreSystem
             MusicVolumeSlider.UnregisterValueChangedCallback((e) => OnMusicVolumeChanged(e.newValue));
             UIVolumeSlider.UnregisterValueChangedCallback((e) => OnUIVolumeChanged(e.newValue));
             EffectsVolumeSlider.UnregisterValueChangedCallback((e) => OnEffectsVolumeChanged(e.newValue));
-            PlayerOneThrottleInput.UnregisterValueChangedCallback((e) => OnPlayerOneThrottleInputChanged(e.newValue));
-            PlayerOneReverseInput.UnregisterValueChangedCallback((e) => OnPlayerOneReverseInputChanged(e.newValue));
-            PlayerOneLeftInput.UnregisterValueChangedCallback((e) => OnPlayerOneLeftInputChanged(e.newValue));
-            PlayerOneRightInput.UnregisterValueChangedCallback((e) => OnPlayerOneRightInputChanged(e.newValue));
-            PlayerOneHandbrakeInput.UnregisterValueChangedCallback((e) => OnPlayerOneHandbrakeInputChanged(e.newValue));
-            PlayerTwoThrottleInput.UnregisterValueChangedCallback((e) => OnPlayerTwoThrottleInputChanged(e.newValue));
-            PlayerTwoReverseInput.UnregisterValueChangedCallback((e) => OnPlayerTwoReverseInputChanged(e.newValue));
-            PlayerTwoLeftInput.UnregisterValueChangedCallback((e) => OnPlayerTwoLeftInputChanged(e.newValue));
-            PlayerTwoRightInput.UnregisterValueChangedCallback((e) => OnPlayerTwoRightInputChanged(e.newValue));
-            PlayerTwoHandbrakeInput.UnregisterValueChangedCallback((e) => OnPlayerTwoHandbrakeInputChanged(e.newValue));
+
+            PlayerOneThrottleInput.clicked -= () => OnPlayerOneThrottleInputChanged();
+            PlayerOneReverseInput.clicked -= () => OnPlayerOneReverseInputChanged();
+            PlayerOneLeftInput.clicked -= () => OnPlayerOneLeftInputChanged();
+            PlayerOneRightInput.clicked -= () => OnPlayerOneRightInputChanged();
+            PlayerOneHandbrakeInput.clicked -= () => OnPlayerOneHandbrakeInputChanged();
+            PlayerTwoThrottleInput.clicked -= () => OnPlayerTwoThrottleInputChanged();
+            PlayerTwoReverseInput.clicked -= () => OnPlayerTwoReverseInputChanged();
+            PlayerTwoLeftInput.clicked -= () => OnPlayerTwoLeftInputChanged();
+            PlayerTwoRightInput.clicked -= () => OnPlayerTwoRightInputChanged();
+            PlayerTwoHandbrakeInput.clicked -= () => OnPlayerTwoHandbrakeInputChanged();
 
             BackButton.clicked -= OnBackClicked;
             ResetButton.clicked -= OnResetClicked;
@@ -224,11 +239,26 @@ namespace CoreSystem
             SettingsScreen.AddToClassList("hideUI");
             GameSettings.RemoveFromClassList("hideUI");
             AudioSettings.AddToClassList("hideUI");
-            AudioSettings.AddToClassList("hideUI");
             ControlsSettings.AddToClassList("hideUI");
+            InputPopup.AddToClassList("hideUI");
 
             SetupHoverAudio();
             SetupAudioMixer();
+        }
+
+        private void HandleBackAction()
+        {
+            switch (CurrentScreen)
+            {
+                case SettingScreenType.Game:
+                case SettingScreenType.Audio:
+                case SettingScreenType.Controls:
+                    OnBackClicked();
+                    break;
+                case SettingScreenType.InputPopup:
+                    HideInputPopup();
+                    break;
+            }
         }
 
         #region Audio 
@@ -329,13 +359,26 @@ namespace CoreSystem
             SettingsScreen.style.display = DisplayStyle.Flex;
             await Task.Yield();
             SettingsScreen.RemoveFromClassList("hideUI");
-            OnGameClicked(false);
+
+            switch (CachedScreen)
+            {
+                case SettingScreenType.Game:
+                        OnGameClicked(false);
+                        break;
+                    case SettingScreenType.Audio:
+                        OnAudioClicked(false);
+                        break;
+                    case SettingScreenType.Controls:
+                        OnControlsClicked(false);
+                        break;
+            }
 
             await Task.Delay(200);
         }
 
         private async void HideSettingsScreen()
         {
+            CachedScreen = CurrentScreen;
             SettingsScreen.AddToClassList("hideUI");
 
             await Task.Delay((int)ScreenTransitionTime);
@@ -417,17 +460,17 @@ namespace CoreSystem
 
         private void ResetControlsSettingsToDefault()
         {
-            OnPlayerOneThrottleInputChanged("W", false);
-            OnPlayerOneReverseInputChanged("S", false);
-            OnPlayerOneLeftInputChanged("A", false);
-            OnPlayerOneRightInputChanged("D", false);
-            OnPlayerOneHandbrakeInputChanged("Space", false);
+            //OnPlayerOneThrottleInputChanged("W", false);
+            //OnPlayerOneReverseInputChanged("S", false);
+            //OnPlayerOneLeftInputChanged("A", false);
+            //OnPlayerOneRightInputChanged("D", false);
+            //OnPlayerOneHandbrakeInputChanged("Space", false);
 
-            OnPlayerTwoThrottleInputChanged("UpArrow", false);
-            OnPlayerTwoReverseInputChanged("DownArrow", false);
-            OnPlayerTwoLeftInputChanged("LeftArrow", false);
-            OnPlayerTwoRightInputChanged("RightArrow", false);
-            OnPlayerTwoHandbrakeInputChanged(".", false);
+            //OnPlayerTwoThrottleInputChanged("UpArrow", false);
+            //OnPlayerTwoReverseInputChanged("DownArrow", false);
+            //OnPlayerTwoLeftInputChanged("LeftArrow", false);
+            //OnPlayerTwoRightInputChanged("RightArrow", false);
+            //OnPlayerTwoHandbrakeInputChanged(".", false);
         }
 
         #endregion
@@ -705,121 +748,90 @@ namespace CoreSystem
             //throw new NotImplementedException();
         }
 
-        private void OnPlayerOneThrottleInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerOneThrottleInputChanged(bool playSound = true)
         {
-            SetPlayerThrottleInput(1, newValue);
+            ShowInputPopup(1, ControlInput.Throttle);
         }
 
-        private void OnPlayerOneReverseInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerOneReverseInputChanged(bool playSound = true)
         {
-            SetPlayerReverseInput(1, newValue);
+            ShowInputPopup(1, ControlInput.Reverse);
         }
 
-        private void OnPlayerOneLeftInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerOneLeftInputChanged(bool playSound = true)
         {
-            SetPlayerLeftInput(1, newValue);
+            ShowInputPopup(1, ControlInput.Left);
         }
 
-        private void OnPlayerOneRightInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerOneRightInputChanged(bool playSound = true)
         {
-            SetPlayerRightInput(1, newValue);
+            ShowInputPopup(1, ControlInput.Right);
         }
 
-        private void OnPlayerOneHandbrakeInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerOneHandbrakeInputChanged(bool playSound = true)
         {
-            SetPlayerHandbrakeInput(1, newValue);
+            ShowInputPopup(1, ControlInput.Handbrake);
         }
 
-        private void OnPlayerTwoThrottleInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerTwoThrottleInputChanged(bool playSound = true)
         {
-            SetPlayerThrottleInput(2, newValue);
+            ShowInputPopup(2, ControlInput.Throttle);
         }
 
-        private void OnPlayerTwoReverseInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerTwoReverseInputChanged(bool playSound = true)
         {
-            SetPlayerReverseInput(2, newValue);
+            ShowInputPopup(2, ControlInput.Reverse);
         }
 
-        private void OnPlayerTwoLeftInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerTwoLeftInputChanged(bool playSound = true)
         {
-            SetPlayerLeftInput(2, newValue);
+            ShowInputPopup(2, ControlInput.Left);
         }
 
-        private void OnPlayerTwoRightInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerTwoRightInputChanged( bool playSound = true)
         {
-            SetPlayerRightInput(2, newValue);
+            ShowInputPopup(2, ControlInput.Right);
         }
 
-        private void OnPlayerTwoHandbrakeInputChanged(string newValue, bool playSound = true)
+        private void OnPlayerTwoHandbrakeInputChanged(bool playSound = true)
         {
-            SetPlayerHandbrakeInput(2, newValue);
+            ShowInputPopup(2, ControlInput.Handbrake);
         }
 
-        private void SetPlayerThrottleInput(int playerIndex, string input)
+        private async void ShowInputPopup(int playerIndex, ControlInput controlInput)
         {
-            if (playerIndex == 1)
-            {
-                PlayerPrefs.SetString("PlayerOneThrottle", input);
+            CurrentScreen = SettingScreenType.InputPopup;
+            string playerNumber = playerIndex == 1 ? "One" : "Two";
+            InputPlayerLabel.text = $"Player {playerNumber}";
+            InputButtonLabel.text = controlInput.ToString();
+            InputPopup.style.display = DisplayStyle.Flex;
 
-            } 
-            else if (playerIndex == 2)
-            {
-                PlayerPrefs.SetString("PlayerTwoThrottle", input);
-            }
+            await Task.Yield();
+            InputPopup.RemoveFromClassList("hideUI");
+            await Task.Delay(200);
         }
 
-        private void SetPlayerReverseInput(int playerIndex, string input)
+        private async void HideInputPopup()
         {
-            if (playerIndex == 1)
-            {
-                PlayerPrefs.SetString("PlayerOneReverse", input);
-
-            }
-            else if (playerIndex == 2)
-            {
-                PlayerPrefs.SetString("PlayerTwoReverse", input);
-            }
+            PlayBackAudio();
+            InputPopup.AddToClassList("hideUI");
+            await Task.Delay(200);
+            CurrentScreen = SettingScreenType.Controls;
+            InputPopup.style.display = DisplayStyle.None;
         }
 
-        private void SetPlayerLeftInput(int playerIndex, string input)
+        private void SetControlInput(int playerIndex, ControlInput controlInput, string newKey)
         {
-            if (playerIndex == 1)
-            {
-                PlayerPrefs.SetString("PlayerOneLeft", input);
-
-            }
-            else if (playerIndex == 2)
-            {
-                PlayerPrefs.SetString("PlayerTwoLeft", input);
-            }
+            // Save the new key for the specified control input and player index
+            // Update the corresponding button text in the UI to reflect the new key binding
         }
 
-        private void SetPlayerRightInput(int playerIndex, string input)
+        private void GetControlInput(int playerIndex, ControlInput controlInput)
         {
-            if (playerIndex == 1)
-            {
-                PlayerPrefs.SetString("PlayerOneRight", input);
-
-            }
-            else if (playerIndex == 2)
-            {
-                PlayerPrefs.SetString("PlayerTwoRight", input);
-            }
-        }
-
-        private void SetPlayerHandbrakeInput(int playerIndex, string input)
-        {
-            if (playerIndex == 1)
-            {
-                PlayerPrefs.SetString("PlayerOneHandbrake", input);
-            }
-            else if (playerIndex == 2)
-            {
-                PlayerPrefs.SetString("PlayerTwoHandbrake", input);
-            }
+            // Retrieve the current key binding for the specified control input and player index
+            // Update the corresponding button text in the UI to reflect the current key binding
         }
 
         #endregion
-
     }
 }

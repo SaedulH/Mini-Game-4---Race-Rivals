@@ -419,14 +419,6 @@
 }
 
 .controlInput {
-    flex-grow: 0;
-    flex-shrink: 0;
-    width: 15%;
-    height: 100%;
-    margin-right: 10%;
-}
-
-#ControlSettings TextField #unity-text-input {
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
     -unity-font-style: bold;
     -unity-text-align: middle-center;
@@ -449,4 +441,42 @@
     -unity-background-image-tint-color: rgba(20, 23, 67, 0.39);
     font-size: 50px;
     color: rgb(183, 183, 183);
+    width: 15%;
+    margin-right: 10%;
+}
+
+.controlInput:hover {
+    scale: 1.15 1.15;
+    color: rgb(0, 148, 255);
+    transition-duration: 0.15s;
+    border-left-color: rgb(0, 148, 255);
+    border-right-color: rgb(0, 148, 255);
+    border-top-color: rgb(0, 148, 255);
+    border-bottom-color: rgb(0, 148, 255);
+    background-color: rgba(0, 112, 176, 0.59);
+    -unity-background-image-tint-color: rgba(20, 23, 67, 0.59);
+    -unity-slice-type: sliced;
+    -unity-slice-left: 0;
+    -unity-slice-top: 20;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 20;
+}
+
+.controlInput:active {
+    scale: 0.9 0.9;
+    -unity-background-image-tint-color: rgba(20, 23, 67, 0.78);
+    background-color: rgba(0, 112, 176, 0.59);
+    transition-duration: 0.05s;
+}
+
+.inputPopupText {
+    align-self: center;
+    align-items: center;
+    font-size: 40px;
+    color: rgb(183, 183, 183);
+    -unity-font: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
+    -unity-font-style: normal;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    -unity-font-definition: initial;
 }

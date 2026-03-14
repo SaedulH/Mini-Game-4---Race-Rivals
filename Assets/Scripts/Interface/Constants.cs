@@ -71,7 +71,8 @@ namespace Utilities
     {
         Game,
         Audio,
-        Controls
+        Controls,
+        InputPopup
     }
 
     public enum GameMode
@@ -138,5 +139,14 @@ namespace Utilities
     {
         Easy,
         Hard
+    }
+
+    public enum ControlInput
+    {
+        Throttle,
+        Reverse,
+        Left,
+        Right,
+        Handbrake
     }
 }

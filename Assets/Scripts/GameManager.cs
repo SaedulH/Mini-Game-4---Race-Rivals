@@ -6,6 +6,7 @@ using CoreSystem;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 using Utilities;
 
 public class GameManager : NonPersistentSingleton<GameManager>
@@ -24,6 +25,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
 
     private InputAction _pauseAction;
     public event Action<GameState> OnGameStateChanged;
+    public event Action OnBackAction;
 
     private bool _playerOneCompletedRace = false;
     private bool _playerTwoCompletedRace = false;
@@ -137,7 +139,15 @@ public class GameManager : NonPersistentSingleton<GameManager>
             case GameState.Paused:
                 UnpauseGame();
                 break;
+            case GameState.Menu:
+                BackAction();
+                break;
         }
+    }
+
+    public void BackAction()
+    {
+        OnBackAction?.Invoke();
     }
 
     public void PauseGame()
