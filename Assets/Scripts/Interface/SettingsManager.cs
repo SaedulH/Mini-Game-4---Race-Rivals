@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AudioSystem;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UIElements;
 using Utilities;
 
 namespace CoreSystem
 {
-    public class SettingsManager : NonPersistentSingleton<SettingsManager>
+    public class SettingsManager : MonoBehaviour
     {
         [field: SerializeField] public VisualElement Root { get; set; }
         [field: SerializeField] public VisualElement SettingsScreen { get; set; }
@@ -32,8 +33,9 @@ namespace CoreSystem
         [field: SerializeField] public SliderInt MasterVolumeSlider { get; set; }
         [field: SerializeField] public SliderInt MusicVolumeSlider { get; set; }
         [field: SerializeField] public SliderInt UIVolumeSlider { get; set; }
-        [field: SerializeField] public SliderInt VfxVolumeSlider { get; set; }
+        [field: SerializeField] public SliderInt EffectsVolumeSlider { get; set; }
         [field: SerializeField] public List<SliderInt> VolumeSliders { get; set; }
+        [field: SerializeField] public AudioMixer AudioMixer { get; set; }
 
         // Control Settings
         [field: SerializeField] public VisualElement ControlsSettings { get; set; }
@@ -62,10 +64,10 @@ namespace CoreSystem
         [field: SerializeField] public AudioData HoverAudio { get; set; }
         [field: SerializeField] public float ScreenTransitionTime { get; private set; } = 0.1f;
         [field: SerializeField] public float SliderLerpSpeed { get; private set; } = 50f;
+        [field: SerializeField] public MenuManager MenuManager { get; private set; }
 
-        protected override void Awake()
-        {
-            base.Awake();
+        private void Awake() 
+        { 
             Root = GetComponent<UIDocument>().rootVisualElement;
         }
 
@@ -77,6 +79,10 @@ namespace CoreSystem
         private void OnEnable()
         {
             SettingsScreen = Root.Q<VisualElement>("Settings");
+            if (MenuManager != null)
+            {
+                MenuManager.ShowSettingsAction += ShowSettingsScreen;
+            }
             //Settings Screen
             GameSettings = SettingsScreen.Q<VisualElement>("GameSettings");
             AudioSettings = SettingsScreen.Q<VisualElement>("AudioSettings");
@@ -123,8 +129,8 @@ namespace CoreSystem
             UIVolumeSlider = AudioSettings.Q<SliderInt>("UIVolume");
             UIVolumeSlider.RegisterValueChangedCallback((e) => OnUIVolumeChanged(e.newValue));
 
-            VfxVolumeSlider = AudioSettings.Q<SliderInt>("VfxVolume");
-            VfxVolumeSlider.RegisterValueChangedCallback((e) => OnVfxVolumeChanged(e.newValue));
+            EffectsVolumeSlider = AudioSettings.Q<SliderInt>("EffectsVolume");
+            EffectsVolumeSlider.RegisterValueChangedCallback((e) => OnEffectsVolumeChanged(e.newValue));
 
             VolumeSliders = AudioSettings.Query<SliderInt>().ToList();
             SetupSliders(VolumeSliders);
@@ -166,11 +172,15 @@ namespace CoreSystem
 
             ResetButton = SettingsScreen.Q<Button>("Reset");
             ResetButton.clicked += OnResetClicked;
-
-            MenuManager.Instance.ShowSettingsAction += ShowSettingsScreen;
         }
+
         private void OnDisable()
         {
+            if (MenuManager != null)
+            {
+                MenuManager.ShowSettingsAction -= ShowSettingsScreen;
+            }
+
             GameButton.clicked -= () => OnGameClicked();
             AudioButton.clicked -= () => OnAudioClicked();
             ControlsButton.clicked -= () => OnControlsClicked();
@@ -185,7 +195,7 @@ namespace CoreSystem
             MasterVolumeSlider.UnregisterValueChangedCallback((e) => OnMasterVolumeChanged(e.newValue));
             MusicVolumeSlider.UnregisterValueChangedCallback((e) => OnMusicVolumeChanged(e.newValue));
             UIVolumeSlider.UnregisterValueChangedCallback((e) => OnUIVolumeChanged(e.newValue));
-            VfxVolumeSlider.UnregisterValueChangedCallback((e) => OnVfxVolumeChanged(e.newValue));
+            EffectsVolumeSlider.UnregisterValueChangedCallback((e) => OnEffectsVolumeChanged(e.newValue));
             PlayerOneThrottleInput.UnregisterValueChangedCallback((e) => OnPlayerOneThrottleInputChanged(e.newValue));
             PlayerOneReverseInput.UnregisterValueChangedCallback((e) => OnPlayerOneReverseInputChanged(e.newValue));
             PlayerOneLeftInput.UnregisterValueChangedCallback((e) => OnPlayerOneLeftInputChanged(e.newValue));
@@ -199,7 +209,13 @@ namespace CoreSystem
 
             BackButton.clicked -= OnBackClicked;
             ResetButton.clicked -= OnResetClicked;
-            MenuManager.Instance.ShowSettingsAction -= ShowSettingsScreen;
+
+        }
+
+        public void Initialize(MenuManager menuManager)
+        {
+            this.MenuManager = menuManager;
+            MenuManager.ShowSettingsAction += ShowSettingsScreen;
         }
 
         private void InitialiseSettings()
@@ -210,9 +226,21 @@ namespace CoreSystem
             AudioSettings.AddToClassList("hideUI");
             AudioSettings.AddToClassList("hideUI");
             ControlsSettings.AddToClassList("hideUI");
+
+            SetupHoverAudio();
+            SetupAudioMixer();
         }
 
         #region Audio 
+
+        private void SetupAudioMixer()
+        {
+            SetMasterVolumeSetting(GetMasterVolumeSetting());
+            SetMusicVolumeSetting(GetMusicVolumeSetting());
+            SetUIVolumeSetting(GetUIVolumeSetting());
+            SetEffectsVolumeSetting(GetEffectsVolumeSetting());
+        }
+
         private void SetupHoverAudio()
         {
             Root.Query<Button>().ForEach(button =>
@@ -320,7 +348,7 @@ namespace CoreSystem
             PlaySelectAudio(playSound);
             Debug.Log($"Screen: Game");
             GameButton.SetEnabled(false);
-            AudioSettings.SetEnabled(true);
+            AudioButton.SetEnabled(true);
             ControlsButton.SetEnabled(true);
 
             StartCoroutine(ShowGameSettingsScreen());
@@ -331,7 +359,7 @@ namespace CoreSystem
             PlaySelectAudio(playSound);
             Debug.Log($"Screen: Audio");
             GameButton.SetEnabled(true);
-            AudioSettings.SetEnabled(false);
+            AudioButton.SetEnabled(false);
             ControlsButton.SetEnabled(true);
 
             StartCoroutine(ShowAudioSettingsScreen());
@@ -342,8 +370,8 @@ namespace CoreSystem
             PlaySelectAudio(playSound);
             Debug.Log($"Screen: Controls");
             GameButton.SetEnabled(true);
-            AudioSettings.SetEnabled(false);
-            ControlsButton.SetEnabled(true);
+            AudioButton.SetEnabled(true);
+            ControlsButton.SetEnabled(false);
 
             StartCoroutine(ShowControlsSettingsScreen());
         }
@@ -382,7 +410,7 @@ namespace CoreSystem
             OnMasterVolumeChanged(100);
             OnMusicVolumeChanged(100);
             OnUIVolumeChanged(100);
-            OnVfxVolumeChanged(100);
+            OnEffectsVolumeChanged(100);
 
             GetPlayerAudioSettings();
         }
@@ -516,7 +544,6 @@ namespace CoreSystem
         private void SetCameraSetting(string cameraSetting)
         {
             PlayerPrefs.SetString("Camera", cameraSetting);
-
         }
 
         private string GetCameraSetting()
@@ -543,7 +570,7 @@ namespace CoreSystem
             StartCoroutine(SetSliderValue(VolumeSliders[0], GetMasterVolumeSetting()));
             StartCoroutine(SetSliderValue(VolumeSliders[1], GetMusicVolumeSetting()));
             StartCoroutine(SetSliderValue(VolumeSliders[2], GetUIVolumeSetting()));
-            StartCoroutine(SetSliderValue(VolumeSliders[3], GetVfxVolumeSetting()));
+            StartCoroutine(SetSliderValue(VolumeSliders[3], GetEffectsVolumeSetting()));
         }
 
         private void SetupSliders(List<SliderInt> sliders)
@@ -566,7 +593,7 @@ namespace CoreSystem
                 {
                     orderedSliders[2] = slider;
                 }
-                if (slider.name.Equals("VfxVolume"))
+                if (slider.name.Equals("EffectsVolume"))
                 {
                     orderedSliders[3] = slider;
                 }
@@ -590,49 +617,69 @@ namespace CoreSystem
             SetUIVolumeSetting(newValue);
         }
 
-        private void OnVfxVolumeChanged(int newValue)
+        private void OnEffectsVolumeChanged(int newValue)
         {
-            SetVfxVolumeSetting(newValue);
+            SetEffectsVolumeSetting(newValue);
         }
 
         private void SetMasterVolumeSetting(int masterVolume)
         {
-            PlayerPrefs.SetInt("MasterVolume", masterVolume);
+            PlayerPrefs.SetInt(Constants.MASTER_AUDIO_MIXER, masterVolume);
+            SetMixerVolume(Constants.MASTER_AUDIO_MIXER, masterVolume);
         }
 
         private int GetMasterVolumeSetting()
         {
-            return PlayerPrefs.GetInt("MasterVolume");
+            return PlayerPrefs.GetInt(Constants.MASTER_AUDIO_MIXER, 100);
         }
 
         private void SetMusicVolumeSetting(int musicVolume)
         {
-            PlayerPrefs.SetInt("MusicVolume", musicVolume);
+            PlayerPrefs.SetInt(Constants.MUSIC_AUDIO_MIXER, musicVolume);
+            SetMixerVolume(Constants.MUSIC_AUDIO_MIXER, musicVolume);
         }
 
         private int GetMusicVolumeSetting()
         {
-            return PlayerPrefs.GetInt("MusicVolume");
+            return PlayerPrefs.GetInt(Constants.MUSIC_AUDIO_MIXER, 100);
         }
 
         private void SetUIVolumeSetting(int uiVolume)
         {
-            PlayerPrefs.SetInt("UIVolume", uiVolume);
+            PlayerPrefs.SetInt(Constants.UI_AUDIO_MIXER, uiVolume);
+            SetMixerVolume(Constants.UI_AUDIO_MIXER, uiVolume);
         }
 
         private int GetUIVolumeSetting()
         {
-            return PlayerPrefs.GetInt("UIVolume");
+            return PlayerPrefs.GetInt(Constants.UI_AUDIO_MIXER, 100);
         }
 
-        private void SetVfxVolumeSetting(int vfxVolume)
+        private void SetEffectsVolumeSetting(int effectsVolume)
         {
-            PlayerPrefs.SetInt("VfxVolume", vfxVolume);
+            PlayerPrefs.SetInt(Constants.EFFECTS_AUDIO_MIXER, effectsVolume);
+            SetMixerVolume(Constants.EFFECTS_AUDIO_MIXER, effectsVolume);
         }
 
-        private int GetVfxVolumeSetting()
+        private int GetEffectsVolumeSetting()
         {
-            return PlayerPrefs.GetInt("VfxVolume");
+            return PlayerPrefs.GetInt(Constants.EFFECTS_AUDIO_MIXER, 100);
+        }
+
+        private void SetMixerVolume(string mixerGroup, int channelVolume)
+        {
+            if (AudioMixer == null) return;
+
+            float channel = channelVolume / 100f;
+
+            if (channel <= 0.0001f)
+            {
+                AudioMixer.SetFloat(mixerGroup, -80f);
+                return;
+            }
+
+            float db = Mathf.Log10(channel) * 20f;
+            AudioMixer.SetFloat(mixerGroup, db);
         }
 
         private IEnumerator SetSliderValue(SliderInt slider, int value)

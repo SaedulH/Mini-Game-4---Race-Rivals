@@ -18,10 +18,8 @@ MonoBehaviour:
   <StepOrder>k__BackingField:
   - {fileID: 11400000, guid: 49ff2b8458bd5ae4d80a59e791bb1b2e, type: 2}
   - {fileID: 11400000, guid: b814ec1786725bd4db0dfeb3533ab6fe, type: 2}
-  - {fileID: 11400000, guid: 5cf7ed09cf635db4db8dab3abacea03b, type: 2}
-  - {fileID: 11400000, guid: 4b271cf90bff2564b95cc3cb64e66512, type: 2}
-  - {fileID: 11400000, guid: a42fd50eecc31a945aa87ae3299171ef, type: 2}
   - {fileID: 11400000, guid: 01eff78d477c57e46ac147986937b281, type: 2}
   - {fileID: 11400000, guid: e89022fe134ff484f9cb63cc12f2804e, type: 2}
   - {fileID: 11400000, guid: 97b7a7666d734d340b0032b3ce88ef56, type: 2}
-  - {fileID: 11400000, guid: f394f9ae7884f174f980bdffef556da1, type: 2}
+  <RaceLapCount>k__BackingField: 1
+  <TimedLapCount>k__BackingField: 1

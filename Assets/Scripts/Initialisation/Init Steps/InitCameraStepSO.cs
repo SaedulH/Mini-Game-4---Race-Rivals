@@ -1,5 +1,7 @@
+using System;
 using System.Threading.Tasks;
 using UnityEngine;
+using Utilities;
 
 namespace CoreSystem
 {
@@ -8,14 +10,11 @@ namespace CoreSystem
     {
         public override async Task Run(TrackContext context)
         {
-            //PlayerController Player = context.Player;
+            string cameraMode = PlayerPrefs.GetString("Camera");
+            await CameraZoom.Instance.SetupCameraMode(cameraMode);
 
-            //await CinemachineController.Instance.SetTrackingTarget(Player.transform);
-
-            //await CameraZoom.Instance.ResetCameraZoom();
-
-            //await CameraShake.Instance.ResetCameraShake();
-            await Task.CompletedTask;
+            string screenShakeSetting = PlayerPrefs.GetString("ScreenShake");
+            await CameraShake.Instance.SetupScreenShake(screenShakeSetting);
         }
     }
 }

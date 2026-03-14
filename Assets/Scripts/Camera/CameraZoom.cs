@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -6,19 +7,50 @@ using Utilities;
 public class CameraZoom : NonPersistentSingleton<CameraZoom>
 {
     private CinemachineCamera cinemachineCamera;
+    private CinemachineGroupFraming cinemachineGroupFraming;
 
     private float defaultFOV;
-    private float startFOV;
     private float targetFOV;
     private float zoomTime;
     private bool isZooming;
-    private float zoomTimeElapsed = 0f;
 
     protected override void Awake()
     {
         base.Awake();
         cinemachineCamera = GetComponent<CinemachineCamera>();
+        cinemachineGroupFraming = GetComponent<CinemachineGroupFraming>();
         defaultFOV = cinemachineCamera.Lens.FieldOfView; // Store default FOV
+    }
+    public async Task SetupCameraMode(string cameraMode)
+    {
+        if (Enum.TryParse(cameraMode, out CameraMode parsedCameraMode))
+        {
+            switch (parsedCameraMode)
+            {
+                case CameraMode.Fixed:
+                default:
+                    await ResetCameraZoom();
+                    await EnableTargetGroupTracking(false);
+                    break;
+                case CameraMode.Dynamic:
+                    await EnableTargetGroupTracking(true);
+                    break;
+            }
+        }
+        else
+        {
+            await ResetCameraZoom();
+        }
+        Debug.Log($"Camera Mode set to: {cameraMode}");
+    }
+
+    private async Task EnableTargetGroupTracking(bool enabled)
+    {
+        if (cinemachineGroupFraming == null) return;
+
+        cinemachineGroupFraming.enabled = enabled;
+
+        await Task.CompletedTask;
     }
 
     public async Task ResetCameraZoom()
@@ -32,21 +64,17 @@ public class CameraZoom : NonPersistentSingleton<CameraZoom>
 
     public void Zoom(float distance, Transform target, float time)
     {
-        startFOV = cinemachineCamera.Lens.FieldOfView; // Start from current FOV
         targetFOV = defaultFOV - distance; // Zoom in by reducing FOV
         zoomTime = time;
-        zoomTimeElapsed = 0f;
         cinemachineCamera.LookAt = target;
         isZooming = true;
     }
 
     public void ResetZoom(float resetTime = 0.5f)
     {
-        startFOV = cinemachineCamera.Lens.FieldOfView; // Start from current FOV
         targetFOV = defaultFOV;
 
         zoomTime = (resetTime > 0f) ? resetTime : zoomTime; // Use last zoom time if not specified
-        zoomTimeElapsed = 0f;
         isZooming = true;
     }
 

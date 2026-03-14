@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HoverAudio
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 164bfdfa5de8e06438d527cd722b496c, type: 3}
-  mixerGroup: {fileID: 24300002, guid: 6fb8ef23a779eef48a61dbee39146f59, type: 2}
+  mixerGroup: {fileID: -3973844205538612919, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   loop: 0
   playOnAwake: 0
   frequentSound: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   bypassListenerEffects: 0
   bypassReverbZones: 0
   priority: 127
-  volume: 0.1
+  volume: 1
   pitch: 0.9
   panStereo: 0
   spatialBlend: 0

@@ -84,12 +84,13 @@ public class GameManager : NonPersistentSingleton<GameManager>
         await Task.CompletedTask;
     }
 
-    public async Task ConfigureAI(Vehicle vehicle)
+    public async Task ConfigureAI(Vehicle vehicle, string difficulty)
     {
         PlayerTwo = Instantiate(AIPrefab, Vector3.zero, Quaternion.identity);
         PlayerTwo.name = "CPU";
         AIHandler input = PlayerTwo.GetOrAdd<AIHandler>();
         //input.AssignInput("PlayerTwo");
+        input.SetDifficulty(difficulty);
 
         VehicleSpriteHandler spriteHandler = PlayerTwo.GetOrAdd<VehicleSpriteHandler>();
         spriteHandler.AssignSprite(vehicle.VisualSettings, vehicle.PlayerTwoVehicleChassisSprite);
@@ -104,15 +105,14 @@ public class GameManager : NonPersistentSingleton<GameManager>
     }
 
     private void AddToCameraTargetGroup(int playerIndex, GameObject playerObject)
-    {
-
-        return;
-        
+    {       
         CinemachineTargetGroup targetGroup = GameObject.FindGameObjectWithTag("Target").GetComponent<CinemachineTargetGroup>();
-        CinemachineTargetGroup.Target target = new();
-        target.Object = playerObject.transform;
-        target.Radius = 30f;
-        target.Weight = 1f;
+        CinemachineTargetGroup.Target target = new()
+        {
+            Object = playerObject.transform,
+            Radius = 30f,
+            Weight = 1f
+        };
         Debug.Log("target found");
         targetGroup.AddMember(target.Object, target.Weight, target.Radius);
     }

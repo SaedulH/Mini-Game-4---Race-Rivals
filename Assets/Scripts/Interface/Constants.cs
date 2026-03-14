@@ -37,6 +37,11 @@ namespace Utilities
         public const float DIRT_TERRAIN_FACTOR = 0.8f;
         public const float GRAVEL_TERRAIN_FACTOR = 1f;
 
+        public const string MASTER_AUDIO_MIXER = "Master";
+        public const string MUSIC_AUDIO_MIXER = "Music";
+        public const string UI_AUDIO_MIXER = "UI";
+        public const string EFFECTS_AUDIO_MIXER = "Effects";
+
         public static string FormatTime(float lapTime)
         {
             string formattedTime = TimeSpan.FromSeconds(lapTime).ToString(@"mm\:ss\.ff");
@@ -114,5 +119,24 @@ namespace Utilities
         Grass = 1,
         Dirt = 2,
         Gravel = 3,
+    }
+
+    public enum CameraMode
+    {
+        Fixed,
+        Dynamic
+    }
+
+    public enum ScreenShake
+    {
+        Off,
+        Low,
+        High
+    }
+
+    public enum AiDifficulty
+    {
+        Easy,
+        Hard
     }
 }

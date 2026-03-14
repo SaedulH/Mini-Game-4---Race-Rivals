@@ -5,7 +5,6 @@ namespace Utilities
     public class NonPersistentSingleton<T> : MonoBehaviour where T : Component
     {
         public bool AutoUnparentOnAwake = true;
-        public static bool UseNewInstance = false;
         protected static T instance;
 
         public static bool HasInstance => instance != null;
@@ -18,17 +17,6 @@ namespace Utilities
                 if (instance == null)
                 {
                     instance = FindAnyObjectByType<T>();
-                    if (instance == null)
-                    {
-                        var go = new GameObject(typeof(T).Name + " Auto-Generated");
-                        instance = go.AddComponent<T>();
-                    } 
-                    else if (UseNewInstance)
-                    {
-                        Destroy(instance.gameObject);
-                        var go = new GameObject(typeof(T).Name + " Auto-Generated");
-                        instance = go.AddComponent<T>();
-                    }
                 }
 
                 return instance;
@@ -47,21 +35,17 @@ namespace Utilities
         {
             if (!Application.isPlaying) return;
 
+            if (instance != null && instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            instance = this as T;
+
             if (AutoUnparentOnAwake)
             {
                 transform.SetParent(null);
-            }
-
-            if (instance == null)
-            {
-                instance = this as T;
-            }
-            else
-            {
-                if (instance != this)
-                {
-                    Destroy(gameObject);
-                }
             }
         }
     }

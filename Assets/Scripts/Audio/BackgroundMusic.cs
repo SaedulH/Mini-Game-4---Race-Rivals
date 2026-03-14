@@ -1,7 +1,7 @@
 using AudioSystem;
 using Utilities;
 
-public class BackgroundMusic : PersistentSingleton<BackgroundMusic>
+public class BackgroundMusic : NonPersistentSingleton<BackgroundMusic>
 {
     public AudioData BGM;
     private AudioEmitter _emitter;

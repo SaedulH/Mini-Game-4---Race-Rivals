@@ -19,7 +19,8 @@ namespace CoreSystem
             }
             else if (context.GameMode == GameMode.Race)
             {
-                await GameManager.Instance.ConfigureAI(context.VehicleTwo);
+                string aiDifficulty = PlayerPrefs.GetString("Difficulty");
+                await GameManager.Instance.ConfigureAI(context.VehicleTwo, aiDifficulty);
             }
         }
     }

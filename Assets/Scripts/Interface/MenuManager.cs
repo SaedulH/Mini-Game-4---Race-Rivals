@@ -10,7 +10,7 @@ using Utilities;
 
 namespace CoreSystem
 {
-    public class MenuManager : NonPersistentSingleton<MenuManager>
+    public class MenuManager : MonoBehaviour
     {
         [field: SerializeField] public VisualElement Root { get; set; }
         // Home Screen
@@ -83,20 +83,23 @@ namespace CoreSystem
         [field: SerializeField] public float ScreenTransitionTime { get; private set; } = 0.1f;
         [field: SerializeField] public float SliderLerpSpeed { get; private set; } = 50f;
         [field: SerializeField] public List<TrackInfo> TrackInfo { get; private set; }
+        [field: SerializeField] public SettingsManager SettingsManager { get; private set; }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             Root = GetComponent<UIDocument>().rootVisualElement;
         }
 
         private void Start()
         {
+            if (Root == null) return;
             InitialiseMenu();
         }
 
         private void OnEnable()
         {
+            if (Root == null) return;
+
             VisualElement MainMenu = Root.Q<VisualElement>("MainMenu");
             // Home Screen
             HomeScreen = Root.Q<VisualElement>("HomeScreen");
@@ -107,8 +110,6 @@ namespace CoreSystem
 
             SettingsButton = MainMenu.Q<Button>("Settings");
             SettingsButton.clicked += OnSettingsClicked;
-
-            SettingsManager.Instance.HideSettingsAction += HideSettingsScreen;
 
             QuitButton = MainMenu.Q<Button>("Quit");
             QuitButton.clicked += OnQuitClicked;
@@ -175,16 +176,18 @@ namespace CoreSystem
             VehicleTwoImage = PlayerTwoVehicleSelection.Q<VisualElement>("VehicleTwoImage");
             PlayerTwoSliders = PlayerTwoVehicleSelection.Query<Slider>().ToList();
             SetupSliders(PlayerTwoSliders, "Two");
-
-            SetupHoverAudio();
         }
 
         private void OnDisable()
         {
+            if (SettingsManager != null)
+            {
+                SettingsManager.HideSettingsAction += HideSettingsScreen;
+            }
+
             PlayButton.clicked -= OnPlayClicked;
             QuitButton.clicked -= OnQuitClicked;
             SettingsButton.clicked -= OnSettingsClicked;
-            SettingsManager.Instance.HideSettingsAction -= HideSettingsScreen;
             RaceModeButton.clicked -= () => OnRaceModeClicked();
             TimedModeButton.clicked -= () => OnTimedModeClicked();
             OnePlayerButton.clicked -= () => OnOnePlayerClicked();
@@ -201,6 +204,12 @@ namespace CoreSystem
             VehicleTwoRight.clicked -= OnVehicleTwoRightClicked;
         }
 
+        public void Initialize(SettingsManager settingsManager)
+        {
+            this.SettingsManager = settingsManager;
+            SettingsManager.HideSettingsAction += HideSettingsScreen;
+        }
+
         private void InitialiseMenu()
         {
             CurrentScreen = MenuScreenType.Home;
@@ -208,6 +217,8 @@ namespace CoreSystem
             SetupScreens.AddToClassList("hideUI");
             SelectionScreen.AddToClassList("hideUI");
             VehicleScreen.AddToClassList("hideUI");
+
+            SetupHoverAudio();
         }
 
         #region Audio 

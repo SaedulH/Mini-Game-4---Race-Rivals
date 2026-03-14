@@ -16040,6 +16040,7 @@ GameObject:
   - component: {fileID: 1706694296}
   - component: {fileID: 1706694298}
   - component: {fileID: 1706694299}
+  - component: {fileID: 1706694300}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: VirtualCamera
@@ -16132,6 +16133,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d5f0686fed65f4cb7bf49daaf0b513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraShake
+  AutoUnparentOnAwake: 0
+--- !u!114 &1706694300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706694295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65709676f40ed7b409063cddb9d1e330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraZoom
   AutoUnparentOnAwake: 0
 --- !u!1 &1724555917
 GameObject:

@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using UnityEngine;
 using Utilities;
 
@@ -14,7 +13,9 @@ public class AIHandler : MonoBehaviour, IInputHandler
     [SerializeField] private float angleToTarget;
     [SerializeField] private float throttleAI;
     [SerializeField] private float steeringAI;
+
     [field: SerializeReference] private WaypointNode CurrentNode { get; set; }
+    [field: SerializeField] private AiDifficulty Difficulty { get; set; }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -24,11 +25,11 @@ public class AIHandler : MonoBehaviour, IInputHandler
         //{
         //    throttleAI = ApplyThrottleOrBrakes(steeringAI);
         //    steeringAI = TurnTowardsTarget();
-            
+
 
         //    //ChasePlayer();
         //    FollowWaypoints();
-        
+
         //    detectInput(1f, steeringAI);
         //}
     }
@@ -52,12 +53,12 @@ public class AIHandler : MonoBehaviour, IInputHandler
 
     void ChasePlayer()
     {
-        if(targetTransform == null)
+        if (targetTransform == null)
         {
             targetTransform = GameObject.FindGameObjectWithTag("Player").transform;
         }
 
-        if(targetTransform != null)
+        if (targetTransform != null)
         {
             targetPosition = targetTransform.position;
         }
@@ -78,14 +79,15 @@ public class AIHandler : MonoBehaviour, IInputHandler
         angleToTarget *= -1;
 
         float steerAmount = Mathf.Clamp(angleToTarget, -1, 1);
-        if(angleToTarget > 30)
+        if (angleToTarget > 30)
         {
             steerAmount = 1;
-        }else if(angleToTarget < -30)
+        }
+        else if (angleToTarget < -30)
         {
             steerAmount = -1;
         }
-        
+
 
         return steerAmount;
 
@@ -95,16 +97,19 @@ public class AIHandler : MonoBehaviour, IInputHandler
     {
         float angle = Mathf.Abs(angleToTarget);
         float drive = 0;
-        if(angle >= 60 )
+        if (angle >= 60)
         {
-            drive = 0;    
-        }else if (angle >= 45 && angle < 60)
+            drive = 0;
+        }
+        else if (angle >= 45 && angle < 60)
         {
             drive = 0.33f;
-        }else if (angle >= 30 && angle < 45)
+        }
+        else if (angle >= 30 && angle < 45)
         {
             drive = 0.66f;
-        }else if (angle < 30)
+        }
+        else if (angle < 30)
         {
             drive = 1f;
         }
@@ -134,5 +139,17 @@ public class AIHandler : MonoBehaviour, IInputHandler
     public void SetNextWaypoint(WaypointNode currentWaypoint)
     {
         throw new NotImplementedException();
+    }
+
+    public void SetDifficulty(string difficulty)
+    {
+        if (Enum.TryParse(difficulty, out AiDifficulty parsedDifficulty))
+        {
+            Difficulty = parsedDifficulty;
+        }
+        else
+        {
+            Difficulty = AiDifficulty.Easy;
+        }
     }
 }

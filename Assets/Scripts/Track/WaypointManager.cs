@@ -25,6 +25,11 @@ public class WaypointManager : MonoBehaviour
 
     private void ConfigureWaypoints()
     {
+        if(Waypoints == null || Waypoints.Length == 0)
+        {
+            Debug.LogError("WaypointManager: No waypoints assigned!");
+            return;
+        }
         for (int i = 0; i < Waypoints.Length; i++)
         {
             WaypointNode currentWaypoint = Waypoints[i];

@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 123340258}
   - component: {fileID: 123340257}
   m_Layer: 0
-  m_Name: Settings
+  m_Name: SettingsUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,12 +145,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123340255}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 127.01933, y: 17.89009, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1687369025}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &123340257
 MonoBehaviour:
@@ -164,13 +164,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3015afb22f8c5824eb33dd7b4c9b94a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
-  AutoUnparentOnAwake: 1
+  <AudioMixer>k__BackingField: {fileID: 24100000, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   <CurrentScreen>k__BackingField: 0
-  <SelectAudio>k__BackingField: {fileID: 0}
-  <BackAudio>k__BackingField: {fileID: 0}
-  <HoverAudio>k__BackingField: {fileID: 0}
+  <SelectAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
+  <BackAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
+  <HoverAudio>k__BackingField: {fileID: 11400000, guid: 65e6432b3dd64554fa3b29c391d321bc, type: 2}
   <ScreenTransitionTime>k__BackingField: 0.1
   <SliderLerpSpeed>k__BackingField: 50
+  <MenuManager>k__BackingField: {fileID: 0}
 --- !u!114 &123340258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,7 +207,7 @@ GameObject:
   - component: {fileID: 1052471321}
   - component: {fileID: 1052471323}
   m_Layer: 5
-  m_Name: MainMenu
+  m_Name: MenuUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -243,12 +244,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1052471320}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -127.01933, y: -17.89009, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1687369025}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1052471323
 MonoBehaviour:
@@ -262,7 +263,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7484cedeaf6d9646a2ea791ec38dc85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutoUnparentOnAwake: 1
   <VehicleSelector>k__BackingField: {fileID: 11400000, guid: 79970dd803758e342b069334087a5af3, type: 2}
   <SelectedVehicleOne>k__BackingField:
     <VehicleName>k__BackingField: 
@@ -291,6 +291,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fdd1a11a18c02d04b96156213fd5bc64, type: 2}
   - {fileID: 11400000, guid: e111a448867d16344b6f232eb0725d44, type: 2}
   - {fileID: 11400000, guid: 6eaa8d356e49600478402dcc2e21b9c0, type: 2}
+  <SettingsManager>k__BackingField: {fileID: 0}
 --- !u!1001 &1286872310
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -348,10 +349,57 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 295b99716d35ab342a9a1a2dd39fec07, type: 3}
+--- !u!1 &1687369024
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1687369025}
+  - component: {fileID: 1687369026}
+  m_Layer: 0
+  m_Name: MainMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1687369025
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687369024}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 127.01933, y: 17.89009, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1052471322}
+  - {fileID: 123340256}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1687369026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687369024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33686bc1a3f668540b176ce90867fa86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  menuManager: {fileID: 1052471323}
+  settingsManager: {fileID: 123340257}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1052471322}
-  - {fileID: 123340256}
+  - {fileID: 1687369025}
   - {fileID: 1286872310}

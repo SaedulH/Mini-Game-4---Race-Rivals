@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BGM
   m_EditorClassIdentifier: 
   clip: {fileID: 8300000, guid: 5b3c9cbe9232def42b04f33386c5b04f, type: 3}
-  mixerGroup: {fileID: 24300002, guid: b8de858e16ade1f4ea521fd6c98eeb40, type: 2}
+  mixerGroup: {fileID: -7556716562511423182, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   loop: 1
   playOnAwake: 0
   frequentSound: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   bypassListenerEffects: 0
   bypassReverbZones: 0
   priority: 127
-  volume: 0.1
+  volume: 1
   pitch: 1
   panStereo: 0
   spatialBlend: 0
