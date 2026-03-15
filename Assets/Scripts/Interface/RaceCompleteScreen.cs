@@ -16,7 +16,9 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
 
     [field: Header("Audio")]
     [field: SerializeField] public AudioData RaceCompleteAudio { get; set; }
-    [field: SerializeField] public AudioData RaceCompleteBGM { get; set; }
+    [field: SerializeField] public AudioData RaceWinBGM { get; set; }
+    [field: SerializeField] public AudioData RaceLoseBGM { get; set; }
+    private AudioData _currentBGM;
     [field: SerializeField] public AudioData RestartAudio { get; set; }
     [field: SerializeField] public AudioData QuitAudio { get; set; }
     [field: SerializeField] public AudioData HoverAudio { get; set; }
@@ -65,7 +67,7 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
 
             await Task.Delay(1000);
 
-            BackgroundMusic.Instance.PlayNewBackgroundMusic(RaceCompleteBGM);
+            MusicManager.Instance.PlayMusic(_currentBGM);
             await ShowRaceCompleteScreen();
         }
         else
@@ -98,12 +100,14 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
     {
         string winningPlayer = "";
         string winningText = "";
+        bool isRaceWin = true;
         if (details.GameMode == GameMode.Race)
         {
             if (details.PlayerCount == 1)
             {
                 RaceCompleteBackground.style.width = new StyleLength(new Length(150, LengthUnit.Percent));
                 winningPlayer = details.WinningPlayer == "Player One" ? Constants.SOLO_RACE_WIN : Constants.SOLO_RACE_LOSE;
+                isRaceWin = details.WinningPlayer == "Player One";
             } 
             else
             {
@@ -118,6 +122,7 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
             {
                 RaceCompleteBackground.style.width = new StyleLength(new Length(150, LengthUnit.Percent));
                 winningPlayer = details.AwardedMedal != Medal.Failed  ? $"{Constants.SOLO_TIMED_WIN}{details.AwardedMedal}" : Constants.SOLO_TIMED_LOSE;
+                isRaceWin = details.AwardedMedal != Medal.Failed;
             }
             else
             {
@@ -125,7 +130,7 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
                 winningPlayer = $"{Constants.VERSUS_WINNER_TEXT}{details.WinningPlayer}";
             }
         }
-
+        _currentBGM = isRaceWin ? RaceWinBGM : RaceLoseBGM;
         WinningPlayer.text = winningPlayer;
         WinningText.text = winningText;
     }

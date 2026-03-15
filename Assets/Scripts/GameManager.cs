@@ -50,7 +50,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
 
     public void EnterGameState(GameState newState)
     {
-        Debug.Log($"Entering Game State: {newState}");
+        //Debug.Log($"Entering Game State: {newState}");
         CurrentGameState = newState;
         OnGameStateChanged?.Invoke(newState);
     }
@@ -147,6 +147,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
 
     public void BackAction()
     {
+        Debug.Log("Back Action Triggered");
         OnBackAction?.Invoke();
     }
 

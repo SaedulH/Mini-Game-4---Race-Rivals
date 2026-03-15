@@ -27,11 +27,11 @@ namespace CoreSystem
             {
                 try
                 {
-                    Debug.Log($"Starting: {step.name}");
+                    //Debug.Log($"Starting: {step.name}");
                     await step.Run(trackContext);
                     completed += step.Weight;
                     LoadingScreen.Instance.UpdateLoadingProgress(completed);
-                    Debug.Log($"Completed: {step.name} ({completed}/{totalWeight})");
+                    //Debug.Log($"Completed: {step.name} ({completed}/{totalWeight})");
                 }
                 catch (Exception ex)
                 {

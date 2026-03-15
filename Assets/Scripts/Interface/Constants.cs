@@ -135,7 +135,7 @@ namespace Utilities
         High
     }
 
-    public enum AiDifficulty
+    public enum Difficulty
     {
         Easy,
         Hard

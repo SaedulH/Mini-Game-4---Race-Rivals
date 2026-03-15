@@ -95,7 +95,11 @@ namespace CoreSystem
             {
                 MenuManager.ShowSettingsAction += ShowSettingsScreen;
             }
-            GameManager.Instance.OnBackAction += HandleBackAction;
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnBackAction += HandleBackAction;
+            }
 
             //Settings Screen
             GameSettings = SettingsScreen.Q<VisualElement>("GameSettings");
@@ -198,7 +202,11 @@ namespace CoreSystem
             {
                 MenuManager.ShowSettingsAction -= ShowSettingsScreen;
             }
-            GameManager.Instance.OnBackAction -= HandleBackAction;
+
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.OnBackAction -= HandleBackAction;
+            }
 
             GameButton.clicked -= () => OnGameClicked();
             AudioButton.clicked -= () => OnAudioClicked();
@@ -405,7 +413,7 @@ namespace CoreSystem
         private void OnGameClicked(bool playSound = true)
         {
             PlaySelectAudio(playSound);
-            Debug.Log($"Screen: Game");
+            //Debug.Log($"Screen: Game");
             GameButton.SetEnabled(false);
             AudioButton.SetEnabled(true);
             ControlsButton.SetEnabled(true);
@@ -416,7 +424,7 @@ namespace CoreSystem
         private void OnAudioClicked(bool playSound = true)
         {
             PlaySelectAudio(playSound);
-            Debug.Log($"Screen: Audio");
+            //Debug.Log($"Screen: Audio");
             GameButton.SetEnabled(true);
             AudioButton.SetEnabled(false);
             ControlsButton.SetEnabled(true);
@@ -427,7 +435,7 @@ namespace CoreSystem
         private void OnControlsClicked(bool playSound = true)
         {
             PlaySelectAudio(playSound);
-            Debug.Log($"Screen: Controls");
+            //Debug.Log($"Screen: Controls");
             GameButton.SetEnabled(true);
             AudioButton.SetEnabled(true);
             ControlsButton.SetEnabled(false);
@@ -875,6 +883,7 @@ namespace CoreSystem
                 .WithCancelingThrough("<Keyboard>/escape")
                 // Mouse
                 .WithControlsExcluding("Mouse/position")
+                .WithControlsExcluding("Mouse/position")
                 .WithControlsExcluding("Mouse/delta")
                 .WithControlsExcluding("Mouse/scroll")
 
@@ -903,7 +912,9 @@ namespace CoreSystem
                 .WithControlsExcluding("<Keyboard>/f12")
 
                 // Special keys
+                .WithControlsExcluding("<Keyboard>/leftMeta")
                 .WithControlsExcluding("<Keyboard>/numLock")
+                .WithControlsExcluding("<Keyboard>/scrollLock")
                 .WithControlsExcluding("<Keyboard>/home")
                 .WithControlsExcluding("<Keyboard>/pageUp")
                 .WithControlsExcluding("<Keyboard>/pageDown")
@@ -996,6 +1007,7 @@ namespace CoreSystem
                 path,
                 InputControlPath.HumanReadableStringOptions.OmitDevice
             );
+            Debug.Log($"Setting input label for player {playerIndex} control {controlInput} with path: {path}, readable: {readable}");
             InputKeyIconMap inputMap = InputMappingIcons.GetInputMapForInputKey(readable);
             Sprite displayIcon = inputMap != null && inputMap.InputIcon != null ? inputMap.InputIcon : null;
             string displayText = inputMap != null && inputMap.InputString.Length > 0 ? inputMap.InputString : readable;

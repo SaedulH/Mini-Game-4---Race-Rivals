@@ -9,7 +9,7 @@ namespace Utilities
 
         public InputKeyIconMap GetInputMapForInputKey(string inputKey)
         {
-            Debug.Log($"Searching for icon with input key: {inputKey}");
+            //Debug.Log($"Searching for icon with input key: {inputKey}");
             foreach (var mapping in InputKeyIconMap)
             {
                 if (mapping.InputKey == inputKey)
@@ -17,7 +17,7 @@ namespace Utilities
                     return mapping;
                 }
             }
-            return null; // Return null if no matching key is found
+            return null;
         }
     }
 }

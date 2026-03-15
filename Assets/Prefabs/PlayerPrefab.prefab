@@ -449,7 +449,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 220ae9104456ff2458f09d4c0816cc5e, type: 2}
   - {fileID: 11400000, guid: cb257eca37c27524791dd177077b6d4f, type: 2}
   _currentWheelTerrains: 00000000000000000000000000000000
-  _offRoadAudio: {fileID: 0}
+  _offRoadAudio: {fileID: 11400000, guid: e3ba3b1b48f8f3e429d279effba7b1a2, type: 2}
   _rightDriftSmokeEffect: {fileID: 8659143545983546554}
   _leftDriftSmokeEffect: {fileID: 8173574302884152595}
   _wheelTrailEffects:
@@ -457,13 +457,15 @@ MonoBehaviour:
   - {fileID: 7729500033384602621}
   - {fileID: 3832568106041635939}
   - {fileID: 5769630771532713627}
-  _idleAudio: {fileID: 0}
-  _accelerateAudio: {fileID: 0}
-  _deccelerateAudio: {fileID: 0}
-  _brakeAudio: {fileID: 0}
-  _driftAudio: {fileID: 0}
-  _wallCollisionAudio: {fileID: 0}
-  _vehicleCollisionAudio: {fileID: 0}
+  _idleAudio: {fileID: 11400000, guid: fd1324d10ad9a554b8e33991a415fa45, type: 2}
+  _accelerateLowAudio: {fileID: 11400000, guid: a1eae08e5f92d4245bdcab19f75866eb, type: 2}
+  _accelerateHighAudio: {fileID: 11400000, guid: 559bd92831bd57540b04b79c96ec937a, type: 2}
+  _deccelerateLowAudio: {fileID: 11400000, guid: 202bcf7f08e7b1d4680aa98da1057bd0, type: 2}
+  _deccelerateHighAudio: {fileID: 11400000, guid: 811b6506ca68dbb4db486d2de5e33975, type: 2}
+  _brakeAudio: {fileID: 11400000, guid: 3b4a6c1c366e6b043b13f3d5f634025f, type: 2}
+  _driftAudio: {fileID: 11400000, guid: 7e424117c29d04c4f9be48da58ae27fd, type: 2}
+  _wallCollisionAudio: {fileID: 11400000, guid: 6c50f41f50f4fdc4aadd55cf2f046444, type: 2}
+  _vehicleCollisionAudio: {fileID: 11400000, guid: 982ee7c10bec82a42ba40ec75885d592, type: 2}
 --- !u!114 &9092926396520085615
 MonoBehaviour:
   m_ObjectHideFlags: 0

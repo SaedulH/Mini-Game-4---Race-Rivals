@@ -16,5 +16,8 @@ MonoBehaviour:
   <Weight>k__BackingField: 1
   <StepPriority>k__BackingField: 0
   <GoldTime>k__BackingField: 88
+  <HardGoldTime>k__BackingField: 65
   <SilverTime>k__BackingField: 95
+  <HardSilverTime>k__BackingField: 80
   <BronzeTime>k__BackingField: 100
+  <HardBronzeTime>k__BackingField: 95

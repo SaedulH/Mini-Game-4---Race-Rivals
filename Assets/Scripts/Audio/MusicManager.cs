@@ -1,105 +1,61 @@
-using System.Collections.Generic;
+using System.Collections;
+using AudioSystem;
 using UnityEngine;
-using UnityEngine.Audio;
 using Utilities;
 
-namespace AudioSystem
+public class MusicManager : NonPersistentSingleton<MusicManager>
 {
-    [RequireComponent(typeof(MusicManager))]
-    public class MusicManager : PersistentSingleton<MonoBehaviour>
+    [field: SerializeField] public AudioData DefaultBGM { get; set; }
+
+    private AudioEmitter _currentEmitter;
+    private AudioEmitter _nextEmitter;
+    private void Start()
     {
-        const float crossFadeTime = 1.0f;
-        float fading;
-        AudioSource current;
-        AudioSource previous;
-        readonly Queue<AudioClip> playlist = new();
+        PlayMusic(DefaultBGM);
+    }
 
-        [SerializeField] List<AudioClip> initialPlaylist;
-        [SerializeField] AudioMixerGroup musicMixerGroup;
+    public void PlayMusic(AudioData audioData)
+    {
+        StartCoroutine(PlayMusicCoroutine(audioData));
+    }
 
-        void Start()
+    public void StopMusic()
+    {
+        StartCoroutine(StopMusicCoroutine());
+    }
+
+    public IEnumerator PlayMusicCoroutine(AudioData audioData)
+    {
+        if (_currentEmitter != null)
         {
-            foreach (var clip in initialPlaylist)
+            _currentEmitter.LerpToStop();
+            while (_currentEmitter.IsPlaying())
             {
-                AddToPlaylist(clip);
+                yield return null;
             }
         }
 
-        public void AddToPlaylist(AudioClip clip)
+        _nextEmitter = AudioManager.Instance.CreateAudioBuilder()
+            .WithLoop()
+            .WithFadeIn()
+            .WithParent(transform)
+            .Play(audioData);
+
+        _currentEmitter = _nextEmitter;
+        _nextEmitter = null;
+    }
+
+    public IEnumerator StopMusicCoroutine()
+    {
+        if (_currentEmitter != null)
         {
-            playlist.Enqueue(clip);
-            if (current == null && previous == null)
+            _currentEmitter.LerpToStop();
+            while (_currentEmitter.IsPlaying())
             {
-                PlayNextTrack();
+                yield return null;
             }
         }
 
-        public void Clear() => playlist.Clear();
-
-        public void PlayNextTrack()
-        {
-            if (playlist.TryDequeue(out AudioClip nextTrack))
-            {
-                Play(nextTrack);
-            }
-        }
-
-        public void Play(AudioClip clip)
-        {
-            if (current && current.clip == clip) return;
-
-            if (previous)
-            {
-                Destroy(previous);
-                previous = null;
-            }
-
-            previous = current;
-
-            current = gameObject.GetOrAdd<AudioSource>();
-            current.clip = clip;
-            current.outputAudioMixerGroup = musicMixerGroup; // Set mixer group
-            current.loop = false; // For playlist functionality, we want tracks to play once
-            current.volume = 0;
-            current.bypassListenerEffects = true;
-            current.Play();
-
-            fading = 0.001f;
-        }
-
-        void Update()
-        {
-            HandleCrossFade();
-
-            if (current && !current.isPlaying && playlist.Count > 0)
-            {
-                PlayNextTrack();
-            }
-        }
-
-        void HandleCrossFade()
-        {
-            if (fading <= 0f) return;
-
-            fading += Time.deltaTime;
-
-            float fraction = Mathf.Clamp01(fading / crossFadeTime);
-
-            // Logarithmic fade
-            float logFraction = fraction.ToLogarithmicFraction();
-
-            if (previous) previous.volume = 1.0f - logFraction;
-            if (current) current.volume = logFraction;
-
-            if (fraction >= 1)
-            {
-                fading = 0.0f;
-                if (previous)
-                {
-                    Destroy(previous);
-                    previous = null;
-                }
-            }
-        }
+        _currentEmitter = null;
     }
 }

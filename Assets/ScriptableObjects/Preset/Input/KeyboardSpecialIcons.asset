@@ -205,3 +205,15 @@ MonoBehaviour:
   - InputKey: Numpad Enter
     InputString: NP Enter
     InputIcon: {fileID: 0}
+  - InputKey: Press
+    InputString: LMB
+    InputIcon: {fileID: 0}
+  - InputKey: Left Button
+    InputString: LMB
+    InputIcon: {fileID: 0}
+  - InputKey: Right Button
+    InputString: RMB
+    InputIcon: {fileID: 0}
+  - InputKey: Middle Button
+    InputString: MMB
+    InputIcon: {fileID: 0}

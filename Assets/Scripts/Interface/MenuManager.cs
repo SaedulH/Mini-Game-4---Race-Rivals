@@ -492,9 +492,20 @@ namespace CoreSystem
                 Debug.LogError($"No HUD setup step found for track {trackInfo.TrackName}");
                 return;
             }
-            SelectedMapGoldTime.text = Constants.FormatTime(setupHUDStep.GoldTime);
-            SelectedMapSilverTime.text = Constants.FormatTime(setupHUDStep.SilverTime);
-            SelectedMapBronzeTime.text = Constants.FormatTime(setupHUDStep.BronzeTime);
+            string difficulty = PlayerPrefs.GetString("Difficulty");
+            float goldTime = setupHUDStep.GoldTime;
+            float silverTime = setupHUDStep.SilverTime;
+            float bronzeTime = setupHUDStep.BronzeTime;
+            if (Enum.TryParse(difficulty, out Difficulty parsedDifficulty))
+            {
+                goldTime = setupHUDStep.GetGoldTimeForDifficulty(parsedDifficulty);
+                silverTime = setupHUDStep.GetSilverTimeForDifficulty(parsedDifficulty);
+                bronzeTime = setupHUDStep.GetBronzeTimeForDifficulty(parsedDifficulty);
+            }
+
+            SelectedMapGoldTime.text = Constants.FormatTime(goldTime);
+            SelectedMapSilverTime.text = Constants.FormatTime(silverTime);
+            SelectedMapBronzeTime.text = Constants.FormatTime(bronzeTime);
         }
 
         private void UpdateMapInfo(bool updateMapInfo)

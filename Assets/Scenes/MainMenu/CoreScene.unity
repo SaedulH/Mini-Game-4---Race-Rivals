@@ -127,10 +127,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1652955469}
     m_Modifications:
-    - target: {fileID: 6263023180687952116, guid: ebd5af22b0516ab42a801450e0e86af8, type: 3}
-      propertyPath: AutoUnparentOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6567818963257201930, guid: ebd5af22b0516ab42a801450e0e86af8, type: 3}
       propertyPath: m_Name
       value: Music Manager
@@ -175,7 +171,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6263023180687952116, guid: ebd5af22b0516ab42a801450e0e86af8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

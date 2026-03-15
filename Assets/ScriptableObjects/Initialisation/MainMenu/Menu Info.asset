@@ -21,5 +21,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 01eff78d477c57e46ac147986937b281, type: 2}
   - {fileID: 11400000, guid: e89022fe134ff484f9cb63cc12f2804e, type: 2}
   - {fileID: 11400000, guid: 97b7a7666d734d340b0032b3ce88ef56, type: 2}
+  - {fileID: 11400000, guid: f394f9ae7884f174f980bdffef556da1, type: 2}
   <RaceLapCount>k__BackingField: 1
   <TimedLapCount>k__BackingField: 1

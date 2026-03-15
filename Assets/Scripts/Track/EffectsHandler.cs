@@ -1,4 +1,3 @@
-using System;
 using AudioSystem;
 using UnityEngine;
 using Utilities;
@@ -30,9 +29,12 @@ public class EffectsHandler : MonoBehaviour
 
     [field: Header("Audio")]
     [SerializeField] private AudioData _idleAudio;
-    [SerializeField] private AudioData _accelerateAudio;
-    [SerializeField] private AudioData _deccelerateAudio;
-    private AudioEmitter _engineEmitter;
+    [SerializeField] private AudioData _accelerateLowAudio;
+    [SerializeField] private AudioData _accelerateHighAudio;
+    [SerializeField] private AudioData _deccelerateLowAudio;
+    [SerializeField] private AudioData _deccelerateHighAudio;
+    private AudioEmitter _engineLowEmitter;
+    private AudioEmitter _engineHighEmitter;
 
     [SerializeField] private AudioData _brakeAudio;
     private AudioEmitter _brakeEmitter;
@@ -146,7 +148,7 @@ public class EffectsHandler : MonoBehaviour
 
     #endregion
 
-    #region Trail Effects
+    #region Drift Effects
 
     public void SetDriftRate(float rate)
     {
@@ -218,7 +220,7 @@ public class EffectsHandler : MonoBehaviour
 
     public void PlayDriftTrailEffect(bool play, bool isDrifting)
     {
-        if (play) 
+        if (play)
         {
             if (!_frontTrailsEmitting && isDrifting)
             {
@@ -259,11 +261,11 @@ public class EffectsHandler : MonoBehaviour
         {
             if (play && !_driftEmitter.IsPlaying())
             {
-                _driftEmitter.Play();
+                _driftEmitter.Resume();
             }
             else if (!play && _driftEmitter.IsPlaying())
             {
-                _driftEmitter.Stop();
+                _driftEmitter.Pause();
             }
         }
         else if (play)
@@ -271,6 +273,8 @@ public class EffectsHandler : MonoBehaviour
             _driftEmitter = AudioManager.Instance.CreateAudioBuilder()
                 .WithParent(transform)
                 .WithFadeIn()
+                .WithRandomPitch()
+                .WithVolume(0.5f)
                 .WithLoop()
                 .Play(_driftAudio);
         }
@@ -278,15 +282,15 @@ public class EffectsHandler : MonoBehaviour
 
     public void PlayBrakeAudio(bool play = true)
     {
-        if (_brakeAudio != null)
+        if (_brakeEmitter != null)
         {
             if (play && !_brakeEmitter.IsPlaying())
             {
-                _brakeEmitter.Play();
+                _brakeEmitter.Resume();
             }
             else if (!play && _brakeEmitter.IsPlaying())
             {
-                _brakeEmitter.Stop();
+                _brakeEmitter.Pause();
             }
         }
         else if (play)
@@ -294,6 +298,8 @@ public class EffectsHandler : MonoBehaviour
             _brakeEmitter = AudioManager.Instance.CreateAudioBuilder()
                 .WithParent(transform)
                 .WithFadeIn()
+                .WithRandomPitch()
+                .WithVolume(0.2f)
                 .WithLoop()
                 .Play(_brakeAudio);
         }
@@ -359,26 +365,31 @@ public class EffectsHandler : MonoBehaviour
     {
         if (_offRoadAudio == null) return;
 
-        if (_driftEmitter != null)
+        bool shouldPlay = offRoadFactor > 0f && isMovingFastEnough;
+
+        if (shouldPlay)
         {
-            if (offRoadFactor > 0 && !_driftEmitter.IsPlaying() && isMovingFastEnough)
+            if (_offRoadEmitter == null)
             {
-                //_driftEmitter.WithVolume(offRoadFactor).Play();
+                _offRoadEmitter = AudioManager.Instance.CreateAudioBuilder()
+                    .WithParent(transform)
+                    .WithFadeIn()
+                    .WithLoop()
+                    .WithVolume(offRoadFactor)
+                    .Play(_offRoadAudio);
             }
-            else if (offRoadFactor <= 0 && _driftEmitter.IsPlaying() || !isMovingFastEnough)
+            else
             {
-                _driftEmitter.Stop();
-            }
-        }
-        else if (offRoadFactor > 0 && isMovingFastEnough)
-        {
-            _driftEmitter = AudioManager.Instance.CreateAudioBuilder()
-                .WithParent(transform)
-                .WithFadeIn()
-                .WithLoop()
-                .WithVolume(offRoadFactor)
-                .Play(_driftAudio);
-        }
+                _offRoadEmitter.WithVolume(offRoadFactor, _offRoadEmitter.GetVolume(), true);
+                if (!_offRoadEmitter.IsPlaying())
+                {
+                    _offRoadEmitter.Resume();
+                }
+            }   
+        } 
+        else if (_offRoadEmitter != null && _offRoadEmitter.IsPlaying()) {
+            _offRoadEmitter.Pause();        
+        }  
     }
 
     #endregion

@@ -111,11 +111,6 @@ namespace AudioSystem
                 audioEmitter.WithLoop();
             }
 
-            if(fadeIn)
-            {
-                audioEmitter.WithFadeIn();
-            }
-
             if (reverb)
             {
                 audioEmitter.WithReverb();
@@ -123,7 +118,7 @@ namespace AudioSystem
 
             if(volume > 0f)
             {
-                audioEmitter.WithVolume(volume);
+                audioEmitter.WithVolume(volume, 0f, fadeIn);
             }
 
             if (audioData.frequentSound)

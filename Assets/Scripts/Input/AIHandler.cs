@@ -15,7 +15,7 @@ public class AIHandler : MonoBehaviour, IInputHandler
     [SerializeField] private float steeringAI;
 
     [field: SerializeReference] private WaypointNode CurrentNode { get; set; }
-    [field: SerializeField] private AiDifficulty Difficulty { get; set; }
+    [field: SerializeField] private Difficulty Difficulty { get; set; }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -143,13 +143,13 @@ public class AIHandler : MonoBehaviour, IInputHandler
 
     public void SetDifficulty(string difficulty)
     {
-        if (Enum.TryParse(difficulty, out AiDifficulty parsedDifficulty))
+        if (Enum.TryParse(difficulty, out Difficulty parsedDifficulty))
         {
             Difficulty = parsedDifficulty;
         }
         else
         {
-            Difficulty = AiDifficulty.Easy;
+            Difficulty = Difficulty.Easy;
         }
     }
 }
