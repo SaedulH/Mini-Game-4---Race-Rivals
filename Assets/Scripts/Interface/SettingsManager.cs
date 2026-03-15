@@ -43,7 +43,10 @@ namespace CoreSystem
         [field: SerializeField] public VisualElement InputPopup { get; set; }
         [field: SerializeField] public Label InputPlayerLabel { get; set; }
         [field: SerializeField] public Label InputButtonLabel { get; set; }
-        [field: SerializeField] public InputActionAsset PlayerInputActions { get; set; }
+        [field: SerializeField] public InputMappingIcons InputMappingIcons { get; set; }
+        [field: SerializeField] public PlayerInput PlayerInput { get; set; }
+        [field: SerializeField] public Sprite DefaultIcon { get; set; }
+        private InputActionRebindingExtensions.RebindingOperation _rebindOperation;
 
         // Player One
         [field: SerializeField] public Button PlayerOneThrottleInput { get; set; }
@@ -68,14 +71,16 @@ namespace CoreSystem
         [field: Header("Audio")]
         [field: SerializeField] public AudioData SelectAudio { get; set; }
         [field: SerializeField] public AudioData BackAudio { get; set; }
+        [field: SerializeField] public AudioData ResetAudio { get; set; }
         [field: SerializeField] public AudioData HoverAudio { get; set; }
         [field: SerializeField] public float ScreenTransitionTime { get; private set; } = 0.1f;
         [field: SerializeField] public float SliderLerpSpeed { get; private set; } = 50f;
         [field: SerializeField] public MenuManager MenuManager { get; private set; }
 
-        private void Awake() 
-        { 
+        private void Awake()
+        {
             Root = GetComponent<UIDocument>().rootVisualElement;
+            PlayerInput = GetComponent<PlayerInput>();
         }
 
         private void Start()
@@ -236,11 +241,14 @@ namespace CoreSystem
         private void InitialiseSettings()
         {
             CurrentScreen = SettingScreenType.Game;
+
             SettingsScreen.AddToClassList("hideUI");
             GameSettings.RemoveFromClassList("hideUI");
             AudioSettings.AddToClassList("hideUI");
             ControlsSettings.AddToClassList("hideUI");
             InputPopup.AddToClassList("hideUI");
+
+            LoadOverrideBindings();
 
             SetupHoverAudio();
             SetupAudioMixer();
@@ -314,6 +322,14 @@ namespace CoreSystem
             AudioManager.Instance.CreateAudioBuilder()
                 .Play(HoverAudio);
         }
+
+        private void PlayResetAudio(bool playSound = true)
+        {
+            if (!playSound) return;
+            AudioManager.Instance.CreateAudioBuilder()
+                .Play(ResetAudio);
+        }
+
         #endregion
 
         #region Screen Transitions
@@ -363,14 +379,14 @@ namespace CoreSystem
             switch (CachedScreen)
             {
                 case SettingScreenType.Game:
-                        OnGameClicked(false);
-                        break;
-                    case SettingScreenType.Audio:
-                        OnAudioClicked(false);
-                        break;
-                    case SettingScreenType.Controls:
-                        OnControlsClicked(false);
-                        break;
+                    OnGameClicked(false);
+                    break;
+                case SettingScreenType.Audio:
+                    OnAudioClicked(false);
+                    break;
+                case SettingScreenType.Controls:
+                    OnControlsClicked(false);
+                    break;
             }
 
             await Task.Delay(200);
@@ -443,6 +459,7 @@ namespace CoreSystem
 
         private void ResetGameSettingsToDefault()
         {
+            PlayResetAudio();
             OnEasyClicked(false);
             OnFixedClicked(false);
             OnLowClicked(false);
@@ -450,6 +467,8 @@ namespace CoreSystem
 
         private void ResetAudioSettingsToDefault()
         {
+            PlayResetAudio();
+
             OnMasterVolumeChanged(100);
             OnMusicVolumeChanged(100);
             OnUIVolumeChanged(100);
@@ -460,17 +479,13 @@ namespace CoreSystem
 
         private void ResetControlsSettingsToDefault()
         {
-            //OnPlayerOneThrottleInputChanged("W", false);
-            //OnPlayerOneReverseInputChanged("S", false);
-            //OnPlayerOneLeftInputChanged("A", false);
-            //OnPlayerOneRightInputChanged("D", false);
-            //OnPlayerOneHandbrakeInputChanged("Space", false);
+            PlayResetAudio();
 
-            //OnPlayerTwoThrottleInputChanged("UpArrow", false);
-            //OnPlayerTwoReverseInputChanged("DownArrow", false);
-            //OnPlayerTwoLeftInputChanged("LeftArrow", false);
-            //OnPlayerTwoRightInputChanged("RightArrow", false);
-            //OnPlayerTwoHandbrakeInputChanged(".", false);
+            PlayerInput.actions.RemoveAllBindingOverrides();
+
+            PlayerPrefs.DeleteKey("rebinds");
+
+            GetPlayerControlsSettings();
         }
 
         #endregion
@@ -479,7 +494,7 @@ namespace CoreSystem
 
         private void GetPlayerGameSettings()
         {
-            switch (GetDifficultySetting()) 
+            switch (GetDifficultySetting())
             {
                 case "Easy":
                 default:
@@ -489,8 +504,8 @@ namespace CoreSystem
                     OnHardClicked(false);
                     break;
             }
-            switch (GetCameraSetting()) 
-            { 
+            switch (GetCameraSetting())
+            {
                 case "Fixed":
                 default:
                     OnFixedClicked(false);
@@ -500,8 +515,8 @@ namespace CoreSystem
                     break;
 
             }
-            switch (GetScreenShakeSetting()) 
-            { 
+            switch (GetScreenShakeSetting())
+            {
                 case "Off":
                     OnOffClicked(false);
                     break;
@@ -642,7 +657,7 @@ namespace CoreSystem
                 }
             }
 
-            VolumeSliders = orderedSliders; 
+            VolumeSliders = orderedSliders;
         }
 
         private void OnMasterVolumeChanged(int newValue)
@@ -745,7 +760,17 @@ namespace CoreSystem
 
         private void GetPlayerControlsSettings()
         {
-            //throw new NotImplementedException();
+            SetInputLabel(1, ControlInput.Throttle);
+            SetInputLabel(1, ControlInput.Reverse);
+            SetInputLabel(1, ControlInput.Left);
+            SetInputLabel(1, ControlInput.Right);
+            SetInputLabel(1, ControlInput.Handbrake);
+
+            SetInputLabel(2, ControlInput.Throttle);
+            SetInputLabel(2, ControlInput.Reverse);
+            SetInputLabel(2, ControlInput.Left);
+            SetInputLabel(2, ControlInput.Right);
+            SetInputLabel(2, ControlInput.Handbrake);
         }
 
         private void OnPlayerOneThrottleInputChanged(bool playSound = true)
@@ -788,7 +813,7 @@ namespace CoreSystem
             ShowInputPopup(2, ControlInput.Left);
         }
 
-        private void OnPlayerTwoRightInputChanged( bool playSound = true)
+        private void OnPlayerTwoRightInputChanged(bool playSound = true)
         {
             ShowInputPopup(2, ControlInput.Right);
         }
@@ -808,7 +833,8 @@ namespace CoreSystem
 
             await Task.Yield();
             InputPopup.RemoveFromClassList("hideUI");
-            await Task.Delay(200);
+            await Task.Delay(100);
+            BeginListeningForInput(playerIndex, controlInput);
         }
 
         private async void HideInputPopup()
@@ -820,18 +846,194 @@ namespace CoreSystem
             InputPopup.style.display = DisplayStyle.None;
         }
 
-        private void SetControlInput(int playerIndex, ControlInput controlInput, string newKey)
+        private void BeginListeningForInput(int playerIndex, ControlInput controlInput)
         {
-            // Save the new key for the specified control input and player index
-            // Update the corresponding button text in the UI to reflect the new key binding
+            string actionMapName = playerIndex == 1 ? "PlayerOne" : "PlayerTwo";
+            InputActionMap actionMap = PlayerInput.actions.FindActionMap(actionMapName);
+            if (actionMap == null) return;
+
+            var actionResult = GetAction(actionMap, controlInput);
+            InputAction action = actionResult.action;
+            action.Disable();
+
+            int bindingIndex = -1;
+
+            for (int i = 0; i < action.bindings.Count; i++)
+            {
+                if (action.bindings[i].name == actionResult.part ||
+                    (actionResult.part == null && !action.bindings[i].isComposite && !action.bindings[i].isPartOfComposite))
+                {
+                    bindingIndex = i;
+                    break;
+                }
+            }
+            if (bindingIndex == -1) return;
+            Debug.Log($"Listening for input on action: {action.name}, part: {actionResult.part} in map: {actionMapName}, binding index: {bindingIndex}");
+
+            _rebindOperation = action
+                .PerformInteractiveRebinding(bindingIndex)
+                .WithCancelingThrough("<Keyboard>/escape")
+                // Mouse
+                .WithControlsExcluding("Mouse/position")
+                .WithControlsExcluding("Mouse/delta")
+                .WithControlsExcluding("Mouse/scroll")
+
+                // Pen
+                .WithControlsExcluding("Pen/position")
+                .WithControlsExcluding("Pen/delta")
+                .WithControlsExcluding("Pen/scroll")
+
+                // Touch
+                .WithControlsExcluding("Touch/position")
+                .WithControlsExcluding("Touch/delta")
+                .WithControlsExcluding("Touch/scroll")
+
+                // Function keys
+                .WithControlsExcluding("<Keyboard>/f1")
+                .WithControlsExcluding("<Keyboard>/f2")
+                .WithControlsExcluding("<Keyboard>/f3")
+                .WithControlsExcluding("<Keyboard>/f4")
+                .WithControlsExcluding("<Keyboard>/f5")
+                .WithControlsExcluding("<Keyboard>/f6")
+                .WithControlsExcluding("<Keyboard>/f7")
+                .WithControlsExcluding("<Keyboard>/f8")
+                .WithControlsExcluding("<Keyboard>/f9")
+                .WithControlsExcluding("<Keyboard>/f10")
+                .WithControlsExcluding("<Keyboard>/f11")
+                .WithControlsExcluding("<Keyboard>/f12")
+
+                // Special keys
+                .WithControlsExcluding("<Keyboard>/numLock")
+                .WithControlsExcluding("<Keyboard>/home")
+                .WithControlsExcluding("<Keyboard>/pageUp")
+                .WithControlsExcluding("<Keyboard>/pageDown")
+                .WithControlsExcluding("<keyboard>/anyKey")
+                .OnComplete(operation =>
+                {
+                    operation.Dispose();
+                    _rebindOperation = null;
+
+                    action.Enable();
+                    SaveNewInput(playerIndex, controlInput);
+                    HideInputPopup();
+                })
+                .OnCancel(operation =>
+                {
+                    operation.Dispose();
+                    _rebindOperation = null;
+
+                    action.Enable();
+                    HideInputPopup();
+                });
+
+            _rebindOperation.Start();
         }
 
-        private void GetControlInput(int playerIndex, ControlInput controlInput)
+        private (InputAction action, string part) GetAction(InputActionMap map, ControlInput controlInput)
         {
-            // Retrieve the current key binding for the specified control input and player index
-            // Update the corresponding button text in the UI to reflect the current key binding
+            switch (controlInput)
+            {
+                case ControlInput.Throttle:
+                    return (map.FindAction("Vertical"), "positive");
+                case ControlInput.Reverse:
+                    return (map.FindAction("Vertical"), "negative");
+                case ControlInput.Left:
+                    return (map.FindAction("Horizontal"), "negative");
+                case ControlInput.Right:
+                    return (map.FindAction("Horizontal"), "positive");
+                case ControlInput.Handbrake:
+                    return (map.FindAction("HandBrake"), null);
+                default:
+                    break;
+            }
+
+            return (null, null);
         }
 
-        #endregion
+        private void LoadOverrideBindings()
+        {
+            if (PlayerPrefs.HasKey("rebinds"))
+            {
+                PlayerInput.actions.LoadBindingOverridesFromJson(PlayerPrefs.GetString("rebinds"));
+            }
+        }
+
+        private void SaveNewInput(int playerIndex, ControlInput controlInput)
+        {
+            SetInputLabel(playerIndex, controlInput);
+            PlayerPrefs.SetString("rebinds", PlayerInput.actions.SaveBindingOverridesAsJson());
+            PlayerPrefs.Save();
+        }
+
+        private void SetInputLabel(int playerIndex, ControlInput controlInput)
+        {
+            Button inputButton = GetControlInputButton(playerIndex, controlInput);
+            if (inputButton == null) return;
+
+            string actionMapName = playerIndex == 1 ? "PlayerOne" : "PlayerTwo";
+            InputActionMap map = PlayerInput.actions.FindActionMap(actionMapName);
+
+            var actionResult = GetAction(map, controlInput);
+            InputAction action = actionResult.action;
+
+            int bindingIndex = -1;
+
+            for (int i = 0; i < action.bindings.Count; i++)
+            {
+                if (action.bindings[i].name == actionResult.part ||
+                   (actionResult.part == null && !action.bindings[i].isComposite && !action.bindings[i].isPartOfComposite))
+                {
+                    bindingIndex = i;
+                    break;
+                }
+            }
+
+            if (bindingIndex == -1) return;
+
+            string path = action.bindings[bindingIndex].effectivePath;
+
+            string readable = InputControlPath.ToHumanReadableString(
+                path,
+                InputControlPath.HumanReadableStringOptions.OmitDevice
+            );
+            InputKeyIconMap inputMap = InputMappingIcons.GetInputMapForInputKey(readable);
+            Sprite displayIcon = inputMap != null && inputMap.InputIcon != null ? inputMap.InputIcon : null;
+            string displayText = inputMap != null && inputMap.InputString.Length > 0 ? inputMap.InputString : readable;
+
+            SetInputKeyDisplayValue(inputButton, displayIcon, displayText);
+        }
+
+        private void SetInputKeyDisplayValue(Button inputButton, Sprite icon, string value)
+        {
+            string addToClass = icon != null ? "controlInputIcon" : "controlInput";
+            string removeFromClass = icon != null ? "controlInput" : "controlInputIcon";
+            inputButton.text = icon != null ? "" : value;
+            inputButton.style.backgroundImage = new StyleBackground(icon != null ? icon : DefaultIcon);
+            //inputButton.AddToClassList(addToClass);
+            //inputButton.RemoveFromClassList(removeFromClass);
+        }
+
+        private Button GetControlInputButton(int playerIndex, ControlInput controlInput)
+        {
+            switch (controlInput)
+            {
+                case ControlInput.Throttle:
+                    return playerIndex == 1 ? PlayerOneThrottleInput : PlayerTwoThrottleInput;
+                case ControlInput.Reverse:
+                    return playerIndex == 1 ? PlayerOneReverseInput : PlayerTwoReverseInput;
+                case ControlInput.Left:
+                    return playerIndex == 1 ? PlayerOneLeftInput : PlayerTwoLeftInput;
+                case ControlInput.Right:
+                    return playerIndex == 1 ? PlayerOneRightInput : PlayerTwoRightInput;
+                case ControlInput.Handbrake:
+                    return playerIndex == 1 ? PlayerOneHandbrakeInput : PlayerTwoHandbrakeInput;
+                default:
+                    break;
+            }
+            return null;
+        }
+
     }
+
+    #endregion
 }

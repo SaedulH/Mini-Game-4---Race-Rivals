@@ -166,7 +166,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
   <AudioMixer>k__BackingField: {fileID: 24100000, guid: d4b214f67480b1941a764036e46128c5, type: 2}
+  <InputMappingIcons>k__BackingField: {fileID: 11400000, guid: 84f392856aa37414ca43815dac1b6abc, type: 2}
+  <PlayerInput>k__BackingField: {fileID: 0}
+  <DefaultIcon>k__BackingField: {fileID: 21300000, guid: 31953fe7d7122194fa329c6ae6f95161, type: 3}
   <CurrentScreen>k__BackingField: 0
+  <CachedScreen>k__BackingField: 0
   <SelectAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
   <BackAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
   <HoverAudio>k__BackingField: {fileID: 11400000, guid: 65e6432b3dd64554fa3b29c391d321bc, type: 2}

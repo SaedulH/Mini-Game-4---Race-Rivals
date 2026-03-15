@@ -7,7 +7,7 @@
         <ui:VisualElement name="Settings" style="flex-grow: 1; position: relative; height: 100%; width: 100%; flex-direction: column;">
             <ui:GroupBox name="SettingsHeader" style="flex-grow: 0; justify-content: center; align-items: flex-end; align-self: flex-end; flex-shrink: 0; height: 20%; padding-top: 2.5%; padding-right: 5%; padding-bottom: 0%; padding-left: 5%; width: 100%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; flex-direction: row; align-content: center;">
                 <ui:Button text="Game" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Game" class="button" style="height: auto; width: 25%; flex-grow: 0; margin-left: 2.5%; margin-right: 2.5%; margin-bottom: 0;"/>
-                <ui:Button text="Audio" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Audio" class="button" style="height: auto; width: 25%; flex-grow: 0; margin-right: 2.5%; margin-left: 2.5%; margin-bottom: 0;"/>
+                <ui:Button text="Audio" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Audio" class="button" style="height: auto; width: 25%; flex-grow: 0; margin-right: 5%; margin-left: 5%; margin-bottom: 0;"/>
                 <ui:Button text="Controls" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Controls" class="button" style="height: auto; width: 25%; flex-grow: 0; margin-left: 2.5%; margin-right: 2.5%; margin-bottom: 0;"/>
             </ui:GroupBox>
             <ui:VisualElement name="SettingsBody" style="flex-grow: 1; align-self: center; height: 100%; width: 100%;">
@@ -40,48 +40,50 @@
                         <ui:Label tabindex="-1" text="Vehicle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="EffectsAudio" class="subheader" style="font-size: 45px; -unity-text-align: upper-center; display: flex;"/>
                         <ui:SliderInt label="" value="42" high-value="100" name="EffectsVolume" fill="true" show-input-field="true" class="audioSlider"/>
                     </ui:GroupBox>
-                    <ui:GroupBox name="ControlSettings" class="settingSubMenu hideUI" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; padding-top: 0%; padding-right: 2.5%; padding-bottom: 5%; padding-left: 2.5%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 10%; flex-direction: row; width: 100%; height: 100%;">
+                    <ui:GroupBox name="ControlSettings" class="settingSubMenu hideUI" style="flex-grow: 1; justify-content: center; align-items: stretch; align-self: auto; flex-shrink: 1; padding-top: 0%; padding-right: 2.5%; padding-bottom: 2.5%; padding-left: 2.5%; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; translate: 0 0%; flex-direction: row; width: 100%; height: 100%;">
                         <ui:GroupBox name="PlayerOneControls" style="flex-grow: 1; width: 50%; height: 100%;">
+                            <ui:Label text="Player One" name="PlayerOneControlsLabel" class="subheader" style="font-size: 45px;"/>
                             <ui:GroupBox name="Throttle" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label text="Throttle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ThrottleText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label text="Throttle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ThrottleText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerOneThrottleInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="Reverse" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Reverse" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReverseText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Reverse" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReverseText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerOneReverseInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="SteerLeft" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Left" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerLeftText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Left" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerLeftText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerOneLeftInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="SteerRight" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Right" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerRightText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Right" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerRightText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerOneRightInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="Handbrake" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Handbrake" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HandbrakeText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Handbrake" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HandbrakeText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerOneHandbrakeInput" class="controlInput"/>
                             </ui:GroupBox>
                         </ui:GroupBox>
                         <ui:GroupBox name="PlayerTwoControls" style="flex-grow: 1; width: 50%; height: 100%;">
+                            <ui:Label text="Player Two" name="PlayerTwoControlsLabel" class="subheader" style="font-size: 45px;"/>
                             <ui:GroupBox name="Throttle" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Throttle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ThrottleText" class="controlText" style="font-size: 45px; margin-top: 30px;"/>
-                                <ui:Button text="?" name="PlayerTwoThrottleInput" class="controlInput"/>
+                                <ui:Label tabindex="-1" text="Throttle" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ThrottleText" class="controlText" style="margin-top: 30px;"/>
+                                <ui:Button name="PlayerTwoThrottleInput" text="?" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="Reverse" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Reverse" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReverseText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Reverse" parse-escape-sequences="true" display-tooltip-when-elided="true" name="ReverseText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerTwoReverseInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="SteerLeft" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Left" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerLeftText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Left" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerLeftText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerTwoLeftInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="SteerRight" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Right" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerRightText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Right" parse-escape-sequences="true" display-tooltip-when-elided="true" name="SteerRightText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerTwoRightInput" class="controlInput"/>
                             </ui:GroupBox>
                             <ui:GroupBox name="Handbrake" class="controlMapping" style="position: relative; flex-grow: 1; flex-shrink: 1; width: 100%; height: 100%; flex-direction: row; padding-left: 0; padding-right: 0;">
-                                <ui:Label tabindex="-1" text="Handbrake" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HandbrakeText" class="controlText" style="font-size: 45px; margin-top: 30px; -unity-text-align: upper-center;"/>
+                                <ui:Label tabindex="-1" text="Handbrake" parse-escape-sequences="true" display-tooltip-when-elided="true" name="HandbrakeText" class="controlText" style="margin-top: 30px;"/>
                                 <ui:Button text="?" name="PlayerTwoHandbrakeInput" class="controlInput"/>
                             </ui:GroupBox>
                         </ui:GroupBox>

@@ -413,9 +413,11 @@
 
 .controlText {
     margin-right: 0%;
-    margin-left: 150px;
+    margin-left: 5%;
     -unity-font-definition: url("project://database/Assets/TextMesh%20Pro/Fonts/Nulshock%20Bd.otf?fileID=12800000&guid=12768c2c754fbf248846c9b6df869991&type=3#Nulshock Bd");
     color: rgb(183, 183, 183);
+    font-size: 35px;
+    -unity-text-align: middle-left;
 }
 
 .controlInput {
@@ -439,9 +441,9 @@
     -unity-background-scale-mode: scale-and-crop;
     -unity-slice-type: sliced;
     -unity-background-image-tint-color: rgba(20, 23, 67, 0.39);
-    font-size: 50px;
+    font-size: 45px;
     color: rgb(183, 183, 183);
-    width: 15%;
+    width: 40%;
     margin-right: 10%;
 }
 
