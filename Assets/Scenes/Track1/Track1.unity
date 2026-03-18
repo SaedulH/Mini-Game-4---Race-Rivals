@@ -3908,6 +3908,8 @@ MonoBehaviour:
     CurrentLap: 0
     BestLapTime: 0
     TotalProgress: 0
+  <LapCompleteAudio>k__BackingField: {fileID: 11400000, guid: 1febe3cb7bc8bb04095dcc6ca0b6e76f, type: 2}
+  <RaceCompleteAudio>k__BackingField: {fileID: 11400000, guid: 90be464b393c21346acfd2238088d3d3, type: 2}
   _playerOneGO: {fileID: 0}
   _playerTwoGO: {fileID: 0}
 --- !u!1 &334896157
@@ -17049,7 +17051,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1311477491}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1311477494
 Camera:
   m_ObjectHideFlags: 0

@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e2903a2dc04204ea61ca3618f39fc5, type: 3}
   m_Name: Track1_BGM
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 07e1aeffaf6409c478af3ebc6c85b817, type: 3}
+  clip: {fileID: 8300000, guid: f02cf5522a64da34a9575f6305e8a93a, type: 3}
   mixerGroup: {fileID: -7556716562511423182, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   loop: 1
-  playOnAwake: 0
+  playOnAwake: 1
   frequentSound: 0
   mute: 0
   bypassEffects: 0

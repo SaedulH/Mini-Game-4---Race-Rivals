@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using AudioSystem;
 using UnityEngine;
@@ -28,13 +29,13 @@ public class MusicManager : NonPersistentSingleton<MusicManager>
     {
         if (_currentEmitter != null)
         {
-            _currentEmitter.LerpToStop();
-            while (_currentEmitter.IsPlaying())
-            {
-                yield return null;
-            }
-        }
+            Debug.Log($"Stopping current music");
 
+            _currentEmitter.FadeToStop(Constants.AUDIO_MUSIC_FADE_IN_TIME);
+            yield return new WaitForSeconds(Constants.AUDIO_MUSIC_FADE_IN_TIME);
+            Debug.Log($"current music Stopped");
+        }
+        Debug.Log($"Playing music: {audioData.name}");
         _nextEmitter = AudioManager.Instance.CreateAudioBuilder()
             .WithLoop()
             .WithFadeIn()
@@ -49,7 +50,7 @@ public class MusicManager : NonPersistentSingleton<MusicManager>
     {
         if (_currentEmitter != null)
         {
-            _currentEmitter.LerpToStop();
+            _currentEmitter.FadeToStop();
             while (_currentEmitter.IsPlaying())
             {
                 yield return null;

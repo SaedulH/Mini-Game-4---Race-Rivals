@@ -13,7 +13,9 @@ namespace AudioSystem
         public LinkedListNode<AudioEmitter> Node { get; set; }
 
         AudioSource audioSource;
-        public Coroutine PlayingCoroutine { get; set; }
+        private Coroutine currentCoroutine;
+
+        private bool isFadingOut;
 
         void Awake()
         {
@@ -51,85 +53,126 @@ namespace AudioSystem
             audioSource.rolloffMode = data.rolloffMode;
         }
 
+        #region Playback
+
         public void Play(bool retain = false)
         {
-            if (PlayingCoroutine != null)
-            {
-                StopCoroutine(PlayingCoroutine);
-            }
+            StopCurrentCoroutine();
+            isFadingOut = false;
 
             audioSource.Play();
 
             if (!retain)
             {
-                PlayingCoroutine = StartCoroutine(WaitForSoundToEnd());
+                currentCoroutine = StartCoroutine(WaitForEnd());
             }
         }
 
-        IEnumerator WaitForSoundToEnd()
+        public void Resume(float duration = 0f)
         {
-            yield return new WaitWhile(() => audioSource.isPlaying);
-            Stop();
-        }
+            if (audioSource.isPlaying) return;
 
-        IEnumerator WaitForSoundToLerpToZero(float lerpSpeed)
-        {
-            yield return LerpToVolume(audioSource.volume, 0f, lerpSpeed);
-            if (audioSource.volume <= 0.01f)
-            {
-                Stop();
-            }
-        }
+            audioSource.Play();
 
-        public void Resume()
-        {
-            if (!audioSource.isPlaying)
+            if (duration > 0f)
             {
-                audioSource.Play();
+                currentCoroutine = StartCoroutine(FadeVolume(0f, Data.volume, duration));
             }
         }
 
         public void Pause()
         {
-            if (PlayingCoroutine != null)
-            {
-                StopCoroutine(PlayingCoroutine);
-                PlayingCoroutine = null;
-            }
+            StopCurrentCoroutine();
+            audioSource.Pause();
+            isFadingOut = false;
+        }
 
+        public void Stop(bool retain = false)
+        {
+            StopCurrentCoroutine();
             audioSource.Stop();
-        }
-
-        public void Stop()
-        {
-            if (PlayingCoroutine != null)
+            isFadingOut = false;
+            if (!retain)
             {
-                StopCoroutine(PlayingCoroutine);
-                PlayingCoroutine = null;
-            }
-
-            audioSource.Stop();
-            AudioManager.Instance.ReturnToPool(this);
-        }
-
-        public void LerpToStop(float lerpSpeed = 0.5f)
-        {
-            if (PlayingCoroutine != null)
-            {
-                StopCoroutine(PlayingCoroutine);
-                PlayingCoroutine = StartCoroutine(WaitForSoundToLerpToZero(lerpSpeed));
+                AudioManager.Instance.ReturnToPool(this);
             }
         }
 
-        public bool IsPlaying()
+        #endregion
+
+        #region Fading
+
+        public void FadeToVolume(float target, float duration = 0.2f)
         {
-            return audioSource.isPlaying;
+            isFadingOut = false;
+            StopCurrentCoroutine();
+            currentCoroutine = StartCoroutine(FadeVolume(audioSource.volume, target, duration));
         }
 
-        public float GetVolume()
+        public void FadeToPause(float duration = 0.5f)
         {
-            return audioSource.volume;
+            if (isFadingOut) return;
+
+            isFadingOut = true;
+
+            StopCurrentCoroutine();
+            currentCoroutine = StartCoroutine(FadeOutThen(duration, Pause));
         }
+
+        public void FadeToStop(float duration = 0.5f, bool retain = false)
+        {
+            if (isFadingOut) return;
+
+            isFadingOut = true;
+
+            StopCurrentCoroutine();
+            currentCoroutine = StartCoroutine(FadeOutThen(duration, () => Stop(retain)));
+        }
+         
+        private IEnumerator FadeOutThen(float duration, System.Action onComplete)
+        {
+            yield return FadeVolume(audioSource.volume, 0f, duration);
+            onComplete?.Invoke();
+        }
+
+        private IEnumerator FadeVolume(float start, float target, float duration)
+        {
+            float time = 0f;
+
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                audioSource.volume = Mathf.Lerp(start, target, time / duration);
+                yield return null;
+            }
+
+            audioSource.volume = target;
+        }
+
+        #endregion
+
+        #region Helpers
+
+        private IEnumerator WaitForEnd()
+        {
+            yield return new WaitWhile(() => audioSource.isPlaying);
+            Stop();
+        }
+
+        private void StopCurrentCoroutine()
+        {
+            if (currentCoroutine == null) return;
+
+            StopCoroutine(currentCoroutine);
+            currentCoroutine = null;
+        }
+
+        public bool IsPlaying() => audioSource.isPlaying;
+        public float GetVolume() => audioSource.volume;
+
+        #endregion
+
+        #region Modifiers
 
         public void WithRandomPitch(float min = -0.1f, float max = 0.1f)
         {
@@ -156,27 +199,17 @@ namespace AudioSystem
             audioSource.reverbZoneMix += Random.Range(min, max);
         }
 
-        public void WithVolume(float targetVolume, float startVolume = 0f, bool lerpToVolume = false, float duration = 0.1f)
+        public void WithVolume(float target, bool fade = false, float duration = 0.1f)
         {
-            if (!lerpToVolume)
+            if (!fade)
             {
-                audioSource.volume = targetVolume;
+                audioSource.volume = target;
                 return;
             }
-            StartCoroutine(LerpToVolume(startVolume, targetVolume, duration));
+            StopCurrentCoroutine();
+            currentCoroutine = StartCoroutine(FadeVolume(0f, target, duration));
         }
 
-        private IEnumerator LerpToVolume(float startVolume, float targetVolume, float duration)
-        {
-            float time = 0f;
-            while (time < duration)
-            {
-                time += Time.deltaTime;
-
-                audioSource.volume = Mathf.Lerp(startVolume, targetVolume, time / duration);
-                yield return null;
-            }
-            audioSource.volume = targetVolume;
-        }
+        #endregion
     }
 }

@@ -15,10 +15,10 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
     [field: SerializeField] public Button QuitButton { get; set; }
 
     [field: Header("Audio")]
-    [field: SerializeField] public AudioData RaceCompleteAudio { get; set; }
-    [field: SerializeField] public AudioData RaceWinBGM { get; set; }
-    [field: SerializeField] public AudioData RaceLoseBGM { get; set; }
-    private AudioData _currentBGM;
+    [field: SerializeField] public AudioData RaceWinAudio { get; set; }
+    [field: SerializeField] public AudioData RaceLoseAudio { get; set; }
+    [field: SerializeField] public AudioData RaceResultsBGM { get; set; }
+    private AudioData _currentAudio;
     [field: SerializeField] public AudioData RestartAudio { get; set; }
     [field: SerializeField] public AudioData QuitAudio { get; set; }
     [field: SerializeField] public AudioData HoverAudio { get; set; }
@@ -63,11 +63,11 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
         {
 
             AudioManager.Instance.CreateAudioBuilder()
-                .Play(RaceCompleteAudio);
+                .Play(_currentAudio);
 
             await Task.Delay(1000);
 
-            MusicManager.Instance.PlayMusic(_currentBGM);
+            MusicManager.Instance.PlayMusic(RaceResultsBGM);
             await ShowRaceCompleteScreen();
         }
         else
@@ -130,7 +130,7 @@ public class RaceCompleteScreen : NonPersistentSingleton<RaceCompleteScreen>
                 winningPlayer = $"{Constants.VERSUS_WINNER_TEXT}{details.WinningPlayer}";
             }
         }
-        _currentBGM = isRaceWin ? RaceWinBGM : RaceLoseBGM;
+        _currentAudio = isRaceWin ? RaceWinAudio : RaceLoseAudio;
         WinningPlayer.text = winningPlayer;
         WinningText.text = winningText;
     }

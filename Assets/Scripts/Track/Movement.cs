@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private VehicleState _state = VehicleState.Idle;
     [SerializeField] private bool _isHandBrakesActive = false;
+    [SerializeField] private bool _playedBrakeAudio = false;
     [SerializeField] private bool _isDrifting = false;
     [SerializeField] private bool _isActive = false;
     [SerializeField] private Vector3 _pausedVelocity;
@@ -94,6 +95,7 @@ public class Movement : MonoBehaviour
     {
         _effects.PlayExhaustEffect(!isPause);
         _effects.PlayDriftEffects(!isPause);
+        _effects.PauseAllOffRoadEffects(!isPause);
     }
 
     private void Update()
@@ -136,6 +138,7 @@ public class Movement : MonoBehaviour
             case VehicleState.Idle:
                 if (inputHandler.Throttle > 0f)
                 {
+                    _playedBrakeAudio = false;
                     _state = VehicleState.Accelerating;
                 }
                 else if (inputHandler.Throttle < 0f)
@@ -166,6 +169,7 @@ public class Movement : MonoBehaviour
                     }
                     else
                     {
+                        _playedBrakeAudio = false;
                         _state = VehicleState.Accelerating;
 
                     }
@@ -189,6 +193,7 @@ public class Movement : MonoBehaviour
                 }
                 else if (inputHandler.Throttle > 0f && currentSpeed > -Constants.MAX_IDLE_SPEED)
                 {
+                    _playedBrakeAudio = false;
                     _state = VehicleState.Accelerating;
                 }
                 else if (inputHandler.Throttle < 0f && currentSpeed < Constants.MAX_IDLE_SPEED)
@@ -412,16 +417,13 @@ public class Movement : MonoBehaviour
 
     private void BrakeEffect(float currentSpeed)
     {
-        if (_state == VehicleState.Braking || _isHandBrakesActive)
+        if (!_playedBrakeAudio && (_state == VehicleState.Braking || _isHandBrakesActive))
         {
             if (Mathf.Abs(currentSpeed) > _stats.MinSpeedForBrakeEffect)
             {
-                _effects.PlayBrakeAudio(true);
+                _playedBrakeAudio = true;
+                _effects.PlayBrakeAudio();
             }
-        }
-        else
-        {
-            _effects.PlayBrakeAudio(false);
         }
     }
 

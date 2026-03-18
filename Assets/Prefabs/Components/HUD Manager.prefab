@@ -69,3 +69,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   AutoUnparentOnAwake: 0
+  <CountdownAudio>k__BackingField: {fileID: 11400000, guid: b41d73b822baac64c9ea94745923e4dc, type: 2}
+  <GoAudio>k__BackingField: {fileID: 11400000, guid: a8dfce13e1135a94c971019d08a7a53e, type: 2}

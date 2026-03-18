@@ -37,7 +37,6 @@ public class EffectsHandler : MonoBehaviour
     private AudioEmitter _engineHighEmitter;
 
     [SerializeField] private AudioData _brakeAudio;
-    private AudioEmitter _brakeEmitter;
 
     [SerializeField] private AudioData _driftAudio;
     private AudioEmitter _driftEmitter;
@@ -63,13 +62,7 @@ public class EffectsHandler : MonoBehaviour
         _leftDriftSmokeEffect.Stop();
         _rightDriftSmokeEffect.Stop();
 
-        foreach (ParticleSystem offRoadEffect in _wheelOffRoadEffects)
-        {
-            if (offRoadEffect != null)
-            {
-                offRoadEffect.Stop();
-            }
-        }
+        PauseAllOffRoadEffects();
 
         _frontTrailsEmitting = false;
         _backTrailsEmitting = false;
@@ -79,6 +72,21 @@ public class EffectsHandler : MonoBehaviour
         }
 
         _vehicleStats = vehicleStats;
+    }
+
+    private void SetEmissionRate(ParticleSystem particleSystem, float clampedRate)
+    {
+        var emission = particleSystem.emission;
+        if (emission.rateOverTimeMultiplier == clampedRate) return;
+
+        while (emission.rateOverTimeMultiplier != clampedRate)
+        {
+            emission.rateOverTimeMultiplier = Mathf.MoveTowards(emission.rateOverTimeMultiplier, clampedRate, Time.deltaTime * Constants.EMISSION_MOVE_TOWARDS_RATE);
+            if (Mathf.Approximately(emission.rateOverTimeMultiplier, clampedRate))
+            {
+                emission.rateOverTimeMultiplier = clampedRate;
+            }
+        }
     }
 
     #region Engine Effects
@@ -261,53 +269,58 @@ public class EffectsHandler : MonoBehaviour
         {
             if (play && !_driftEmitter.IsPlaying())
             {
-                _driftEmitter.Resume();
+                _driftEmitter.Resume(Constants.AUDIO_EFFECTS_FADE_IN_TIME);
             }
             else if (!play && _driftEmitter.IsPlaying())
             {
-                _driftEmitter.Pause();
+                _driftEmitter.FadeToPause(Constants.AUDIO_EFFECTS_FADE_OUT_TIME);
             }
         }
         else if (play)
         {
             _driftEmitter = AudioManager.Instance.CreateAudioBuilder()
                 .WithParent(transform)
+                .WithRandomPitch(-0.2f, 0.2f)
                 .WithFadeIn()
-                .WithRandomPitch()
-                .WithVolume(0.5f)
+                .WithVolume(0.3f)
                 .WithLoop()
                 .Play(_driftAudio);
         }
     }
 
-    public void PlayBrakeAudio(bool play = true)
+    public void PlayBrakeAudio()
     {
-        if (_brakeEmitter != null)
-        {
-            if (play && !_brakeEmitter.IsPlaying())
-            {
-                _brakeEmitter.Resume();
-            }
-            else if (!play && _brakeEmitter.IsPlaying())
-            {
-                _brakeEmitter.Pause();
-            }
-        }
-        else if (play)
-        {
-            _brakeEmitter = AudioManager.Instance.CreateAudioBuilder()
-                .WithParent(transform)
-                .WithFadeIn()
-                .WithRandomPitch()
-                .WithVolume(0.2f)
-                .WithLoop()
-                .Play(_brakeAudio);
-        }
+        if (_brakeAudio == null) return;
+        
+        AudioManager.Instance.CreateAudioBuilder()
+            .WithParent(transform)
+            .WithRandomPitch(-0.3f, 0.1f)
+            .WithFadeIn()
+            .WithVolume(0.5f)
+            .Play(_brakeAudio);  
     }
 
     #endregion
 
     #region OffRoad Effects
+
+    public void PauseAllOffRoadEffects(bool play = false)
+    {
+        if (play) return;
+        
+        if (_offRoadEmitter != null)
+        {
+            _offRoadEmitter.Pause();
+        }
+        foreach (ParticleSystem offRoadEffect in _wheelOffRoadEffects)
+        {
+            if (offRoadEffect != null)
+            {
+                offRoadEffect.Pause();
+            }
+        }
+    }
+
     public void PlayOffRoadEffects(int wheelIndex, bool play = true, TerrainType terrain = 0)
     {
         ParticleSystem wheelEffect = _wheelOffRoadEffects[wheelIndex];
@@ -366,48 +379,39 @@ public class EffectsHandler : MonoBehaviour
         if (_offRoadAudio == null) return;
 
         bool shouldPlay = offRoadFactor > 0f && isMovingFastEnough;
-
+        float offRoadVolume = offRoadFactor * Constants.OFFROAD_AUDIO_VOLUME_COEFFICIENT;
         if (shouldPlay)
         {
             if (_offRoadEmitter == null)
             {
                 _offRoadEmitter = AudioManager.Instance.CreateAudioBuilder()
                     .WithParent(transform)
-                    .WithFadeIn()
                     .WithLoop()
-                    .WithVolume(offRoadFactor)
+                    .WithRandomPitch()
+                    .WithFadeIn()
+                    .WithVolume(offRoadVolume)
                     .Play(_offRoadAudio);
+            }
+            else if (!_offRoadEmitter.IsPlaying())
+            {
+                _offRoadEmitter.Resume();
+                _offRoadEmitter.WithRandomPitch();
+                _offRoadEmitter.WithVolume(offRoadVolume, true);
             }
             else
             {
-                _offRoadEmitter.WithVolume(offRoadFactor, _offRoadEmitter.GetVolume(), true);
-                if (!_offRoadEmitter.IsPlaying())
-                {
-                    _offRoadEmitter.Resume();
-                }
+                _offRoadEmitter.FadeToVolume(offRoadVolume);
             }   
         } 
-        else if (_offRoadEmitter != null && _offRoadEmitter.IsPlaying()) {
-            _offRoadEmitter.Pause();        
+        else if (_offRoadEmitter != null && _offRoadEmitter.IsPlaying()) 
+        {
+            _offRoadEmitter.FadeToPause(Constants.AUDIO_EFFECTS_FADE_OUT_TIME);        
         }  
     }
 
     #endregion
 
-    private void SetEmissionRate(ParticleSystem particleSystem, float clampedRate)
-    {
-        var emission = particleSystem.emission;
-        if (emission.rateOverTimeMultiplier == clampedRate) return;
-
-        while (emission.rateOverTimeMultiplier != clampedRate)
-        {
-            emission.rateOverTimeMultiplier = Mathf.MoveTowards(emission.rateOverTimeMultiplier, clampedRate, Time.deltaTime * Constants.EMISSION_MOVE_TOWARDS_RATE);
-            if (Mathf.Approximately(emission.rateOverTimeMultiplier, clampedRate))
-            {
-                emission.rateOverTimeMultiplier = clampedRate;
-            }
-        }
-    }
+    #region Collision Effects
 
     public void PlayCollisionEffects(float speed, bool isAnotherVehicle)
     {
@@ -435,8 +439,10 @@ public class EffectsHandler : MonoBehaviour
 
         AudioManager.Instance.CreateAudioBuilder()
             .WithParent(transform)
-            .WithRandomPitch()
+            .WithRandomPitch(-0.3f, 0.1f)
             .WithVolume(volume)
             .Play(collisionAudio);
     }
+
+    #endregion
 }

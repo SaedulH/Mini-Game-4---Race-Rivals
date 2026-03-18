@@ -19,6 +19,7 @@ namespace AudioSystem
         bool reverb;
         bool loop;
         bool fadeIn;
+        float fadeDuration;
 
         public AudioBuilder(AudioManager audioManager)
         {
@@ -64,9 +65,10 @@ namespace AudioSystem
             return this;
         }
 
-        public AudioBuilder WithFadeIn()
+        public AudioBuilder WithFadeIn(float fadeDuration = 0.1f)
         {
             this.fadeIn = true;
+            this.fadeDuration = fadeDuration;
             return this;
         }
 
@@ -118,7 +120,7 @@ namespace AudioSystem
 
             if(volume > 0f)
             {
-                audioEmitter.WithVolume(volume, 0f, fadeIn);
+                audioEmitter.WithVolume(volume, fadeIn, fadeDuration);
             }
 
             if (audioData.frequentSound)

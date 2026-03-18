@@ -40,10 +40,6 @@ public class HUDManager : NonPersistentSingleton<HUDManager>
     [field: SerializeField] public Label PlayerTwoBestLapTime { get; set; }
 
     [field: Header("Audio")]
-    [field: SerializeField] public AudioData ResumeAudio { get; set; }
-    [field: SerializeField] public AudioData RestartAudio { get; set; }
-    [field: SerializeField] public AudioData QuitAudio { get; set; }
-    [field: SerializeField] public AudioData HoverAudio { get; set; }
     [field: SerializeField] public AudioData CountdownAudio { get; set; }
     [field: SerializeField] public AudioData GoAudio { get; set; }
 

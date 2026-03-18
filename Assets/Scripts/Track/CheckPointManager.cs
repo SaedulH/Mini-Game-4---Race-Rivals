@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AudioSystem;
 using CoreSystem;
 using UnityEngine;
 using Utilities;
@@ -8,6 +9,9 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
     [field: SerializeField] public CheckpointScript[] Checkpoints { get; set; }
     [field: SerializeField] public RaceProgress PlayerOneProgress { get; set; }
     [field: SerializeField] public RaceProgress PlayerTwoProgress { get; set; }
+
+    [field: SerializeField] public AudioData LapCompleteAudio { get; set; }
+    [field: SerializeField] public AudioData RaceCompleteAudio { get; set; }
 
     private int _maxLaps = 0;
     private GameMode _gameMode;
@@ -144,9 +148,13 @@ public class CheckPointManager : NonPersistentSingleton<CheckPointManager>
             {
                 playerProgress.SetNextLap();
                 playerProgress.SetCurrentCheckpoint(0);
+                AudioManager.Instance.CreateAudioBuilder()
+                    .Play(LapCompleteAudio);
             }
             else
             {
+                AudioManager.Instance.CreateAudioBuilder()
+                    .Play(RaceCompleteAudio);
                 Debug.Log($"Player {playerNumber} Finished!!");
                 GameManager.Instance.CompleteRace(playerNumber);
             }

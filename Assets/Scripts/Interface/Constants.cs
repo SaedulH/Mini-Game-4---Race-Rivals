@@ -28,7 +28,7 @@ namespace Utilities
         public const float IDLE_DRIFT_RATE = 0f;
 
         public const float COLLISION_EFFECT_COOLDOWN_TIME = 0.3f;
-        public const float COLLISION_VOLUME_COEFFICIENT = 0.8f;
+        public const float COLLISION_VOLUME_COEFFICIENT = 0.6f;
         public const float COLLISION_DURATION_COEFFICIENT = 0.5f;
         public const float COLLISION_INTENSITY_COEFFICIENT = 0.8f;
 
@@ -41,6 +41,11 @@ namespace Utilities
         public const string MUSIC_AUDIO_MIXER = "Music";
         public const string UI_AUDIO_MIXER = "UI";
         public const string EFFECTS_AUDIO_MIXER = "Effects";
+
+        public const float AUDIO_MUSIC_FADE_IN_TIME = 0.5f;
+        public const float AUDIO_EFFECTS_FADE_IN_TIME = 0.25f;
+        public const float AUDIO_EFFECTS_FADE_OUT_TIME = 0.5f;
+        public const float OFFROAD_AUDIO_VOLUME_COEFFICIENT = 0.4f;
 
         public static string FormatTime(float lapTime)
         {
