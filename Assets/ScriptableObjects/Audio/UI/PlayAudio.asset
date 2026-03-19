@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e2903a2dc04204ea61ca3618f39fc5, type: 3}
   m_Name: PlayAudio
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: d9055738956fc644a8f057801b9309b1, type: 3}
+  clip: {fileID: 8300000, guid: 825491e45f3cacc4984024b5acab94ab, type: 3}
   mixerGroup: {fileID: -3973844205538612919, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   loop: 0
   playOnAwake: 0
@@ -22,8 +22,8 @@ MonoBehaviour:
   bypassListenerEffects: 0
   bypassReverbZones: 0
   priority: 127
-  volume: 1
-  pitch: 1.2
+  volume: 1.1
+  pitch: 0.8
   panStereo: 0
   spatialBlend: 0
   reverbZoneMix: 1

@@ -28,7 +28,7 @@ namespace Utilities
         public const float IDLE_DRIFT_RATE = 0f;
 
         public const float COLLISION_EFFECT_COOLDOWN_TIME = 0.3f;
-        public const float COLLISION_VOLUME_COEFFICIENT = 0.6f;
+        public const float COLLISION_VOLUME_COEFFICIENT = 0.5f;
         public const float COLLISION_DURATION_COEFFICIENT = 0.5f;
         public const float COLLISION_INTENSITY_COEFFICIENT = 0.8f;
 
@@ -45,7 +45,23 @@ namespace Utilities
         public const float AUDIO_MUSIC_FADE_IN_TIME = 0.5f;
         public const float AUDIO_EFFECTS_FADE_IN_TIME = 0.25f;
         public const float AUDIO_EFFECTS_FADE_OUT_TIME = 0.5f;
-        public const float OFFROAD_AUDIO_VOLUME_COEFFICIENT = 0.4f;
+        public const float OFFROAD_VOLUME_COEFFICIENT = 0.55f;
+
+        public const float DYNAMIC_VOLUME_LERP_SPEED = 5f;
+        public const float DYNAMIC_PITCH_LERP_SPEED = 5f;
+        public const float THROTTLE_LERP_SPEED = 5f;
+        public const float RPM_LERP_SPEED = 0.15f;
+        public const float RPM_STEERING_FACTOR_THRESHOLD = 0.65f;
+
+        public const float ACCEL_LOW_VOLUME_COEFFICIENT = 0.7f;
+        public const float ACCEL_HIGH_VOLUME_COEFFICIENT = 0.5f;
+        public const float DECEL_LOW_VOLUME_COEFFICIENT = 0.8f;
+        public const float DECEL_HIGH_VOLUME_COEFFICIENT = 0.6f;
+
+        public const float ACCEL_LOW_PITCH_COEFFICIENT = 0.8f;
+        public const float ACCEL_HIGH_PITCH_COEFFICIENT = 0.8f;
+        public const float DECEL_LOW_PITCH_COEFFICIENT = 0.8f;
+        public const float DECEL_HIGH_PITCH_COEFFICIENT = 0.6f;
 
         public static string FormatTime(float lapTime)
         {

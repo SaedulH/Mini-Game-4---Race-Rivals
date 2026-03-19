@@ -320,7 +320,6 @@ namespace CoreSystem
         {
             if (!playSound) return;
             AudioManager.Instance.CreateAudioBuilder()
-                .WithRandomPitch(-0.05f, 0.05f)
                 .Play(SelectAudio);
         }
 
@@ -477,10 +476,10 @@ namespace CoreSystem
         {
             PlayResetAudio();
 
-            OnMasterVolumeChanged(100);
-            OnMusicVolumeChanged(100);
-            OnUIVolumeChanged(100);
-            OnEffectsVolumeChanged(100);
+            OnMasterVolumeChanged(50);
+            OnMusicVolumeChanged(50);
+            OnUIVolumeChanged(50);
+            OnEffectsVolumeChanged(50);
 
             GetPlayerAudioSettings();
         }

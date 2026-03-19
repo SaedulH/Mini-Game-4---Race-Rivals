@@ -21,6 +21,8 @@ namespace AudioSystem
         bool fadeIn;
         float fadeDuration;
 
+        bool dynamic;
+
         public AudioBuilder(AudioManager audioManager)
         {
             this.audioManager = audioManager;
@@ -62,6 +64,12 @@ namespace AudioSystem
         public AudioBuilder WithLoop()
         {
             this.loop = true;
+            return this;
+        }
+
+        public AudioBuilder WithDynamic()
+        {
+            this.dynamic = true;
             return this;
         }
 
@@ -118,7 +126,12 @@ namespace AudioSystem
                 audioEmitter.WithReverb();
             }
 
-            if(volume > 0f)
+            if(dynamic)
+            {
+                audioEmitter.WithDynamic();
+            }
+
+            if (volume > 0f)
             {
                 audioEmitter.WithVolume(volume, fadeIn, fadeDuration);
             }

@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/MainMenu/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=a2e36e5b7955a0c41b50963d0fb967d6&amp;type=3#MainMenuStyle"/>
-    <ui:VisualElement name="MainMenu" class="background" style="-unity-background-image-tint-color: rgba(0, 30, 100, 0.29);">
+    <ui:VisualElement name="MainMenu" class="background" style="-unity-background-image-tint-color: rgba(0, 30, 100, 0.29); background-color: rgb(0, 0, 0);">
         <ui:VisualElement name="Border" style="flex-grow: 1; position: absolute; width: 100%; height: 100%; align-self: center; justify-content: center; padding-top: 1%; padding-right: 1%; padding-bottom: 1%; padding-left: 1%;">
             <ui:VisualElement style="border-left-color: rgba(0, 217, 255, 0.2); border-right-color: rgba(0, 217, 255, 0.2); border-top-color: rgba(0, 217, 255, 0.2); border-bottom-color: rgba(0, 217, 255, 0.2); border-top-width: 10px; border-right-width: 10px; border-bottom-width: 10px; border-left-width: 10px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; width: 100%; height: 100%;"/>
         </ui:VisualElement>

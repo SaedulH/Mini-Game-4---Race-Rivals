@@ -28,13 +28,8 @@ public class EffectsHandler : MonoBehaviour
     private bool _backTrailsEmitting = false;
 
     [field: Header("Audio")]
-    [SerializeField] private AudioData _idleAudio;
-    [SerializeField] private AudioData _accelerateLowAudio;
-    [SerializeField] private AudioData _accelerateHighAudio;
-    [SerializeField] private AudioData _deccelerateLowAudio;
-    [SerializeField] private AudioData _deccelerateHighAudio;
-    private AudioEmitter _engineLowEmitter;
-    private AudioEmitter _engineHighEmitter;
+    [SerializeField] private AudioData[] _engineAudio;
+    [SerializeField] private AudioEmitter[] _engineAudioEmitters;
 
     [SerializeField] private AudioData _brakeAudio;
 
@@ -54,6 +49,7 @@ public class EffectsHandler : MonoBehaviour
 
     public void SetupEffects(VehicleStats vehicleStats)
     {
+        SetupEngineAudio();
         _timeSinceLastCollisionEffect = 0f;
         _exhaustEffectRate = EffectRate.None;
         _driftSmokeEffectRate = EffectRate.None;
@@ -91,7 +87,86 @@ public class EffectsHandler : MonoBehaviour
 
     #region Engine Effects
 
+    public void PauseAllThrottleEffects(bool play = false)
+    {
+        foreach (AudioEmitter audioEmitter in _engineAudioEmitters)
+        {
+            if (audioEmitter != null)
+            {
+                if (play && !audioEmitter.IsPlaying())
+                {
+                    audioEmitter.Resume();
+                }
+                else if (!play && audioEmitter.IsPlaying())
+                {
+                    audioEmitter.Pause();
+                }
+            }
+        }
+    }
 
+    public void SetThrottleRate(float throttleRate, float rpm)
+    {
+        if (_engineAudioEmitters.Length == 0)
+        {
+            SetupEngineAudio();
+            return;
+        }
+
+        SetEngineAudio(throttleRate, rpm);
+    }
+
+    private void SetupEngineAudio()
+    {
+        _engineAudioEmitters = new AudioEmitter[_engineAudio.Length];
+        for(int i = 0; i < _engineAudio.Length; i++)
+        {
+            if (_engineAudio[i] == null) continue;
+            AudioEmitter emitter = AudioManager.Instance.CreateAudioBuilder()
+                .WithParent(transform)
+                .WithDynamic()
+                .WithLoop()
+                .Play(_engineAudio[i], true);
+            _engineAudioEmitters[i] = emitter;
+        }
+    }
+
+    public void SetEngineAudio(float throttleRate, float rpm)
+    {
+        float low = 1f - rpm;
+        float high = rpm;
+
+        float accel = throttleRate;
+        float decel = 1f - throttleRate;
+
+        float accelLow = accel * low * Constants.ACCEL_LOW_VOLUME_COEFFICIENT;
+        float accelHigh = accel * high * Constants.ACCEL_HIGH_VOLUME_COEFFICIENT;
+        float decelLow = decel * low * Constants.DECEL_LOW_VOLUME_COEFFICIENT;
+        float decelHigh = decel * high * Constants.DECEL_LOW_VOLUME_COEFFICIENT;
+
+        float pitch = Mathf.Lerp(0.8f, 2.0f, rpm);
+
+        if (_engineAudioEmitters[0])
+        {
+            _engineAudioEmitters[0].DynamicVolume(accelLow);
+            _engineAudioEmitters[0].DynamicPitch(pitch * Constants.ACCEL_LOW_PITCH_COEFFICIENT);
+        }
+        if (_engineAudioEmitters[1])
+        {
+            _engineAudioEmitters[1].DynamicVolume(accelHigh);
+            _engineAudioEmitters[1].DynamicPitch(pitch * Constants.ACCEL_HIGH_PITCH_COEFFICIENT);
+        }
+        if (_engineAudioEmitters[2])
+        {
+            _engineAudioEmitters[2].DynamicVolume(decelLow);
+            _engineAudioEmitters[2].DynamicPitch(pitch * Constants.DECEL_LOW_PITCH_COEFFICIENT);
+        }
+        if (_engineAudioEmitters[3])
+        {
+            _engineAudioEmitters[3].DynamicVolume(decelHigh);
+            _engineAudioEmitters[3].DynamicPitch(pitch * Constants.DECEL_HIGH_PITCH_COEFFICIENT);
+        }
+    }
 
     #endregion
 
@@ -291,13 +366,13 @@ public class EffectsHandler : MonoBehaviour
     public void PlayBrakeAudio()
     {
         if (_brakeAudio == null) return;
-        
+
         AudioManager.Instance.CreateAudioBuilder()
             .WithParent(transform)
             .WithRandomPitch(-0.3f, 0.1f)
             .WithFadeIn()
-            .WithVolume(0.5f)
-            .Play(_brakeAudio);  
+            .WithVolume(0.6f)
+            .Play(_brakeAudio);
     }
 
     #endregion
@@ -307,7 +382,7 @@ public class EffectsHandler : MonoBehaviour
     public void PauseAllOffRoadEffects(bool play = false)
     {
         if (play) return;
-        
+
         if (_offRoadEmitter != null)
         {
             _offRoadEmitter.Pause();
@@ -379,13 +454,14 @@ public class EffectsHandler : MonoBehaviour
         if (_offRoadAudio == null) return;
 
         bool shouldPlay = offRoadFactor > 0f && isMovingFastEnough;
-        float offRoadVolume = offRoadFactor * Constants.OFFROAD_AUDIO_VOLUME_COEFFICIENT;
+        float offRoadVolume = offRoadFactor * Constants.OFFROAD_VOLUME_COEFFICIENT;
         if (shouldPlay)
         {
             if (_offRoadEmitter == null)
             {
                 _offRoadEmitter = AudioManager.Instance.CreateAudioBuilder()
                     .WithParent(transform)
+                    .WithDynamic()
                     .WithLoop()
                     .WithRandomPitch()
                     .WithFadeIn()
@@ -400,13 +476,13 @@ public class EffectsHandler : MonoBehaviour
             }
             else
             {
-                _offRoadEmitter.FadeToVolume(offRoadVolume);
-            }   
-        } 
-        else if (_offRoadEmitter != null && _offRoadEmitter.IsPlaying()) 
+                _offRoadEmitter.DynamicVolume(offRoadVolume);
+            }
+        }
+        else if (_offRoadEmitter != null && _offRoadEmitter.IsPlaying())
         {
-            _offRoadEmitter.FadeToPause(Constants.AUDIO_EFFECTS_FADE_OUT_TIME);        
-        }  
+            _offRoadEmitter.FadeToPause(Constants.AUDIO_EFFECTS_FADE_OUT_TIME);
+        }
     }
 
     #endregion
@@ -439,7 +515,7 @@ public class EffectsHandler : MonoBehaviour
 
         AudioManager.Instance.CreateAudioBuilder()
             .WithParent(transform)
-            .WithRandomPitch(-0.3f, 0.1f)
+            .WithRandomPitch(-0.1f, 0.1f)
             .WithVolume(volume)
             .Play(collisionAudio);
     }

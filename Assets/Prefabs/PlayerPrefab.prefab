@@ -419,7 +419,11 @@ MonoBehaviour:
   _vehicleStats: {fileID: 0}
   _terrainDetector: {fileID: 0}
   _state: 0
+  _rpm: 0
+  _rpmVelocity: 0
+  _smoothedThrottle: 0
   _isHandBrakesActive: 0
+  _playedBrakeAudio: 0
   _isDrifting: 0
   _isActive: 0
   _pausedVelocity: {x: 0, y: 0, z: 0}
@@ -457,11 +461,12 @@ MonoBehaviour:
   - {fileID: 7729500033384602621}
   - {fileID: 3832568106041635939}
   - {fileID: 5769630771532713627}
-  _idleAudio: {fileID: 11400000, guid: fd1324d10ad9a554b8e33991a415fa45, type: 2}
-  _accelerateLowAudio: {fileID: 11400000, guid: a1eae08e5f92d4245bdcab19f75866eb, type: 2}
-  _accelerateHighAudio: {fileID: 11400000, guid: 559bd92831bd57540b04b79c96ec937a, type: 2}
-  _deccelerateLowAudio: {fileID: 11400000, guid: 202bcf7f08e7b1d4680aa98da1057bd0, type: 2}
-  _deccelerateHighAudio: {fileID: 11400000, guid: 811b6506ca68dbb4db486d2de5e33975, type: 2}
+  _engineAudio:
+  - {fileID: 11400000, guid: a1eae08e5f92d4245bdcab19f75866eb, type: 2}
+  - {fileID: 11400000, guid: 559bd92831bd57540b04b79c96ec937a, type: 2}
+  - {fileID: 11400000, guid: 202bcf7f08e7b1d4680aa98da1057bd0, type: 2}
+  - {fileID: 11400000, guid: 811b6506ca68dbb4db486d2de5e33975, type: 2}
+  _engineAudioEmitters: []
   _brakeAudio: {fileID: 11400000, guid: 3b4a6c1c366e6b043b13f3d5f634025f, type: 2}
   _driftAudio: {fileID: 11400000, guid: 7e424117c29d04c4f9be48da58ae27fd, type: 2}
   _wallCollisionAudio: {fileID: 11400000, guid: 6c50f41f50f4fdc4aadd55cf2f046444, type: 2}

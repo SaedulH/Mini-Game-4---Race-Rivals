@@ -1,3 +1,5 @@
+using System;
+using System.Drawing;
 using UnityEngine;
 using Utilities;
 
@@ -12,6 +14,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private TerrainDetector _terrainDetector;
 
     [SerializeField] private VehicleState _state = VehicleState.Idle;
+    [SerializeField] private float _rpm = 0f;
+    [SerializeField] private float _rpmVelocity;
+    [SerializeField] private float _smoothedThrottle = 0f;
     [SerializeField] private bool _isHandBrakesActive = false;
     [SerializeField] private bool _playedBrakeAudio = false;
     [SerializeField] private bool _isDrifting = false;
@@ -50,7 +55,9 @@ public class Movement : MonoBehaviour
         _rb.linearDamping = stats.LinearDamping;
         _rb.angularDamping = stats.AngularDamping;
         _rb.centerOfMass = stats.CentreOfMass;
-
+        _rpm = 0f;
+        _rpmVelocity = 0f;
+        _smoothedThrottle = 0f;
         if (_effects == null)
         {
             _effects = GetComponent<EffectsHandler>();
@@ -93,6 +100,7 @@ public class Movement : MonoBehaviour
 
     private void PauseEffects(bool isPause)
     {
+        _effects.PauseAllThrottleEffects(!isPause);
         _effects.PlayExhaustEffect(!isPause);
         _effects.PlayDriftEffects(!isPause);
         _effects.PauseAllOffRoadEffects(!isPause);
@@ -368,42 +376,45 @@ public class Movement : MonoBehaviour
 
     private void EngineEffects(float currentSpeed)
     {
-        switch (_state)
-        {
-            case VehicleState.Idle:
-                IdleExhaustEffects(currentSpeed);
-                break;
-            case VehicleState.Accelerating:
-                MovingExhaustEffects(Mathf.Abs(currentSpeed), _stats.TopSpeed);
-                break;
-            case VehicleState.Decelerating:
-                //MovingExhaustEffects(Mathf.Abs(currentSpeed) / 4f, _stats.TopSpeed);
-                break;
-            case VehicleState.Reversing:
-                MovingExhaustEffects(Mathf.Abs(currentSpeed), _stats.TopReverseSpeed);
-                break;
-        }
-    }
-    private void MovingExhaustEffects(float currentSpeed, float topSpeed)
-    {
-        float exhaustRate = Mathf.InverseLerp(
+        float absSpeed = Mathf.Abs(currentSpeed);
+        float topSpeed = (_state == VehicleState.Reversing) ? _stats.TopReverseSpeed : _stats.TopSpeed;
+        float rate = Mathf.InverseLerp(
             0f,
             topSpeed,
-            currentSpeed
+            absSpeed
         );
 
-        //The further you are from 0, the more exhaust you have
-        if (currentSpeed > Constants.MAX_IDLE_SPEED)
+        float throttle = _state switch
         {
-            _effects.SetExhaustRate(exhaustRate);
-        }
+            VehicleState.Accelerating => 1f,
+            VehicleState.Reversing => 1f,
+            _ => 0f
+        };
+        float angularVel = 1f - Mathf.InverseLerp(0, _stats.MaxAnglularVelocity, Mathf.Abs(_rb.angularVelocity));
+        float steeringFactor = Mathf.Clamp(angularVel, Constants.RPM_STEERING_FACTOR_THRESHOLD, 1f);
+        float throttleRate = (rate * steeringFactor);
+        float targetRPM = Mathf.Clamp01(throttleRate + (throttle * 0.3f));
+        _rpm = Mathf.SmoothDamp(_rpm, targetRPM, ref _rpmVelocity, Constants.RPM_LERP_SPEED);
+        _smoothedThrottle = Mathf.Lerp(_smoothedThrottle, throttleRate, Time.deltaTime * Constants.THROTTLE_LERP_SPEED);
+
+        ThrottleEffect(_smoothedThrottle, _rpm);
+        ExhaustEffects(rate, absSpeed);
     }
 
-    private void IdleExhaustEffects(float currentSpeed)
+    private void ThrottleEffect(float throttleRate, float rpm)
     {
-        if (Mathf.Abs(currentSpeed) < Constants.MAX_IDLE_SPEED)
+        _effects.SetThrottleRate(throttleRate, rpm);
+    }
+
+    private void ExhaustEffects(float exhaustRate, float absSpeed)
+    {
+        if (absSpeed <= Constants.MAX_IDLE_SPEED)
         {
             _effects.SetExhaustRate(Constants.IDLE_EXHAUST_RATE);
+        }
+        else
+        {
+            _effects.SetExhaustRate(exhaustRate);
         }
     }
 

@@ -262,7 +262,6 @@ namespace CoreSystem
         {
             if (!playSound) return;
             AudioManager.Instance.CreateAudioBuilder()
-                .WithRandomPitch(-0.05f, 0.05f)
                 .Play(SelectAudio);
         }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e2903a2dc04204ea61ca3618f39fc5, type: 3}
   m_Name: Engine_Deccel_Low_Sfx
   m_EditorClassIdentifier: Assembly-CSharp::AudioSystem.AudioData
-  clip: {fileID: 8300000, guid: e9e89170b5593a04995ffb28b114af23, type: 3}
+  clip: {fileID: 8300000, guid: 5e47b2d79f35665458425f8b1b109124, type: 3}
   mixerGroup: {fileID: -138727199311613948, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   loop: 1
   playOnAwake: 0
@@ -22,7 +22,7 @@ MonoBehaviour:
   bypassListenerEffects: 0
   bypassReverbZones: 0
   priority: 128
-  volume: 0.5
+  volume: 0
   pitch: 1
   panStereo: 0
   spatialBlend: 0

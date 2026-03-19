@@ -15,11 +15,34 @@ namespace AudioSystem
         AudioSource audioSource;
         private Coroutine currentCoroutine;
 
-        private bool isFadingOut;
+        [field: SerializeField] private bool isFadingOut;
+        [field: SerializeField] private bool isDynamic;
+        [field: SerializeField] private float targetVolume;
+        [field: SerializeField] private float targetPitch;
 
         void Awake()
         {
             audioSource = gameObject.GetOrAdd<AudioSource>();
+        }
+
+        private void Update()
+        {
+            if (currentCoroutine != null || !audioSource.isPlaying) return;
+
+            if (isDynamic)
+            {
+                audioSource.volume = SetDynamicValue(audioSource.volume, targetVolume, Constants.DYNAMIC_VOLUME_LERP_SPEED);
+                audioSource.pitch = SetDynamicValue(audioSource.pitch, targetPitch, Constants.DYNAMIC_PITCH_LERP_SPEED);
+            }
+        }
+
+        private float SetDynamicValue(float current, float target, float lerpSpeed)
+        {
+            if (!Mathf.Approximately(current, target))
+            {
+                current = Mathf.MoveTowards(current, target, Time.deltaTime * lerpSpeed);
+            }
+            return current;
         }
 
         public void Initialize(AudioData data)
@@ -58,7 +81,6 @@ namespace AudioSystem
         public void Play(bool retain = false)
         {
             StopCurrentCoroutine();
-            isFadingOut = false;
 
             audioSource.Play();
 
@@ -84,14 +106,12 @@ namespace AudioSystem
         {
             StopCurrentCoroutine();
             audioSource.Pause();
-            isFadingOut = false;
         }
 
         public void Stop(bool retain = false)
         {
             StopCurrentCoroutine();
             audioSource.Stop();
-            isFadingOut = false;
             if (!retain)
             {
                 AudioManager.Instance.ReturnToPool(this);
@@ -102,9 +122,22 @@ namespace AudioSystem
 
         #region Fading
 
+        public void DynamicVolume(float targetVolume)
+        {
+            if(!isDynamic) isDynamic = true;
+
+            this.targetVolume = targetVolume;
+        }
+
+        public void DynamicPitch(float targetPitch)
+        {
+            if (!isDynamic) isDynamic = true;
+
+            this.targetPitch = targetPitch;
+        }
+
         public void FadeToVolume(float target, float duration = 0.2f)
         {
-            isFadingOut = false;
             StopCurrentCoroutine();
             currentCoroutine = StartCoroutine(FadeVolume(audioSource.volume, target, duration));
         }
@@ -113,9 +146,8 @@ namespace AudioSystem
         {
             if (isFadingOut) return;
 
-            isFadingOut = true;
-
             StopCurrentCoroutine();
+            isFadingOut = true;
             currentCoroutine = StartCoroutine(FadeOutThen(duration, Pause));
         }
 
@@ -123,9 +155,8 @@ namespace AudioSystem
         {
             if (isFadingOut) return;
 
-            isFadingOut = true;
-
             StopCurrentCoroutine();
+            isFadingOut = true;
             currentCoroutine = StartCoroutine(FadeOutThen(duration, () => Stop(retain)));
         }
          
@@ -162,6 +193,7 @@ namespace AudioSystem
         private void StopCurrentCoroutine()
         {
             if (currentCoroutine == null) return;
+            isFadingOut = false;
 
             StopCoroutine(currentCoroutine);
             currentCoroutine = null;
@@ -184,7 +216,7 @@ namespace AudioSystem
             audioSource.pitch += pitch;
         }
 
-        public void WithPitch(float pitch)
+        public void WithPitch(float pitch, bool fade = false, float duration = 0.1f)
         {
             audioSource.pitch = pitch;
         }
@@ -197,6 +229,11 @@ namespace AudioSystem
         public void WithReverb(float min = -0.1f, float max = 0.1f)
         {
             audioSource.reverbZoneMix += Random.Range(min, max);
+        }
+
+        public void WithDynamic()
+        {
+            isDynamic = true;
         }
 
         public void WithVolume(float target, bool fade = false, float duration = 0.1f)
