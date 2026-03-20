@@ -36,6 +36,7 @@ namespace Utilities
         public const float GRASS_TERRAIN_FACTOR = 0.6f;
         public const float DIRT_TERRAIN_FACTOR = 0.8f;
         public const float GRAVEL_TERRAIN_FACTOR = 1f;
+        public const float OFFROAD_VOLUME_COEFFICIENT = 0.75f;
 
         public const string MASTER_AUDIO_MIXER = "Master";
         public const string MUSIC_AUDIO_MIXER = "Music";
@@ -45,7 +46,6 @@ namespace Utilities
         public const float AUDIO_MUSIC_FADE_IN_TIME = 0.5f;
         public const float AUDIO_EFFECTS_FADE_IN_TIME = 0.25f;
         public const float AUDIO_EFFECTS_FADE_OUT_TIME = 0.5f;
-        public const float OFFROAD_VOLUME_COEFFICIENT = 0.55f;
 
         public const float DYNAMIC_VOLUME_LERP_SPEED = 5f;
         public const float DYNAMIC_PITCH_LERP_SPEED = 5f;

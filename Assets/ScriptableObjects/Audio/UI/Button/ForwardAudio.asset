@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7e2903a2dc04204ea61ca3618f39fc5, type: 3}
-  m_Name: BackAudio
+  m_Name: ForwardAudio
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: d39986a339edb224a96c444ed42fc02e, type: 3}
+  clip: {fileID: 8300000, guid: 164bfdfa5de8e06438d527cd722b496c, type: 3}
   mixerGroup: {fileID: -3973844205538612919, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   loop: 0
   playOnAwake: 0
@@ -22,8 +22,8 @@ MonoBehaviour:
   bypassListenerEffects: 0
   bypassReverbZones: 0
   priority: 127
-  volume: 1
-  pitch: 0.8
+  volume: 0.8
+  pitch: 1
   panStereo: 0
   spatialBlend: 0
   reverbZoneMix: 1

@@ -37,9 +37,9 @@ public class MusicManager : NonPersistentSingleton<MusicManager>
         }
         Debug.Log($"Playing music: {audioData.name}");
         _nextEmitter = AudioManager.Instance.CreateAudioBuilder()
+            .WithParent(transform)
             .WithLoop()
             .WithFadeIn()
-            .WithParent(transform)
             .Play(audioData);
 
         _currentEmitter = _nextEmitter;

@@ -167,12 +167,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
   <AudioMixer>k__BackingField: {fileID: 24100000, guid: d4b214f67480b1941a764036e46128c5, type: 2}
   <InputMappingIcons>k__BackingField: {fileID: 11400000, guid: 84f392856aa37414ca43815dac1b6abc, type: 2}
-  <PlayerInput>k__BackingField: {fileID: 0}
+  <PlayerInput>k__BackingField: {fileID: 123340259}
   <DefaultIcon>k__BackingField: {fileID: 21300000, guid: 31953fe7d7122194fa329c6ae6f95161, type: 3}
   <CurrentScreen>k__BackingField: 0
   <CachedScreen>k__BackingField: 0
   <SelectAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
   <BackAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
+  <ResetAudio>k__BackingField: {fileID: 11400000, guid: 5f363256beb854a4eb791ea2de7fdec2, type: 2}
   <HoverAudio>k__BackingField: {fileID: 11400000, guid: 65e6432b3dd64554fa3b29c391d321bc, type: 2}
   <ScreenTransitionTime>k__BackingField: 0.1
   <SliderLerpSpeed>k__BackingField: 50
@@ -315,7 +316,8 @@ MonoBehaviour:
     <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
     <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
     <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
-  <PlayAudio>k__BackingField: {fileID: 11400000, guid: 1e11a5d2a2f30724c8c0674392944227, type: 2}
+  <StartAudio>k__BackingField: {fileID: 11400000, guid: c3721f9f3a5e95d4cb8dd0ac274d2de2, type: 2}
+  <ForwardAudio>k__BackingField: {fileID: 11400000, guid: 1e11a5d2a2f30724c8c0674392944227, type: 2}
   <SelectAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
   <BackAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
   <HoverAudio>k__BackingField: {fileID: 11400000, guid: 65e6432b3dd64554fa3b29c391d321bc, type: 2}

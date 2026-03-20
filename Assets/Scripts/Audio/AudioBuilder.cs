@@ -7,21 +7,21 @@ namespace AudioSystem
         readonly AudioManager audioManager;
         Transform parent;
         Vector3 position = Vector3.zero;
-        float volume;
+        float targetVolume = 1f;
+        bool isOverrideVolume = false;
 
-        bool randomPitch;
-        float minRandomPitchRange;
-        float maxRandomPitchRange;
+        float newPitch = 1f;
+        bool additivePitch = false;
+        bool randomPitch = false;
+        float minRandomPitchRange = -0.1f;
+        float maxRandomPitchRange = 0.1f;
 
-        bool additivePitch;
-        float newPitch;
+        bool reverb = false;
+        bool loop = false;
 
-        bool reverb;
-        bool loop;
-        bool fadeIn;
-        float fadeDuration;
-
-        bool dynamic;
+        bool fadeIn = false;
+        float fadeDuration = 0.2f;
+        bool dynamic = false;
 
         public AudioBuilder(AudioManager audioManager)
         {
@@ -73,7 +73,7 @@ namespace AudioSystem
             return this;
         }
 
-        public AudioBuilder WithFadeIn(float fadeDuration = 0.1f)
+        public AudioBuilder WithFadeIn(float fadeDuration = 0.2f)
         {
             this.fadeIn = true;
             this.fadeDuration = fadeDuration;
@@ -82,7 +82,8 @@ namespace AudioSystem
 
         public AudioBuilder WithVolume(float volume)
         {
-            this.volume = volume;
+            this.targetVolume = volume;
+            this.isOverrideVolume = true;
             return this;
         }
 
@@ -111,7 +112,8 @@ namespace AudioSystem
             if (randomPitch)
             {
                 audioEmitter.WithRandomPitch(minRandomPitchRange, maxRandomPitchRange);
-            } else if (additivePitch)
+            } 
+            else if (additivePitch)
             {
                 audioEmitter.WithAdditivePitch(newPitch);
             }
@@ -131,10 +133,8 @@ namespace AudioSystem
                 audioEmitter.WithDynamic();
             }
 
-            if (volume > 0f)
-            {
-                audioEmitter.WithVolume(volume, fadeIn, fadeDuration);
-            }
+            float volume = isOverrideVolume ? targetVolume : audioData.volume;
+            audioEmitter.WithVolume(volume, fadeIn, fadeDuration);
 
             if (audioData.frequentSound)
             {

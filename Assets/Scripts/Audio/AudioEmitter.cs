@@ -15,10 +15,10 @@ namespace AudioSystem
         AudioSource audioSource;
         private Coroutine currentCoroutine;
 
-        [field: SerializeField] private bool isFadingOut;
-        [field: SerializeField] private bool isDynamic;
-        [field: SerializeField] private float targetVolume;
-        [field: SerializeField] private float targetPitch;
+        [field: SerializeField] private bool isFadingOut = false;
+        [field: SerializeField] private bool isDynamic = false;
+        [field: SerializeField] private float targetVolume = 1;
+        [field: SerializeField] private float targetPitch = 1;
 
         void Awake()
         {
@@ -78,29 +78,33 @@ namespace AudioSystem
 
         #region Playback
 
-        public void Play(bool retain = false)
+        public void BeginNewCoroutine(IEnumerator coroutine)
         {
             StopCurrentCoroutine();
-
-            audioSource.Play();
-
-            if (!retain)
-            {
-                currentCoroutine = StartCoroutine(WaitForEnd());
-            }
+            currentCoroutine = StartCoroutine(coroutine);
         }
 
-        public void Resume(float duration = 0f)
+        public void Play(bool retain = false)
         {
             if (audioSource.isPlaying) return;
 
             audioSource.Play();
-
-            if (duration > 0f)
+            if (!retain && !audioSource.loop)
             {
-                currentCoroutine = StartCoroutine(FadeVolume(0f, Data.volume, duration));
+                StartCoroutine(WaitForEnd());
             }
         }
+
+        //public void Resume(float fadeInDuration = 0f)
+        //{
+        //    if (audioSource.isPlaying) return;
+
+        //    audioSource.Play();
+        //    if (fadeInDuration > 0f)
+        //    {
+        //        BeginNewCoroutine(FadeVolume(0f, Data.volume, fadeInDuration));
+        //    }
+        //}
 
         public void Pause()
         {
@@ -124,40 +128,34 @@ namespace AudioSystem
 
         public void DynamicVolume(float targetVolume)
         {
-            if(!isDynamic) isDynamic = true;
+            if (!isDynamic) return;
+            StopCurrentCoroutine();
 
             this.targetVolume = targetVolume;
         }
 
         public void DynamicPitch(float targetPitch)
         {
-            if (!isDynamic) isDynamic = true;
+            if (!isDynamic) return;
+            StopCurrentCoroutine();
 
             this.targetPitch = targetPitch;
-        }
-
-        public void FadeToVolume(float target, float duration = 0.2f)
-        {
-            StopCurrentCoroutine();
-            currentCoroutine = StartCoroutine(FadeVolume(audioSource.volume, target, duration));
         }
 
         public void FadeToPause(float duration = 0.5f)
         {
             if (isFadingOut) return;
 
-            StopCurrentCoroutine();
             isFadingOut = true;
-            currentCoroutine = StartCoroutine(FadeOutThen(duration, Pause));
+            BeginNewCoroutine(FadeOutThen(duration, Pause));
         }
 
         public void FadeToStop(float duration = 0.5f, bool retain = false)
         {
             if (isFadingOut) return;
 
-            StopCurrentCoroutine();
             isFadingOut = true;
-            currentCoroutine = StartCoroutine(FadeOutThen(duration, () => Stop(retain)));
+            BeginNewCoroutine(FadeOutThen(duration, () => Stop(retain)));
         }
          
         private IEnumerator FadeOutThen(float duration, System.Action onComplete)
@@ -194,7 +192,7 @@ namespace AudioSystem
         {
             if (currentCoroutine == null) return;
             isFadingOut = false;
-
+            //Debug.Log("Stopping current coroutine");
             StopCoroutine(currentCoroutine);
             currentCoroutine = null;
         }
@@ -236,15 +234,20 @@ namespace AudioSystem
             isDynamic = true;
         }
 
-        public void WithVolume(float target, bool fade = false, float duration = 0.1f)
+        public void WithFadeIn(float duration = 0.2f)
         {
-            if (!fade)
+            BeginNewCoroutine(FadeVolume(0f, Data.volume, duration));
+        }
+
+        public void WithVolume(float target, bool fadeIn = false, float duration = 0.2f)
+        {
+            //Debug.Log($"targetVolume: {target}, fade: {fade}, duration: {duration}");
+            if (!fadeIn)
             {
                 audioSource.volume = target;
                 return;
             }
-            StopCurrentCoroutine();
-            currentCoroutine = StartCoroutine(FadeVolume(0f, target, duration));
+            BeginNewCoroutine(FadeVolume(0f, target, duration));
         }
 
         #endregion

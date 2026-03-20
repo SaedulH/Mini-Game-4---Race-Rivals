@@ -67,7 +67,8 @@ namespace CoreSystem
         [field: SerializeField] public Label VehicleTwoName { get; set; }
 
         [field: Header("Audio")]
-        [field: SerializeField] public AudioData PlayAudio { get; set; }
+        [field: SerializeField] public AudioData StartAudio { get; set; }
+        [field: SerializeField] public AudioData ForwardAudio { get; set; }
         [field: SerializeField] public AudioData SelectAudio { get; set; }
         [field: SerializeField] public AudioData BackAudio { get; set; }
         [field: SerializeField] public AudioData HoverAudio { get; set; }
@@ -244,11 +245,18 @@ namespace CoreSystem
             });
         }
 
+        private void PlayStartAudio(bool playSound = true)
+        {
+            if (!playSound) return;
+            AudioManager.Instance.CreateAudioBuilder()
+                .Play(StartAudio);
+        }
+
         private void PlayForwardAudio(bool playSound = true)
         {
             if (!playSound) return;
             AudioManager.Instance.CreateAudioBuilder()
-                .Play(PlayAudio);
+                .Play(ForwardAudio);
         }
 
         private void PlayBackAudio(bool playSound = true)
@@ -356,13 +364,14 @@ namespace CoreSystem
 
         public void OnStartClicked()
         {
-            PlayForwardAudio();
             if (CurrentScreen == MenuScreenType.Selection)
             {
+                PlayForwardAudio();
                 StartCoroutine(ShowVehicleScreen());
             }
             else if (CurrentScreen == MenuScreenType.Vehicle)
             {
+                PlayStartAudio();
                 OnStartGame();
             }
         }

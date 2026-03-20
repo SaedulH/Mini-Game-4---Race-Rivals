@@ -72,6 +72,6 @@ MonoBehaviour:
   <RaceWinAudio>k__BackingField: {fileID: 11400000, guid: f4f69b6479a063048b7bf0ae88a1c1fc, type: 2}
   <RaceLoseAudio>k__BackingField: {fileID: 11400000, guid: c488c4dd377e5b44d8b6b76b67de5d67, type: 2}
   <RaceResultsBGM>k__BackingField: {fileID: 11400000, guid: 55082d318d14b3b4987693391a09052c, type: 2}
-  <RestartAudio>k__BackingField: {fileID: 11400000, guid: 1e11a5d2a2f30724c8c0674392944227, type: 2}
+  <RestartAudio>k__BackingField: {fileID: 11400000, guid: c3721f9f3a5e95d4cb8dd0ac274d2de2, type: 2}
   <QuitAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
   <HoverAudio>k__BackingField: {fileID: 11400000, guid: 65e6432b3dd64554fa3b29c391d321bc, type: 2}

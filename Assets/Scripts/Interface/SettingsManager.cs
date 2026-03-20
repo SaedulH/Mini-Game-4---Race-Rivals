@@ -603,7 +603,7 @@ namespace CoreSystem
 
         private string GetDifficultySetting()
         {
-            return PlayerPrefs.GetString("Difficulty");
+            return PlayerPrefs.GetString("Difficulty", "Easy");
         }
 
         private void SetCameraSetting(string cameraSetting)
@@ -613,7 +613,7 @@ namespace CoreSystem
 
         private string GetCameraSetting()
         {
-            return PlayerPrefs.GetString("Camera");
+            return PlayerPrefs.GetString("Camera", "Fixed");
         }
 
         private void SetScreenShakeSetting(string screenShakeSetting)
@@ -623,7 +623,7 @@ namespace CoreSystem
 
         private string GetScreenShakeSetting()
         {
-            return PlayerPrefs.GetString("ScreenShake");
+            return PlayerPrefs.GetString("ScreenShake", "Low");
         }
 
         #endregion
@@ -695,7 +695,7 @@ namespace CoreSystem
 
         private int GetMasterVolumeSetting()
         {
-            return PlayerPrefs.GetInt(Constants.MASTER_AUDIO_MIXER, 100);
+            return PlayerPrefs.GetInt(Constants.MASTER_AUDIO_MIXER, 50);
         }
 
         private void SetMusicVolumeSetting(int musicVolume)
@@ -706,7 +706,7 @@ namespace CoreSystem
 
         private int GetMusicVolumeSetting()
         {
-            return PlayerPrefs.GetInt(Constants.MUSIC_AUDIO_MIXER, 100);
+            return PlayerPrefs.GetInt(Constants.MUSIC_AUDIO_MIXER, 50);
         }
 
         private void SetUIVolumeSetting(int uiVolume)
@@ -717,7 +717,7 @@ namespace CoreSystem
 
         private int GetUIVolumeSetting()
         {
-            return PlayerPrefs.GetInt(Constants.UI_AUDIO_MIXER, 100);
+            return PlayerPrefs.GetInt(Constants.UI_AUDIO_MIXER, 50);
         }
 
         private void SetEffectsVolumeSetting(int effectsVolume)
@@ -728,7 +728,7 @@ namespace CoreSystem
 
         private int GetEffectsVolumeSetting()
         {
-            return PlayerPrefs.GetInt(Constants.EFFECTS_AUDIO_MIXER, 100);
+            return PlayerPrefs.GetInt(Constants.EFFECTS_AUDIO_MIXER, 50);
         }
 
         private void SetMixerVolume(string mixerGroup, int channelVolume)
@@ -1006,7 +1006,7 @@ namespace CoreSystem
                 path,
                 InputControlPath.HumanReadableStringOptions.OmitDevice
             );
-            Debug.Log($"Setting input label for player {playerIndex} control {controlInput} with path: {path}, readable: {readable}");
+            //Debug.Log($"Setting input label for player {playerIndex} control {controlInput} with path: {path}, readable: {readable}");
             InputKeyIconMap inputMap = InputMappingIcons.GetInputMapForInputKey(readable);
             Sprite displayIcon = inputMap != null && inputMap.InputIcon != null ? inputMap.InputIcon : null;
             string displayText = inputMap != null && inputMap.InputString.Length > 0 ? inputMap.InputString : readable;
@@ -1016,8 +1016,8 @@ namespace CoreSystem
 
         private void SetInputKeyDisplayValue(Button inputButton, Sprite icon, string value)
         {
-            string addToClass = icon != null ? "controlInputIcon" : "controlInput";
-            string removeFromClass = icon != null ? "controlInput" : "controlInputIcon";
+            //string addToClass = icon != null ? "controlInputIcon" : "controlInput";
+            //string removeFromClass = icon != null ? "controlInput" : "controlInputIcon";
             inputButton.text = icon != null ? "" : value;
             inputButton.style.backgroundImage = new StyleBackground(icon != null ? icon : DefaultIcon);
             //inputButton.AddToClassList(addToClass);

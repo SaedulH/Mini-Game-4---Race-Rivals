@@ -70,6 +70,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseManager
   AutoUnparentOnAwake: 0
   <ResumeAudio>k__BackingField: {fileID: 11400000, guid: 2ae62b37ab4e7bb478784395c0e69937, type: 2}
-  <RestartAudio>k__BackingField: {fileID: 11400000, guid: 1e11a5d2a2f30724c8c0674392944227, type: 2}
+  <RestartAudio>k__BackingField: {fileID: 11400000, guid: c3721f9f3a5e95d4cb8dd0ac274d2de2, type: 2}
   <QuitAudio>k__BackingField: {fileID: 11400000, guid: 1770cea219485a44bb354276a6c4cf7c, type: 2}
   <HoverAudio>k__BackingField: {fileID: 11400000, guid: 65e6432b3dd64554fa3b29c391d321bc, type: 2}

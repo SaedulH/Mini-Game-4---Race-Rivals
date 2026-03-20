@@ -95,7 +95,7 @@ public class EffectsHandler : MonoBehaviour
             {
                 if (play && !audioEmitter.IsPlaying())
                 {
-                    audioEmitter.Resume();
+                    audioEmitter.Play(true);
                 }
                 else if (!play && audioEmitter.IsPlaying())
                 {
@@ -340,26 +340,29 @@ public class EffectsHandler : MonoBehaviour
 
     public void PlayDriftAudio(bool play)
     {
-        if (_driftEmitter != null)
+        if (_driftAudio == null) return;
+
+        if (play)
         {
-            if (play && !_driftEmitter.IsPlaying())
+            if (_driftEmitter == null)
             {
-                _driftEmitter.Resume(Constants.AUDIO_EFFECTS_FADE_IN_TIME);
+                _driftEmitter = AudioManager.Instance.CreateAudioBuilder()
+                    .WithParent(transform)
+                    .WithRandomPitch()
+                    .WithFadeIn()
+                    .WithLoop()
+                    .Play(_driftAudio);
             }
-            else if (!play && _driftEmitter.IsPlaying())
+            else if (!_driftEmitter.IsPlaying())
             {
-                _driftEmitter.FadeToPause(Constants.AUDIO_EFFECTS_FADE_OUT_TIME);
+                _driftEmitter.Play();
+                _driftEmitter.WithFadeIn();
+                _driftEmitter.WithRandomPitch();
             }
         }
-        else if (play)
+        else if (_driftEmitter != null && _driftEmitter.IsPlaying())
         {
-            _driftEmitter = AudioManager.Instance.CreateAudioBuilder()
-                .WithParent(transform)
-                .WithRandomPitch(-0.2f, 0.2f)
-                .WithFadeIn()
-                .WithVolume(0.3f)
-                .WithLoop()
-                .Play(_driftAudio);
+            _driftEmitter.FadeToPause(Constants.AUDIO_EFFECTS_FADE_OUT_TIME);
         }
     }
 
@@ -371,7 +374,6 @@ public class EffectsHandler : MonoBehaviour
             .WithParent(transform)
             .WithRandomPitch(-0.3f, 0.1f)
             .WithFadeIn()
-            .WithVolume(0.6f)
             .Play(_brakeAudio);
     }
 
@@ -453,9 +455,9 @@ public class EffectsHandler : MonoBehaviour
     {
         if (_offRoadAudio == null) return;
 
-        bool shouldPlay = offRoadFactor > 0f && isMovingFastEnough;
+        bool play = offRoadFactor >= 0f && isMovingFastEnough;
         float offRoadVolume = offRoadFactor * Constants.OFFROAD_VOLUME_COEFFICIENT;
-        if (shouldPlay)
+        if (play)
         {
             if (_offRoadEmitter == null)
             {
@@ -470,7 +472,7 @@ public class EffectsHandler : MonoBehaviour
             }
             else if (!_offRoadEmitter.IsPlaying())
             {
-                _offRoadEmitter.Resume();
+                _offRoadEmitter.Play(true);
                 _offRoadEmitter.WithRandomPitch();
                 _offRoadEmitter.WithVolume(offRoadVolume, true);
             }
