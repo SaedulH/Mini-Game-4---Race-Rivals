@@ -112,7 +112,7 @@ public class GameManager : NonPersistentSingleton<GameManager>
         CinemachineTargetGroup.Target target = new()
         {
             Object = playerObject.transform,
-            Radius = 30f,
+            Radius = 50f,
             Weight = 1f
         };
         Debug.Log("target found");

@@ -7,7 +7,11 @@ using Utilities;
 public class CameraZoom : NonPersistentSingleton<CameraZoom>
 {
     private CinemachineCamera cinemachineCamera;
-    private CinemachineGroupFraming cinemachineGroupFraming;
+
+    [field: SerializeField] public GameObject PlayerOne { get; private set; }
+    private Rigidbody2D _rb1;
+    [field: SerializeField] public GameObject PlayerTwo { get; private set; }
+    private Rigidbody2D _rb2;
 
     private float defaultFOV;
     private float targetFOV;
@@ -18,7 +22,6 @@ public class CameraZoom : NonPersistentSingleton<CameraZoom>
     {
         base.Awake();
         cinemachineCamera = GetComponent<CinemachineCamera>();
-        cinemachineGroupFraming = GetComponent<CinemachineGroupFraming>();
         defaultFOV = cinemachineCamera.Lens.FieldOfView; // Store default FOV
     }
     public async Task SetupCameraMode(string cameraMode)
@@ -46,9 +49,9 @@ public class CameraZoom : NonPersistentSingleton<CameraZoom>
 
     private async Task EnableTargetGroupTracking(bool enabled)
     {
-        if (cinemachineGroupFraming == null) return;
+        //if (cinemachineGroupFraming == null) return;
 
-        cinemachineGroupFraming.enabled = enabled;
+        //cinemachineGroupFraming.enabled = enabled;
 
         await Task.CompletedTask;
     }

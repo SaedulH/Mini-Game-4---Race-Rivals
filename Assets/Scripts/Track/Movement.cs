@@ -81,18 +81,18 @@ public class Movement : MonoBehaviour
         if (state == GameState.Playing)
         {
             _isActive = true;
+            _rb.bodyType = RigidbodyType2D.Dynamic;
             _rb.linearVelocity = _pausedVelocity;
             _rb.angularVelocity = _pausedAngularVelocity;
-            _rb.bodyType = RigidbodyType2D.Dynamic;
 
             PauseEffects(false);
         }
         else
         {
             _isActive = false;
+            _rb.bodyType = RigidbodyType2D.Static;
             _pausedVelocity = _rb.linearVelocity;
             _pausedAngularVelocity = _rb.angularVelocity;
-            _rb.bodyType = RigidbodyType2D.Static;
 
             PauseEffects(true);
         }
