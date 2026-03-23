@@ -17,8 +17,8 @@ namespace AudioSystem
 
         [field: SerializeField] private bool isFadingOut = false;
         [field: SerializeField] private bool isDynamic = false;
-        [field: SerializeField] private float targetVolume = 1;
-        [field: SerializeField] private float targetPitch = 1;
+        [field: SerializeField] private float targetVolume = 0f;
+        [field: SerializeField] private float targetPitch = 0f;
 
         void Awake()
         {
@@ -229,9 +229,11 @@ namespace AudioSystem
             audioSource.reverbZoneMix += Random.Range(min, max);
         }
 
-        public void WithDynamic()
+        public void WithDynamic(float targetVolume = 1f, float targetPitch = 1f)
         {
             isDynamic = true;
+            this.targetVolume = targetVolume;
+            this.targetPitch = targetPitch;
         }
 
         public void WithFadeIn(float duration = 0.2f)

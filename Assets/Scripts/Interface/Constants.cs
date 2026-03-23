@@ -38,6 +38,9 @@ namespace Utilities
         public const float GRAVEL_TERRAIN_FACTOR = 1f;
         public const float OFFROAD_VOLUME_COEFFICIENT = 0.75f;
 
+        public const float DYNAMIC_CAMERA_LOOK_AHEAD_TIME = 0.5f;
+        public const float DYNAMIC_CAMERA_LOOK_AHEAD_SMOOTHING = 5f;
+
         public const string MASTER_AUDIO_MIXER = "Master";
         public const string MUSIC_AUDIO_MIXER = "Music";
         public const string UI_AUDIO_MIXER = "UI";

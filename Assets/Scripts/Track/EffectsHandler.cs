@@ -124,6 +124,7 @@ public class EffectsHandler : MonoBehaviour
             if (_engineAudio[i] == null) continue;
             AudioEmitter emitter = AudioManager.Instance.CreateAudioBuilder()
                 .WithParent(transform)
+                .WithVolume(0f)
                 .WithDynamic()
                 .WithLoop()
                 .Play(_engineAudio[i], true);

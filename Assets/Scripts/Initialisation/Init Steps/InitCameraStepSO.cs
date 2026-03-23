@@ -11,7 +11,7 @@ namespace CoreSystem
         public override async Task Run(TrackContext context)
         {
             string cameraMode = PlayerPrefs.GetString("Camera");
-            await CameraZoom.Instance.SetupCameraMode(cameraMode);
+            await CameraZoom.Instance.SetupCameraMode(context, cameraMode);
 
             string screenShakeSetting = PlayerPrefs.GetString("ScreenShake");
             await CameraShake.Instance.SetupScreenShake(screenShakeSetting);

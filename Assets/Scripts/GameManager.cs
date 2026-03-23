@@ -108,15 +108,15 @@ public class GameManager : NonPersistentSingleton<GameManager>
 
     private void AddToCameraTargetGroup(int playerIndex, GameObject playerObject)
     {       
-        CinemachineTargetGroup targetGroup = GameObject.FindGameObjectWithTag("Target").GetComponent<CinemachineTargetGroup>();
-        CinemachineTargetGroup.Target target = new()
-        {
-            Object = playerObject.transform,
-            Radius = 50f,
-            Weight = 1f
-        };
-        Debug.Log("target found");
-        targetGroup.AddMember(target.Object, target.Weight, target.Radius);
+        //CinemachineTargetGroup targetGroup = GameObject.FindGameObjectWithTag("Target").GetComponent<CinemachineTargetGroup>();
+        //CinemachineTargetGroup.Target target = new()
+        //{
+        //    Object = playerObject.transform,
+        //    Radius = 50f,
+        //    Weight = 1f
+        //};
+        //Debug.Log("target found");
+        //targetGroup.AddMember(target.Object, target.Weight, target.Radius);
     }
 
     private void AddToCheckpointTargetGroup(int playerIndex, GameObject playerObject)

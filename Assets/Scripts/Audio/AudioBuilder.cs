@@ -128,13 +128,13 @@ namespace AudioSystem
                 audioEmitter.WithReverb();
             }
 
-            if(dynamic)
-            {
-                audioEmitter.WithDynamic();
-            }
-
             float volume = isOverrideVolume ? targetVolume : audioData.volume;
             audioEmitter.WithVolume(volume, fadeIn, fadeDuration);
+
+            if(dynamic)
+            {
+                audioEmitter.WithDynamic(volume, audioData.pitch);
+            }
 
             if (audioData.frequentSound)
             {
