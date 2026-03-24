@@ -40,6 +40,9 @@ namespace Utilities
 
         public const float DYNAMIC_CAMERA_LOOK_AHEAD_TIME = 0.5f;
         public const float DYNAMIC_CAMERA_LOOK_AHEAD_SMOOTHING = 5f;
+        public const float MIN_ORTHOGRAPHIC_CAMERA_SIZE = 70f;
+        public const float MAX_ORTHOGRAPHIC_CAMERA_SIZE = 114f;
+        public const float ZOOM_FACTOR_CONSTANT = 0.5f;
 
         public const string MASTER_AUDIO_MIXER = "Master";
         public const string MUSIC_AUDIO_MIXER = "Music";

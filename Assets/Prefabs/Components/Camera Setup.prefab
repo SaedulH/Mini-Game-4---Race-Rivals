@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5903838796676294985}
   - component: {fileID: 1260943997087197839}
   m_Layer: 0
-  m_Name: CameraBoundary
+  m_Name: ConfinerCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,10 +78,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -310, y: 170}
-      - {x: -310, y: -170}
-      - {x: 310, y: -170}
-      - {x: 310, y: 170}
+    - - {x: -228, y: 170}
+      - {x: -228, y: -170}
+      - {x: 228, y: -170}
+      - {x: 228, y: 170}
   m_UseDelaunayMesh: 1
 --- !u!1 &4119128800648672007
 GameObject:
@@ -392,7 +392,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 0}
+    TrackingTarget: {fileID: 25264484016889715}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraZoom
   AutoUnparentOnAwake: 0
-  <Boundary>k__BackingField: {fileID: 1260943997087197839}
+  <ConfinerCollider>k__BackingField: {fileID: 1260943997087197839}
   <TrackingTarget>k__BackingField: {fileID: 0}
   <GroupCentre>k__BackingField: {fileID: 5839664710316344829}
   <PlayerOne>k__BackingField: {fileID: 0}

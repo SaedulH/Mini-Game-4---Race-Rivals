@@ -34519,9 +34519,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: -202
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 114
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -202
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: -114
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].x
+      value: 202
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[2].y
+      value: -114
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].x
+      value: 202
+      objectReference: {fileID: 0}
+    - target: {fileID: 1260943997087197839, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[3].y
+      value: 114
+      objectReference: {fileID: 0}
     - target: {fileID: 4119128800648672007, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
       propertyPath: m_Name
       value: CamereSetup
+      objectReference: {fileID: 0}
+    - target: {fileID: 7875606549105860224, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
+      propertyPath: orthographic size
+      value: 114
       objectReference: {fileID: 0}
     - target: {fileID: 8334379303697679813, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
       propertyPath: m_LocalPosition.x
