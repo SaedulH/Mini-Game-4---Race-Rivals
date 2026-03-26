@@ -35,6 +35,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa5a0ed9690ba064aa57739aa9d309fa
+    m_Address: Assets/Scenes/Track3/Track3.unity
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: a6e82760a325b0f46af62b75ae8b5e7e, type: 2}
   m_SchemaSet:

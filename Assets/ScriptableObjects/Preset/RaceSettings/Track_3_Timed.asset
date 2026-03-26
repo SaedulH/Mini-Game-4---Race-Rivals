@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e712fc9fe94a2c4db2a51f9d09c1916, type: 3}
+  m_Name: Track_3_Timed
+  m_EditorClassIdentifier: Assembly-CSharp::CoreSystem.ScenePreset
+  <SceneName>k__BackingField: 
+  <LoadMode>k__BackingField: 1
+  <TrackInfo>k__BackingField: {fileID: 11400000, guid: 6eaa8d356e49600478402dcc2e21b9c0, type: 2}
+  <TrackContext>k__BackingField:
+    GameMode: 1
+    PlayerCount: 1
+    VehicleOne:
+      <VehicleName>k__BackingField: Drifter
+      <Stats>k__BackingField: {fileID: 11400000, guid: ac5fa3b6b20551540836c30da613b6b8, type: 2}
+      <VisualSettings>k__BackingField: {fileID: 11400000, guid: cae73a84809aa884185f723070acb4d0, type: 2}
+      <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 21300000, guid: e3652c7958957d5488f262618c58c4a2, type: 3}
+      <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 21300000, guid: 945eb5f2f0698ee47aebe9830b2da96d, type: 3}
+      <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 21300000, guid: b6b652c2213d5104283641a8971ef31f, type: 3}
+      <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 21300000, guid: 2fadc07591fb27741931b3f57af28f2d, type: 3}
+    VehicleTwo:
+      <VehicleName>k__BackingField: All-Rounder
+      <Stats>k__BackingField: {fileID: 11400000, guid: cd5037a6235f0824a8fea5d8a974fdf8, type: 2}
+      <VisualSettings>k__BackingField: {fileID: 11400000, guid: df32fd0ed85c0704a9c4549347b55959, type: 2}
+      <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 21300000, guid: 03eb99a10f876be4cbce489a265119ad, type: 3}
+      <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 21300000, guid: 7121f639b6bd2c0438da3247721b7c13, type: 3}
+      <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 21300000, guid: b944de69f3ce34c44a2505a65d72210f, type: 3}
+      <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 21300000, guid: fac61c5ed316b8c41bba2498598d90fd, type: 3}
+    LapCount: 2
+    TotalWeight: 13
+  <Vehicles>k__BackingField: {fileID: 11400000, guid: 79970dd803758e342b069334087a5af3, type: 2}
+  <PlayerOneVehicle>k__BackingField: 1
+  <PlayerTwoVehicle>k__BackingField: 0

@@ -4,30 +4,31 @@ using UnityEngine;
 public class LayerHandler : MonoBehaviour
 {
 
-    [SerializeReference] private List<SpriteRenderer> spriteRenderers = new List<SpriteRenderer>();
-    [SerializeReference] private List<Collider2D> underPassColliders = new List<Collider2D>();
-    [SerializeReference] private List<Collider2D> overPassColliders = new List<Collider2D>();
+    [field: SerializeReference] public List<SpriteRenderer> SpriteRenderers { get; private set; } = new();
+    [field: SerializeReference] public List<Collider2D> UnderPassColliders { get; private set; } = new();
+    [field: SerializeReference] public List<Collider2D> OverPassColliders { get; private set; } = new();
     private bool isOnOverpass = false;
 
-    private Collider2D carCollider;
+    private CapsuleCollider2D vehicleCollider;
     // Start is called before the first frame update
     void Awake()
     {
         foreach (SpriteRenderer spriteRenderer in gameObject.GetComponentsInChildren<SpriteRenderer>())
         {
-            spriteRenderers.Add(spriteRenderer);
+            SpriteRenderers.Add(spriteRenderer);
+        }
+
+        foreach (GameObject underPassCollider in GameObject.FindGameObjectsWithTag("UnderpassCollider"))
+        {
+            UnderPassColliders.Add(underPassCollider.GetComponent<Collider2D>());
         }
 
         foreach (GameObject overPassCollider in GameObject.FindGameObjectsWithTag("OverpassCollider"))
         {
-            overPassColliders.Add(overPassCollider.GetComponent<Collider2D>());
-        }
-        foreach (GameObject underPassCollider in GameObject.FindGameObjectsWithTag("UnderpassCollider"))
-        {
-            underPassColliders.Add(underPassCollider.GetComponent<Collider2D>());
+            OverPassColliders.Add(overPassCollider.GetComponent<Collider2D>());
         }
 
-        carCollider = gameObject.GetComponent<Collider2D>();
+        vehicleCollider = gameObject.GetComponent<CapsuleCollider2D>();
     }
 
 
@@ -39,20 +40,20 @@ public class LayerHandler : MonoBehaviour
     void SetCollisionWithOverpass()
     {
 
-        foreach (Collider2D collider in overPassColliders)
+        foreach (Collider2D collider in OverPassColliders)
         {
-            Physics2D.IgnoreCollision(carCollider, collider, !isOnOverpass);
+            Physics2D.IgnoreCollision(vehicleCollider, collider, !isOnOverpass);
         }
 
-        foreach (Collider2D collider in underPassColliders)
+        foreach (Collider2D collider in UnderPassColliders)
         {
             if (isOnOverpass)
             {
-                Physics2D.IgnoreCollision(carCollider, collider, true);
+                Physics2D.IgnoreCollision(vehicleCollider, collider, true);
             }
             else
             {
-                Physics2D.IgnoreCollision(carCollider, collider, false);
+                Physics2D.IgnoreCollision(vehicleCollider, collider, false);
             }
         }
     }
@@ -73,7 +74,7 @@ public class LayerHandler : MonoBehaviour
 
     void SetSortingLayers(string layerName)
     {
-        foreach (SpriteRenderer renderer in spriteRenderers)
+        foreach (SpriteRenderer renderer in SpriteRenderers)
         {
             renderer.sortingLayerName = layerName;
         }

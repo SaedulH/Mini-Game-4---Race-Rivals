@@ -15,3 +15,7 @@ MonoBehaviour:
   <Description>k__BackingField: 
   <Weight>k__BackingField: 1
   <StepPriority>k__BackingField: 0
+  PlayerOneSpawnPosition: {x: 75.75, y: -39.7, z: -3}
+  PlayerOneSpawnRotation: {x: 0, y: 0, z: 0.03489945, w: -0.99939084}
+  PlayerTwoSpawnPosition: {x: 85, y: -41, z: 0}
+  PlayerTwoSpawnRotation: {x: 0, y: 0, z: 0.03489945, w: -0.99939084}
