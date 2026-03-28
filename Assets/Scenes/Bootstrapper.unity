@@ -163,8 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb0b394ed628368498d80961ad5aabea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UsePreset: 0
-  ScenePreset: {fileID: 11400000, guid: b0f87d1afa207e549afac9b0cfda4be2, type: 2}
+  UsePreset: 1
+  ScenePreset: {fileID: 11400000, guid: c7b15cbf396ae67488a7408878bdd974, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

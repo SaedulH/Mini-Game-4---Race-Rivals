@@ -39,7 +39,7 @@ public class WaypointManager : MonoBehaviour
         }
 
         CurrentWaypoint = Waypoints[0];
-        AIHandler.SetNextWaypoint(CurrentWaypoint);
+        //AIHandler.SetNextWaypoint(CurrentWaypoint);
     }
 
     private void CheckWaypointReached()
@@ -47,7 +47,7 @@ public class WaypointManager : MonoBehaviour
         if(Vector3.Distance(AIHandler.transform.position, CurrentWaypoint.transform.position) < CurrentWaypoint.MinDistanceToReachWaypoint)
         {
             CurrentWaypoint = CurrentWaypoint.NextWaypointNode;
-            AIHandler.SetNextWaypoint(CurrentWaypoint);
+            //AIHandler.SetNextWaypoint(CurrentWaypoint);
         }
     }
 }

@@ -302,9 +302,9 @@ GameObject:
   - component: {fileID: 3361711791472594567}
   - component: {fileID: 4197701111725887477}
   - component: {fileID: 4262922286463414679}
-  - component: {fileID: 9092926396520085615}
   - component: {fileID: 8496778522918958442}
   - component: {fileID: 1543425216492626842}
+  - component: {fileID: 2456060897278210075}
   - component: {fileID: 5073126457022197919}
   - component: {fileID: 1554657489221156637}
   - component: {fileID: 1252543600497158123}
@@ -471,21 +471,6 @@ MonoBehaviour:
   _driftAudio: {fileID: 11400000, guid: 7e424117c29d04c4f9be48da58ae27fd, type: 2}
   _wallCollisionAudio: {fileID: 11400000, guid: 6c50f41f50f4fdc4aadd55cf2f046444, type: 2}
   _vehicleCollisionAudio: {fileID: 11400000, guid: 982ee7c10bec82a42ba40ec75885d592, type: 2}
---- !u!114 &9092926396520085615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3018185205297305391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9704e118110a21040a970430a4e44908, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteRenderers: []
-  underPassColliders: []
-  overPassColliders: []
 --- !u!114 &8496778522918958442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -525,6 +510,21 @@ MonoBehaviour:
   - {fileID: 962364545421493071}
   - {fileID: 4710870735471427582}
   <TotalOffRoadFactor>k__BackingField: 0
+--- !u!114 &2456060897278210075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3018185205297305391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9704e118110a21040a970430a4e44908, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LayerHandler
+  <SpriteRenderers>k__BackingField: []
+  <UnderPassColliders>k__BackingField: []
+  <OverPassColliders>k__BackingField: []
 --- !u!50 &5073126457022197919
 Rigidbody2D:
   serializedVersion: 5

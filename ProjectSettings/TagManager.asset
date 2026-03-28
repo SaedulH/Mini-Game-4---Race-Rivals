@@ -19,6 +19,7 @@ TagManager:
   - Dirt
   - Grass
   - Gravel
+  - WaypointSpline
   layers:
   - Default
   - TransparentFX

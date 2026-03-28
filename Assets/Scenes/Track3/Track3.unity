@@ -135,7 +135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &74154457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,13 +191,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 82380471}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.99904823, w: 0.0436195}
-  m_LocalPosition: {x: 14.6, y: 43.9, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.99884045, w: 0.048142895}
+  m_LocalPosition: {x: 15.65, y: 47.06, z: 0}
+  m_LocalScale: {x: 2, y: 26.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1014752689}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 174.481}
 --- !u!61 &82380473
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -306,8 +306,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1910159777
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 2fa16f66555f8d94c9bda2a626b0c856, type: 3}
@@ -351,7 +351,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &161713972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,7 +398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &170285079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,14 +995,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CamereSetup
       objectReference: {fileID: 0}
-    - target: {fileID: 7841295378059307627, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8170704251050274870, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -20
-      objectReference: {fileID: 0}
     - target: {fileID: 8334379303697679813, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1042,10 +1034,6 @@ PrefabInstance:
     - target: {fileID: 8334379303697679813, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9108342235542556901, guid: 09f0f8c61ca34e94199464f6455c5e93, type: 3}
-      propertyPath: CameraDistance
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1253,7 +1241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &432232626
 Transform:
   m_ObjectHideFlags: 0
@@ -1485,8 +1473,9 @@ GameObject:
   m_Component:
   - component: {fileID: 511940755}
   - component: {fileID: 511940756}
+  - component: {fileID: 511940757}
   m_Layer: 0
-  m_Name: OverPass2Out
+  m_Name: OverPass_2_Out_Trigger
   m_TagString: OverpassTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1500,13 +1489,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 511940754}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -100.8, y: -26, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.42656872, w: 0.9044552}
+  m_LocalPosition: {x: -107.7, y: -13, z: 0}
+  m_LocalScale: {x: 2, y: 31.95, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 628874159}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50.5}
 --- !u!61 &511940756
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1553,6 +1542,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &511940757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511940754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 1
+  <TriggerDirection>k__BackingField: 1
 --- !u!1 &513398749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,39 +1589,6 @@ Transform:
   - {fileID: 857455718}
   m_Father: {fileID: 929341822}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &561300276
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 561300277}
-  m_Layer: 0
-  m_Name: UnderPassColliders2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &561300277
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 561300276}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.4, y: -0.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1911106381}
-  - {fileID: 879042371}
-  m_Father: {fileID: 1349464647}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &582836692
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,6 +1599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 582836693}
   - component: {fileID: 582836694}
+  - component: {fileID: 582836695}
   m_Layer: 0
   m_Name: UnderPass_1_Out_Trigger
   m_TagString: UnderpassTrigger
@@ -1697,6 +1668,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &582836695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582836692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 0
+  <TriggerDirection>k__BackingField: 1
 --- !u!1 &608737831
 GameObject:
   m_ObjectHideFlags: 0
@@ -1713,7 +1698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &608737832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1775,7 +1760,8 @@ Transform:
   m_Children:
   - {fileID: 1812520080}
   - {fileID: 511940755}
-  - {fileID: 1798046157}
+  - {fileID: 1661658547}
+  - {fileID: 666658611}
   m_Father: {fileID: 857455718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &629022540
@@ -1787,9 +1773,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629022541}
+  - component: {fileID: 629022542}
   m_Layer: 0
   m_Name: Waypoints
-  m_TagString: Untagged
+  m_TagString: WaypointSpline
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1803,7 +1790,7 @@ Transform:
   m_GameObject: {fileID: 629022540}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 77.37331, y: -23.860725, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1831,6 +1818,886 @@ Transform:
   - {fileID: 432232626}
   m_Father: {fileID: 1150126924}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &629022542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629022540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dab5c7d4c32e743048dfca98e2d5914f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Splines::UnityEngine.Splines.SplineContainer
+  m_Spline:
+    m_EditModeType: 1
+    m_Knots: []
+    m_MetaData: []
+    m_Closed: 0
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Splines:
+  - m_EditModeType: 1
+    m_Knots:
+    - Position:
+        x: 0
+        y: 0
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -17.854198
+      TangentOut:
+        x: 0
+        y: 0
+        z: 15.100249
+      Rotation:
+        value:
+          x: 0.70617044
+          y: 0.03637665
+          z: -0.036376655
+          w: -0.7061705
+    - Position:
+        x: 4.7688293
+        y: 42.522087
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -13.91472
+      TangentOut:
+        x: 0
+        y: 0
+        z: 18.064396
+      Rotation:
+        value:
+          x: 0.671184
+          y: -0.22251299
+          z: 0.22251303
+          w: -0.67118406
+    - Position:
+        x: 71.135086
+        y: 70.73767
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -19.535751
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.852499
+      Rotation:
+        value:
+          x: -0.62630427
+          y: 0.3282422
+          z: -0.32824215
+          w: 0.6263043
+    - Position:
+        x: 96.17143
+        y: 96.96625
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -7.138746
+      TangentOut:
+        x: 0
+        y: 0
+        z: 7.1033244
+      Rotation:
+        value:
+          x: -0.7044024
+          y: -0.061784558
+          z: 0.061784558
+          w: 0.7044023
+    - Position:
+        x: 63.981842
+        y: 112.86236
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.678846
+      TangentOut:
+        x: 0
+        y: 0
+        z: 16.825964
+      Rotation:
+        value:
+          x: 0.5194523
+          y: 0.47975963
+          z: -0.47975963
+          w: -0.51945233
+    - Position:
+        x: 3.5766296
+        y: 94.18443
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -19.665213
+      TangentOut:
+        x: 0
+        y: 0
+        z: 18.706234
+      Rotation:
+        value:
+          x: -0.49861193
+          y: -0.5013843
+          z: 0.5013843
+          w: 0.49861187
+    - Position:
+        x: -51.26494
+        y: 110.47794
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -18.161947
+      TangentOut:
+        x: 0
+        y: 0
+        z: 16.790203
+      Rotation:
+        value:
+          x: 0.5375759
+          y: 0.45936054
+          z: -0.4593607
+          w: -0.5375759
+    - Position:
+        x: -100.14548
+        y: 111.67015
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -15.421817
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.862118
+      Rotation:
+        value:
+          x: 0.5141719
+          y: 0.48541453
+          z: -0.4854146
+          w: -0.51417184
+    - Position:
+        x: -139.48834
+        y: 115.24677
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -10.7522335
+      TangentOut:
+        x: 0
+        y: 0
+        z: 11.095088
+      Rotation:
+        value:
+          x: 0.34657806
+          y: 0.616347
+          z: -0.616347
+          w: -0.34657806
+    - Position:
+        x: -155.38446
+        y: 76.301315
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -10.471964
+      TangentOut:
+        x: 0
+        y: 0
+        z: 9.616917
+      Rotation:
+        value:
+          x: -0.35855648
+          y: -0.6094566
+          z: 0.6094566
+          w: 0.35855633
+    - Position:
+        x: -190.3559
+        y: 82.26235
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -9.78109
+      TangentOut:
+        x: 0
+        y: 0
+        z: 9.280273
+      Rotation:
+        value:
+          x: -0.64476687
+          y: -0.29030278
+          z: 0.29030278
+          w: 0.64476687
+    - Position:
+        x: -199.49615
+        y: 112.86236
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -8.380212
+      TangentOut:
+        x: 0
+        y: 0
+        z: 8.311903
+      Rotation:
+        value:
+          x: -0.6289043
+          y: -0.32323268
+          z: 0.32323262
+          w: 0.6289043
+    - Position:
+        x: -230.89096
+        y: 111.67015
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -7.9355774
+      TangentOut:
+        x: 0
+        y: 0
+        z: 7.5734854
+      Rotation:
+        value:
+          x: 0.29159868
+          y: 0.6441818
+          z: -0.6441818
+          w: -0.2915987
+    - Position:
+        x: -235.6598
+        y: 83.45456
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -9.650215
+      TangentOut:
+        x: 0
+        y: 0
+        z: 10.691884
+      Rotation:
+        value:
+          x: -0.038019657
+          y: 0.7060839
+          z: -0.7060839
+          w: 0.03801966
+    - Position:
+        x: -222.5455
+        y: 50.867542
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -8.292887
+      TangentOut:
+        x: 0
+        y: 0
+        z: 6.116435
+      Rotation:
+        value:
+          x: 0.07108371
+          y: 0.70352477
+          z: -0.70352477
+          w: -0.07108373
+    - Position:
+        x: -236.0572
+        y: 37.35585
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -7.6722226
+      TangentOut:
+        x: 0
+        y: 0
+        z: 11.632528
+      Rotation:
+        value:
+          x: -0.26010904
+          y: -0.65752816
+          z: 0.65752816
+          w: 0.260109
+    - Position:
+        x: -265.0676
+        y: 4.3714294
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -13.441969
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.717762
+      Rotation:
+        value:
+          x: -0.10251159
+          y: -0.6996367
+          z: 0.69963664
+          w: 0.10251153
+    - Position:
+        x: -258.70917
+        y: -40.93248
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -14.294894
+      TangentOut:
+        x: 0
+        y: 0
+        z: 15.3116665
+      Rotation:
+        value:
+          x: 0.20078184
+          y: -0.678002
+          z: 0.678002
+          w: -0.20078179
+    - Position:
+        x: -214.19997
+        y: -68.75066
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -16.585135
+      TangentOut:
+        x: 0
+        y: 0
+        z: 16.47396
+      Rotation:
+        value:
+          x: 0.43522906
+          y: -0.55729324
+          z: 0.55729324
+          w: -0.435229
+    - Position:
+        x: -162.5376
+        y: -65.174034
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -15.488679
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.98363
+      Rotation:
+        value:
+          x: -0.5894887
+          y: 0.3905165
+          z: -0.39051646
+          w: 0.5894887
+    - Position:
+        x: -131.14279
+        y: -36.958447
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.181977
+      TangentOut:
+        x: 0
+        y: 0
+        z: 11.9045925
+      Rotation:
+        value:
+          x: 0.697202
+          y: -0.11793799
+          z: 0.11793803
+          w: -0.697202
+    - Position:
+        x: -137.89864
+        y: 2.7818184
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.046951
+      TangentOut:
+        x: 0
+        y: 0
+        z: 11.3755455
+      Rotation:
+        value:
+          x: 0.679243
+          y: 0.19654232
+          z: -0.19654235
+          w: -0.6792431
+    - Position:
+        x: -167.30644
+        y: 23.446758
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -10.345171
+      TangentOut:
+        x: 0
+        y: 0
+        z: 10.491582
+      Rotation:
+        value:
+          x: -0.517682
+          y: -0.4816693
+          z: 0.48166925
+          w: 0.5176821
+    - Position:
+        x: -200.29086
+        y: 6.755844
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -9.743301
+      TangentOut:
+        x: 0
+        y: 0
+        z: 9.688799
+      Rotation:
+        value:
+          x: 0.15677492
+          y: 0.6895082
+          z: -0.68950826
+          w: -0.15677498
+    - Position:
+        x: -192.7402
+        y: -29.010395
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.976358
+      TangentOut:
+        x: 0
+        y: 0
+        z: 18.458307
+      Rotation:
+        value:
+          x: -0.22350027
+          y: 0.6708559
+          z: -0.670856
+          w: 0.22350028
+    - Position:
+        x: -127.56617
+        y: -63.981834
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -22.653309
+      TangentOut:
+        x: 0
+        y: 0
+        z: 19.91847
+      Rotation:
+        value:
+          x: -0.41910985
+          y: 0.5695146
+          z: -0.5695146
+          w: 0.4191099
+    - Position:
+        x: -70.73759
+        y: -70.34027
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -16.680393
+      TangentOut:
+        x: 0
+        y: 0
+        z: 14.591767
+      Rotation:
+        value:
+          x: 0.5569858
+          y: -0.43562236
+          z: 0.43562242
+          w: -0.55698574
+    - Position:
+        x: -34.573944
+        y: -45.70131
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.685945
+      TangentOut:
+        x: 0
+        y: 0
+        z: 10.994673
+      Rotation:
+        value:
+          x: -0.6739693
+          y: 0.21392833
+          z: -0.21392833
+          w: 0.67396927
+    - Position:
+        x: -26.228477
+        y: -13.909092
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -8.9553585
+      TangentOut:
+        x: 0
+        y: 0
+        z: 10.354382
+      Rotation:
+        value:
+          x: -0.68948233
+          y: -0.15688884
+          z: 0.1568888
+          w: 0.68948233
+    - Position:
+        x: -66.36616
+        y: 3.9740295
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -14.483469
+      TangentOut:
+        x: 0
+        y: 0
+        z: 14.447797
+      Rotation:
+        value:
+          x: -0.5644431
+          y: -0.42591545
+          z: 0.42591545
+          w: 0.56444305
+    - Position:
+        x: -109.683044
+        y: 9.93507
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -11.126868
+      TangentOut:
+        x: 0
+        y: 0
+        z: 9.561845
+      Rotation:
+        value:
+          x: -0.6463656
+          y: -0.28672558
+          z: 0.28672555
+          w: 0.6463655
+    - Position:
+        x: -117.2337
+        y: 41.329884
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -9.531245
+      TangentOut:
+        x: 0
+        y: 0
+        z: 7.9334526
+      Rotation:
+        value:
+          x: 0.7070968
+          y: 0.0037490646
+          z: -0.0037490646
+          w: -0.7070968
+    - Position:
+        x: -112.46484
+        y: 63.187122
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -6.234491
+      TangentOut:
+        x: 0
+        y: 0
+        z: 8.48997
+      Rotation:
+        value:
+          x: -0.6248009
+          y: 0.33109483
+          z: -0.33109477
+          w: 0.624801
+    - Position:
+        x: -71.53237
+        y: 56.43128
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -13.865702
+      TangentOut:
+        x: 0
+        y: 0
+        z: 14.355102
+      Rotation:
+        value:
+          x: -0.41004676
+          y: 0.57607436
+          z: -0.57607436
+          w: 0.41004676
+    - Position:
+        x: -32.586906
+        y: 34.971535
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -14.968558
+      TangentOut:
+        x: 0
+        y: 0
+        z: 15.777278
+      Rotation:
+        value:
+          x: 0.4126728
+          y: -0.5741961
+          z: 0.57419616
+          w: -0.41267273
+    - Position:
+        x: 16.293617
+        y: 27.818285
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -15.347334
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.943985
+      Rotation:
+        value:
+          x: 0.514887
+          y: -0.484656
+          z: 0.48465613
+          w: -0.5148869
+    - Position:
+        x: 55.63649
+        y: 38.548157
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.825734
+      TangentOut:
+        x: 0
+        y: 0
+        z: 12.981227
+      Rotation:
+        value:
+          x: -0.47750723
+          y: 0.52152354
+          z: -0.52152354
+          w: 0.47750726
+    - Position:
+        x: 93.389755
+        y: 20.665037
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.968941
+      TangentOut:
+        x: 0
+        y: 0
+        z: 12.690135
+      Rotation:
+        value:
+          x: -0.27044368
+          y: 0.6533454
+          z: -0.6533454
+          w: 0.27044368
+    - Position:
+        x: 110.47807
+        y: -15.498604
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -12.20177
+      TangentOut:
+        x: 0
+        y: 0
+        z: 13.105423
+      Rotation:
+        value:
+          x: -0.016192295
+          y: -0.7069214
+          z: 0.70692134
+          w: 0.016192293
+    - Position:
+        x: 87.031296
+        y: -55.23887
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -11.962457
+      TangentOut:
+        x: 0
+        y: 0
+        z: 10.7280035
+      Rotation:
+        value:
+          x: 0.3809851
+          y: 0.5956932
+          z: -0.59569305
+          w: -0.38098526
+    - Position:
+        x: 50.470253
+        y: -48.880432
+        z: 0
+      TangentIn:
+        x: -0
+        y: -0
+        z: -11.725737
+      TangentOut:
+        x: 0
+        y: 0
+        z: 11.018903
+      Rotation:
+        value:
+          x: -0.49081936
+          y: -0.50901514
+          z: 0.50901526
+          w: 0.4908192
+    - Position:
+        x: 18.678032
+        y: -56.828484
+        z: 0
+      TangentIn:
+        x: 0
+        y: 0
+        z: -5.1814914
+      TangentOut:
+        x: 0
+        y: 0
+        z: 5.1814914
+      Rotation:
+        value:
+          x: -0.48044366
+          y: -0.51881987
+          z: 0.51881987
+          w: 0.48044348
+    m_MetaData:
+    - Mode: 4
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 0
+      Tension: 0.5
+    - Mode: 2
+      Tension: 0.5
+    m_Closed: 1
+    m_IntData:
+      m_Data: []
+    m_FloatData:
+      m_Data: []
+    m_Float4Data:
+      m_Data: []
+    m_ObjectData:
+      m_Data: []
+  m_Knots:
+    m_KnotsLink: []
 --- !u!1 &657537786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,7 +3017,7 @@ GameObject:
   - component: {fileID: 666658611}
   - component: {fileID: 666658612}
   m_Layer: 0
-  m_Name: RightOverPassColliders2
+  m_Name: BottomOverPass_2_Collider
   m_TagString: OverpassCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2164,13 +3031,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666658610}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -123.5, y: -46.4, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.42656872, w: 0.9044552}
+  m_LocalPosition: {x: -136.1, y: -37.9, z: 0}
+  m_LocalScale: {x: 2, y: 28.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1798046157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_Father: {fileID: 628874159}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50.5}
 --- !u!61 &666658612
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2380,13 +3247,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 815616222}
+  - component: {fileID: 815616223}
   m_Layer: 0
   m_Name: Bridge_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &815616222
 Transform:
   m_ObjectHideFlags: 0
@@ -2404,6 +3272,26 @@ Transform:
   - {fileID: 298519833}
   m_Father: {fileID: 513398750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &815616223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 815616221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5dcbd71037d9547a0d628f003a3a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeHandler
+  <UnderPassInTrigger>k__BackingField: {fileID: 1953053236}
+  <UnderPassOutTrigger>k__BackingField: {fileID: 582836695}
+  <OverPassInTrigger>k__BackingField: {fileID: 1113350505}
+  <OverPassOutTrigger>k__BackingField: {fileID: 1344777743}
+  <UnderPassInCollider>k__BackingField: {fileID: 1884722335}
+  <UnderPassOutCollider>k__BackingField: {fileID: 82380473}
+  <OverPassInCollider>k__BackingField: {fileID: 1404370921}
+  <OverPassOutCollider>k__BackingField: {fileID: 1337419230}
 --- !u!1 &835363430
 GameObject:
   m_ObjectHideFlags: 0
@@ -2420,7 +3308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &835363431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2467,7 +3355,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &835589568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2514,7 +3402,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &838920954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2554,13 +3442,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 857455718}
+  - component: {fileID: 857455719}
   m_Layer: 0
   m_Name: Bridge_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &857455718
 Transform:
   m_ObjectHideFlags: 0
@@ -2578,6 +3467,26 @@ Transform:
   - {fileID: 628874159}
   m_Father: {fileID: 513398750}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &857455719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 857455717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad5dcbd71037d9547a0d628f003a3a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeHandler
+  <UnderPassInTrigger>k__BackingField: {fileID: 2141047841}
+  <UnderPassOutTrigger>k__BackingField: {fileID: 2008090494}
+  <OverPassInTrigger>k__BackingField: {fileID: 1812520083}
+  <OverPassOutTrigger>k__BackingField: {fileID: 511940757}
+  <UnderPassInCollider>k__BackingField: {fileID: 879042372}
+  <UnderPassOutCollider>k__BackingField: {fileID: 1911106382}
+  <OverPassInCollider>k__BackingField: {fileID: 666658612}
+  <OverPassOutCollider>k__BackingField: {fileID: 1661658548}
 --- !u!1 &879042370
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,7 +3498,7 @@ GameObject:
   - component: {fileID: 879042371}
   - component: {fileID: 879042372}
   m_Layer: 0
-  m_Name: LeftUnderPassColliders2
+  m_Name: LeftUnderPass_2_Collider
   m_TagString: UnderpassCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2603,13 +3512,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 879042370}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -143.5, y: -26.3, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.4083305, w: 0.9128342}
+  m_LocalPosition: {x: -136.21, y: -20.27, z: 0}
+  m_LocalScale: {x: 2, y: 27.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 561300277}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1349464647}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -48.2}
 --- !u!61 &879042372
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2843,8 +3752,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1910159777
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 883e510fc9fde9c4989d2aacdea1aa56, type: 3}
@@ -3341,7 +4250,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1107929071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3382,6 +4291,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1113350503}
   - component: {fileID: 1113350504}
+  - component: {fileID: 1113350505}
   m_Layer: 0
   m_Name: OverPass_1_In_Trigger
   m_TagString: OverpassTrigger
@@ -3397,13 +4307,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1113350502}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.6427876, w: 0.7660445}
-  m_LocalPosition: {x: 1.7, y: 26, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.68200874, w: 0.7313441}
+  m_LocalPosition: {x: 0.7, y: 26, z: 0}
   m_LocalScale: {x: 2, y: 38, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 298519833}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 80}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 86.002}
 --- !u!61 &1113350504
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3450,6 +4360,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1113350505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1113350502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 1
+  <TriggerDirection>k__BackingField: 0
 --- !u!1 &1125126952
 GameObject:
   m_ObjectHideFlags: 0
@@ -4098,7 +5022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1281058525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4140,7 +5064,7 @@ GameObject:
   - component: {fileID: 1337419229}
   - component: {fileID: 1337419230}
   m_Layer: 0
-  m_Name: RightOverPass_1_Collider
+  m_Name: TopOverPass_1_Collider
   m_TagString: OverpassCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4154,13 +5078,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337419228}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.6427876, w: 0.7660445}
-  m_LocalPosition: {x: 23.699997, y: 49.100002, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.6833672, w: 0.73007494}
+  m_LocalPosition: {x: 3.78, y: 61.21, z: 0}
+  m_LocalScale: {x: 2, y: 27.88, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 298519833}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 80}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 86.215}
 --- !u!61 &1337419230
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4217,6 +5141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1344777741}
   - component: {fileID: 1344777742}
+  - component: {fileID: 1344777743}
   m_Layer: 0
   m_Name: OverPass_1_Out_Trigger
   m_TagString: OverpassTrigger
@@ -4233,7 +5158,7 @@ Transform:
   m_GameObject: {fileID: 1344777740}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.6427876, w: 0.7660445}
-  m_LocalPosition: {x: 10.8, y: 71.1, z: 0}
+  m_LocalPosition: {x: 9.4, y: 70.3, z: 0}
   m_LocalScale: {x: 2, y: 38, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4285,6 +5210,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1344777743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344777740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 1
+  <TriggerDirection>k__BackingField: 1
 --- !u!1 &1349464646
 GameObject:
   m_ObjectHideFlags: 0
@@ -4316,7 +5255,8 @@ Transform:
   m_Children:
   - {fileID: 2141047838}
   - {fileID: 2008090491}
-  - {fileID: 561300277}
+  - {fileID: 879042371}
+  - {fileID: 1911106381}
   m_Father: {fileID: 857455718}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1371294547
@@ -4446,7 +5386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1374807378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4493,7 +5433,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1394713588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4535,7 +5475,7 @@ GameObject:
   - component: {fileID: 1404370920}
   - component: {fileID: 1404370921}
   m_Layer: 0
-  m_Name: LeftOverPass_1_Collider
+  m_Name: BottomOverPass_1_Collider
   m_TagString: OverpassCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4549,13 +5489,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1404370919}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.6427876, w: 0.7660445}
-  m_LocalPosition: {x: -16.400002, y: 48.700005, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.6801545, w: 0.7330689}
+  m_LocalPosition: {x: 1, y: 35.1, z: 0}
+  m_LocalScale: {x: 2, y: 26.9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 298519833}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 80}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 85.711}
 --- !u!61 &1404370921
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4772,7 +5712,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1442006262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5437,7 +6377,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1517168490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5633,7 +6573,7 @@ GameObject:
   - component: {fileID: 1661658547}
   - component: {fileID: 1661658548}
   m_Layer: 0
-  m_Name: LeftOverPassColliders2
+  m_Name: TopOverPass_2_Collider
   m_TagString: OverpassCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5647,13 +6587,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1661658546}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -123.5, y: -6.2, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.42656872, w: 0.9044552}
+  m_LocalPosition: {x: -116.1, y: -20.3, z: 0}
+  m_LocalScale: {x: 2, y: 28.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1798046157}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_Father: {fileID: 628874159}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50.5}
 --- !u!61 &1661658548
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5752,7 +6692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1679002633
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5799,7 +6739,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1693074145
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5846,7 +6786,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1701445885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6013,7 +6953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1764745618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6060,7 +7000,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1769443527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6091,39 +7031,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 629022541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1798046156
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1798046157}
-  m_Layer: 0
-  m_Name: OverPassColliders2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1798046157
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1798046156}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 666658611}
-  - {fileID: 1661658547}
-  m_Father: {fileID: 628874159}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1809039172
 GameObject:
   m_ObjectHideFlags: 0
@@ -6140,7 +7047,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1809039173
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6181,8 +7088,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1812520080}
   - component: {fileID: 1812520082}
+  - component: {fileID: 1812520083}
   m_Layer: 0
-  m_Name: OverPass2In
+  m_Name: OverPass_2_In_Trigger
   m_TagString: OverpassTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6196,13 +7104,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812520079}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -147.3, y: -26.9, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.42656872, w: 0.9044552}
+  m_LocalPosition: {x: -145, y: -43, z: 0}
+  m_LocalScale: {x: 2, y: 31.95, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 628874159}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 50.5}
 --- !u!61 &1812520082
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6249,6 +7157,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1812520083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812520079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 1
+  <TriggerDirection>k__BackingField: 0
 --- !u!1001 &1823609002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6312,6 +7234,46 @@ PrefabInstance:
     - target: {fileID: 7213202536836694918, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
       propertyPath: m_Mesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_MetaData.Array.data[23].Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].TangentIn.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].TangentIn.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].TangentOut.z
+      value: 24.100153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[22].Rotation.value.w
+      value: 0.012195523
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[22].Rotation.value.x
+      value: -0.013390221
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].Rotation.value.w
+      value: 0.33633372
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].Rotation.value.x
+      value: -0.2943843
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].Rotation.value.y
+      value: 0.64404213
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].Rotation.value.z
+      value: -0.6208279
       objectReference: {fileID: 0}
     - target: {fileID: 8657784216721048779, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -6670,13 +7632,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1884722333}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.99904823, w: 0.0436195}
-  m_LocalPosition: {x: -10.7, y: 50.9, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.99875355, w: 0.04991302}
+  m_LocalPosition: {x: -10.3, y: 49.58, z: 0}
+  m_LocalScale: {x: 2, y: 25.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1014752689}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 175}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 174.278}
 --- !u!61 &1884722335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6734,7 +7696,7 @@ GameObject:
   - component: {fileID: 1911106381}
   - component: {fileID: 1911106382}
   m_Layer: 0
-  m_Name: RightUnderPassColliders2
+  m_Name: RightUnderPass_2_Collider
   m_TagString: UnderpassCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6748,13 +7710,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911106380}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -103.4, y: -25.9, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.4083305, w: 0.9128342}
+  m_LocalPosition: {x: -116.09, y: -37.35, z: 0}
+  m_LocalScale: {x: 2, y: 26.67, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 561300277}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 1349464647}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -48.2}
 --- !u!61 &1911106382
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6817,7 +7779,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1940115393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6858,8 +7820,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1953053234}
   - component: {fileID: 1953053235}
+  - component: {fileID: 1953053236}
   m_Layer: 0
-  m_Name: UnderPass1_In_Trigger
+  m_Name: UnderPass_1_In_Trigger
   m_TagString: UnderpassTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6874,7 +7837,7 @@ Transform:
   m_GameObject: {fileID: 1953053233}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.99904823, w: 0.0436195}
-  m_LocalPosition: {x: -24.5, y: 49.8, z: 0}
+  m_LocalPosition: {x: -22.7, y: 49.8, z: 0}
   m_LocalScale: {x: 2, y: 38, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6926,6 +7889,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1953053236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953053233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 0
+  <TriggerDirection>k__BackingField: 0
 --- !u!1 &2008090490
 GameObject:
   m_ObjectHideFlags: 0
@@ -6936,8 +7913,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2008090491}
   - component: {fileID: 2008090493}
+  - component: {fileID: 2008090494}
   m_Layer: 0
-  m_Name: UnderPass2Out
+  m_Name: UnderPass_2_Out_Trigger
   m_TagString: UnderpassTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6951,13 +7929,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2008090490}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -85.9, y: -26, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.4083305, w: 0.9128342}
+  m_LocalPosition: {x: -108.18001, y: -42.480003, z: 0}
+  m_LocalScale: {x: 2, y: 31.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1349464647}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -48.2}
 --- !u!61 &2008090493
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7004,6 +7982,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2008090494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2008090490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 0
+  <TriggerDirection>k__BackingField: 1
 --- !u!1 &2018845965
 GameObject:
   m_ObjectHideFlags: 0
@@ -7328,7 +8320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2086674833
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7523,8 +8515,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2141047838}
   - component: {fileID: 2141047840}
+  - component: {fileID: 2141047841}
   m_Layer: 0
-  m_Name: UnderPass2In
+  m_Name: UnderPass_2_In_Trigger
   m_TagString: UnderpassTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7538,13 +8531,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141047837}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -166.3, y: -26.9, z: 0}
-  m_LocalScale: {x: 2, y: 38, z: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.4083305, w: 0.9128342}
+  m_LocalPosition: {x: -144.1, y: -15.3, z: 0}
+  m_LocalScale: {x: 2, y: 31.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1349464647}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -48.2}
 --- !u!61 &2141047840
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7591,6 +8584,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2141047841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141047837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aac3a1766dfdc44d9275cf3caf20be1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BridgeTrigger
+  <TriggerType>k__BackingField: 0
+  <TriggerDirection>k__BackingField: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

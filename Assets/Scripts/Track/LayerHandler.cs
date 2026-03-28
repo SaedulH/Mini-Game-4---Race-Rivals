@@ -5,12 +5,9 @@ public class LayerHandler : MonoBehaviour
 {
 
     [field: SerializeReference] public List<SpriteRenderer> SpriteRenderers { get; private set; } = new();
-    [field: SerializeReference] public List<Collider2D> UnderPassColliders { get; private set; } = new();
-    [field: SerializeReference] public List<Collider2D> OverPassColliders { get; private set; } = new();
-    private bool isOnOverpass = false;
+    [field: SerializeReference] public List<ParticleSystemRenderer> ParticleSystems { get; private set; } = new();
+    [field: SerializeReference] public List<TrailRenderer> TrailRenderers { get; private set; } = new();
 
-    private CapsuleCollider2D vehicleCollider;
-    // Start is called before the first frame update
     void Awake()
     {
         foreach (SpriteRenderer spriteRenderer in gameObject.GetComponentsInChildren<SpriteRenderer>())
@@ -18,81 +15,37 @@ public class LayerHandler : MonoBehaviour
             SpriteRenderers.Add(spriteRenderer);
         }
 
-        foreach (GameObject underPassCollider in GameObject.FindGameObjectsWithTag("UnderpassCollider"))
+        foreach (ParticleSystemRenderer particleSystem in gameObject.GetComponentsInChildren<ParticleSystemRenderer>())
         {
-            UnderPassColliders.Add(underPassCollider.GetComponent<Collider2D>());
+            ParticleSystems.Add(particleSystem);
         }
 
-        foreach (GameObject overPassCollider in GameObject.FindGameObjectsWithTag("OverpassCollider"))
+        foreach (TrailRenderer trailRenderer in gameObject.GetComponentsInChildren<TrailRenderer>())
         {
-            OverPassColliders.Add(overPassCollider.GetComponent<Collider2D>());
+            TrailRenderers.Add(trailRenderer);
         }
-
-        vehicleCollider = gameObject.GetComponent<CapsuleCollider2D>();
     }
 
 
     private void Start()
     {
-        ChangeLayer();
+        SetBridgeSortingLayer(true);
     }
 
-    void SetCollisionWithOverpass()
+    public void SetBridgeSortingLayer(bool isUnderPass)
     {
-
-        foreach (Collider2D collider in OverPassColliders)
+        string layerName = isUnderPass ? "Default" : "OverPass";
+        foreach (SpriteRenderer sr in SpriteRenderers)
         {
-            Physics2D.IgnoreCollision(vehicleCollider, collider, !isOnOverpass);
+            sr.sortingLayerName = layerName;
         }
-
-        foreach (Collider2D collider in UnderPassColliders)
+        foreach (ParticleSystemRenderer ps in ParticleSystems)
         {
-            if (isOnOverpass)
-            {
-                Physics2D.IgnoreCollision(vehicleCollider, collider, true);
-            }
-            else
-            {
-                Physics2D.IgnoreCollision(vehicleCollider, collider, false);
-            }
+            ps.sortingLayerName = layerName;
         }
-    }
-
-    void ChangeLayer()
-    {
-        if (isOnOverpass)
+        foreach (TrailRenderer tr in TrailRenderers)
         {
-            SetSortingLayers("OverPass");
-        }
-        else
-        {
-            SetSortingLayers("Default");
-        }
-
-        SetCollisionWithOverpass();
-    }
-
-    void SetSortingLayers(string layerName)
-    {
-        foreach (SpriteRenderer renderer in SpriteRenderers)
-        {
-            renderer.sortingLayerName = layerName;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("OverpassTrigger"))
-        {
-            Debug.Log("Overpass Triggered");
-            isOnOverpass = true;
-            ChangeLayer();
-        }
-        else if (collision.gameObject.CompareTag("UnderpassTrigger"))
-        {
-            Debug.Log("Underpass Triggered");
-            isOnOverpass = false;
-            ChangeLayer();
+            tr.sortingLayerName = layerName;
         }
     }
 }

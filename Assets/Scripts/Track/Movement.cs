@@ -1,5 +1,3 @@
-using System;
-using System.Drawing;
 using UnityEngine;
 using Utilities;
 
@@ -280,7 +278,7 @@ public class Movement : MonoBehaviour
 
     public void ApplyHandBrake(bool handBrakeInput, float steering, float currentSpeed)
     {
-        if(_state == VehicleState.Idle)
+        if (_state == VehicleState.Idle)
         {
             return;
         }

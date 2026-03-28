@@ -60,7 +60,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard&Mouse
-  m_DefaultActionMap: 272f6d14-89ba-496f-b7ff-215263d3219f
+  m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!114 &485663024312562149
@@ -79,8 +79,29 @@ MonoBehaviour:
   <CurrentGameState>k__BackingField: 0
   <MenuInfo>k__BackingField: {fileID: 11400000, guid: ce47492fcb629e7438f6d943c2afc441, type: 2}
   <CurrentTrackInfo>k__BackingField: {fileID: 0}
+  <CurrentTrackContext>k__BackingField:
+    GameMode: 0
+    PlayerCount: 0
+    VehicleOne:
+      <VehicleName>k__BackingField: 
+      <Stats>k__BackingField: {fileID: 0}
+      <VisualSettings>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
+    VehicleTwo:
+      <VehicleName>k__BackingField: 
+      <Stats>k__BackingField: {fileID: 0}
+      <VisualSettings>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerOneVehicleChassisSprite>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleDisplayIcon>k__BackingField: {fileID: 0}
+      <PlayerTwoVehicleChassisSprite>k__BackingField: {fileID: 0}
+    LapCount: 0
+    TotalWeight: 0
   <PlayerOne>k__BackingField: {fileID: 0}
   <PlayerTwo>k__BackingField: {fileID: 0}
   <Input>k__BackingField: {fileID: 5950695493843944237}
   <PlayerPrefab>k__BackingField: {fileID: 3018185205297305391, guid: d7d63babdc39e974eabf6731f02aa03e, type: 3}
-  <AIPrefab>k__BackingField: {fileID: 3018185205297305391, guid: e6ed0a7fdfd6b724aa2802689b628371, type: 3}
+  <AIPrefab>k__BackingField: {fileID: 3018185205297305391, guid: 9b12fe9029d889f4aaf7f20b845e6087, type: 3}
