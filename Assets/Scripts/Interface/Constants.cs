@@ -78,18 +78,18 @@ namespace Utilities
 
         // AI
         public const float AI_SPLINE_MIN_LOOK_AHEAD = 0.01f;
-        public const float AI_SPLINE_MAX_LOOK_AHEAD = 0.05f;
+        public const float AI_SPLINE_MAX_LOOK_AHEAD = 0.02f;
 
         public const float AI_EASY_MAX_STEERING_ANGLE = 60f;
         public const float AI_EASY_STEERING_SMOOTH = 0.8f;
         public const float AI_EASY_MAX_THROTTLE = 0.9f;
-        public const float AI_EASY_MIN_THROTTLE = 0.1f;
+        public const float AI_EASY_MIN_THROTTLE = 0f;
         public const float AI_EASY_BRAKE_ANGLE = 40f;
 
         public const float AI_HARD_MAX_STEERING_ANGLE = 90f;
         public const float AI_HARD_STEERING_SMOOTH = 1f;
         public const float AI_HARD_MAX_THROTTLE = 1f;
-        public const float AI_HARD_MIN_THROTTLE = 0.5f;
+        public const float AI_HARD_MIN_THROTTLE = 0f;
         public const float AI_HARD_BRAKE_ANGLE = 60f;
 
         public static string FormatTime(float lapTime)

@@ -7240,6 +7240,10 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
+      propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[10].Position.z
+      value: 2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7391058928034240090, guid: f4de1952b9e9fa34c8fbc6d49d4dbeb5, type: 3}
       propertyPath: m_Splines.Array.data[0].m_Knots.Array.data[23].TangentIn.x
       value: 0
       objectReference: {fileID: 0}

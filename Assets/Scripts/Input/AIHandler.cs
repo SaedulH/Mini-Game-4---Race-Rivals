@@ -12,6 +12,8 @@ public class AIHandler : MonoBehaviour, IInputHandler
     [field: SerializeReference] public SplineContainer WaypointSpline { get; private set; }
     [field: SerializeField] private float LookAhead { get; set; } = 0.02f;
     private float _splinePos;
+    private float _smoothedCurvature;
+    private Vector3 _targetPosition;
 
     [Header("Driving")]
     [field: SerializeField] public float MaxSteeringAngle { get; private set; }
@@ -39,7 +41,18 @@ public class AIHandler : MonoBehaviour, IInputHandler
             return;
         }
 
+        UpdateSplinePosition();
         HandleInput();
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (_targetPosition != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_targetPosition, 0.2f);
+            Gizmos.DrawLine(transform.position, _targetPosition);
+        }
     }
 
     private void HandleInput()
@@ -52,32 +65,60 @@ public class AIHandler : MonoBehaviour, IInputHandler
         );
 
         float targetT = Mathf.Clamp01(_splinePos + LookAhead);
-        Vector3 targetPosition = WaypointSpline.EvaluatePosition(targetT);
+        _targetPosition = WaypointSpline.EvaluatePosition(targetT);
 
-        Vector2 direction = (targetPosition - transform.position).normalized;
+        Vector2 direction = (_targetPosition - transform.position).normalized;
 
-        float angle = Vector2.SignedAngle(transform.up, direction);
+        float angle = -Vector2.SignedAngle(transform.up, direction);
 
-        float targetSteering = Mathf.Clamp(angle / MaxSteeringAngle, -1f, 1f);
+        //float targetSteering = Mathf.Clamp(angle / MaxSteeringAngle, -1f, 1f);
+        //targetSteering = Mathf.Sign(targetSteering) * targetSteering * targetSteering;
 
-        _currentSteering = Mathf.Lerp(
-            _currentSteering,
-            targetSteering,
-            Time.fixedDeltaTime * SteeringSmooth
-        );
+        //_currentSteering = Mathf.Lerp(
+        //    _currentSteering,
+        //    targetSteering,
+        //    Time.deltaTime * SteeringSmooth
+        //);
+        _currentSteering = Mathf.Clamp(angle / MaxSteeringAngle, -1f, 1f);
 
         Steering = _currentSteering;
+        Throttle = MaxThrottle;
+        //Vector3 forwardNow = WaypointSpline.EvaluateTangent(_splinePos);
+        //Vector3 forwardAhead = WaypointSpline.EvaluateTangent(targetT);
 
-        Vector3 forwardNow = WaypointSpline.EvaluateTangent(_splinePos);
-        Vector3 forwardAhead = WaypointSpline.EvaluateTangent(targetT);
+        //float curvature = Vector3.Angle(forwardNow, forwardAhead);
+        //_smoothedCurvature = Mathf.Lerp(_smoothedCurvature, curvature, Time.deltaTime * 5f);
 
-        float curvature = Vector3.Angle(forwardNow, forwardAhead);
-
-        Throttle = Mathf.Lerp(MaxThrottle, MinThrottle, curvature / 90f);
+        //float curveFactor = Mathf.Clamp01(_smoothedCurvature / 90f);
+        //Throttle = Mathf.Lerp(MaxThrottle, MinThrottle, curveFactor);
 
         //HandBrake = curvature > BrakeAngle;
+    }
 
-        Debug.DrawLine(transform.position, targetPosition, Color.cyan);
+    private void UpdateSplinePosition()
+    {
+        float bestT = _splinePos;
+        float bestDist = float.MaxValue;
+
+        int steps = 20;
+        float searchRange = 0.05f; // how far ahead/behind to search
+
+        for (int i = 0; i <= steps; i++)
+        {
+            float offset = (i / (float)steps - 0.5f) * searchRange;
+            float sampleT = Mathf.Clamp01(_splinePos + offset);
+
+            Vector3 point = WaypointSpline.EvaluatePosition(sampleT);
+            float dist = (transform.position - point).sqrMagnitude;
+
+            if (dist < bestDist)
+            {
+                bestDist = dist;
+                bestT = sampleT;
+            }
+        }
+
+        _splinePos = (bestT + 1f) % 1f;
     }
 
     public void SetWaypointSpline()
